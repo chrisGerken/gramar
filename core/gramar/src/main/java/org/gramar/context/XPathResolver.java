@@ -6,7 +6,7 @@ import javax.xml.xpath.XPathFunctionResolver;
 import javax.xml.xpath.XPathVariableResolver;
 
 import org.gramar.IGramarContext;
-import org.gramar.base.FredFunction;
+import org.gramar.exception.GramarException;
 
 
 public class XPathResolver implements XPathFunctionResolver, XPathVariableResolver {
@@ -24,7 +24,13 @@ public class XPathResolver implements XPathFunctionResolver, XPathVariableResolv
 
 	@Override
 	public XPathFunction resolveFunction(QName functionName, int arity) {
-		return new FredFunction();
+		XPathFunction function = null;
+		try {
+			function = context.getXPathFunction(functionName.getLocalPart(), arity);
+		} catch (GramarException e) {
+
+		}
+		return function;
 	}
 
 }

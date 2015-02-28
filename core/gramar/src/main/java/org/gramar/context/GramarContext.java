@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFunction;
 
 import org.gramar.ICustomTagHandler;
 import org.gramar.IFileStore;
@@ -18,6 +19,7 @@ import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NamespaceNotDefinedException;
 import org.gramar.exception.NoSuchCustomTagException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
+import org.gramar.exception.NoSuchXPathFunctionException;
 import org.gramar.exception.TemplatingExtensionNotDefinedException;
 import org.gramar.model.ModelAccess;
 import org.w3c.dom.Document;
@@ -164,6 +166,18 @@ public class GramarContext implements IGramarContext {
 		
 		ITemplatingExtension extension = extensionForNamespace(namespace);
 		return extension.getCustomTagHandler(tagName);
+	}
+
+	@Override
+	public XPathFunction getXPathFunction(String name, int arity) throws GramarException {
+		for (String id: extensions.values()) {
+			ITemplatingExtension extension = getPlatform().getTemplatingExtension(id);
+			XPathFunction function = extension.getFunction(name, arity);
+			if (function != null) {
+				return function;
+			}
+		}
+		throw new NoSuchXPathFunctionException();
 	}
 
 	private ITemplatingExtension extensionForNamespace(String namespace) throws NamespaceNotDefinedException, NoSuchTemplatingExtensionException, InvalidTemplateExtensionException {

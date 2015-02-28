@@ -22,4 +22,9 @@ public class ClasspathTemplatingExtension extends AbstractTemplatingExtension {
 		return GramarHelper.asString(is);
 	}
 
+	@Override
+	protected ClassLoader getExtensionClassloader() {
+		return ClassLoader.getSystemClassLoader();
+	}
+
 }

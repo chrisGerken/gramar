@@ -1,9 +1,11 @@
 package org.gramar;
 
 import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFunction;
 
 import org.gramar.exception.GramarException;
 import org.gramar.exception.NamespaceNotDefinedException;
+import org.gramar.exception.NoSuchXPathFunctionException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -78,8 +80,15 @@ public interface IGramarContext {
 	 */
 	public IGramarPlatform getPlatform();
 
+	/*
+	 * Answers the tag handler with the given name from the extension associated with the given namespace
+	 */
 	public ICustomTagHandler getCustomTagHandler(String namespace, String tagName) throws GramarException;
 
+	/*
+	 * Answers the xpath function that best matches the given name and arity
+	 */
+	public XPathFunction getXPathFunction(String name, int arity) throws GramarException;
 	
 	public boolean isExtensionDefined(String extensionId);
 

@@ -73,7 +73,7 @@ public abstract class AbstractTemplatingExtension implements ITemplatingExtensio
 			label = ModelAccess.getDefault().getText(doc, "/extension/label");
 			provider = ModelAccess.getDefault().getText(doc, "/extension/provider");
 			
-			ClassLoader loader = ClassLoader.getSystemClassLoader();
+			ClassLoader loader = getExtensionClassloader();
 			
 			Node[] node = ModelAccess.getDefault().getNodes(doc, "/extension/tags/tag", true, null);
 			for (Node n : node) {
@@ -84,10 +84,25 @@ public abstract class AbstractTemplatingExtension implements ITemplatingExtensio
 				tags.put(name,new DefinedTag(name, fqn, controlTag, extensionId));
 			}
 			
+			node = ModelAccess.getDefault().getNodes(doc, "/extension/functions/function", true, null);
+			for (Node n : node) {
+				String name = ModelAccess.getDefault().getAttribute(n, "@name");
+				String parms = ModelAccess.getDefault().getAttribute(n, "@parms");
+				String variable = ModelAccess.getDefault().getAttribute(n, "@variableNumber");
+				String impl = ModelAccess.getDefault().getAttribute(n, "@impl");
+				int arity = Integer.parseInt(parms);
+				boolean variableParms = Boolean.parseBoolean(variable);
+				XPathFunction function = (XPathFunction) loader.loadClass(impl).newInstance();
+				functions.add(new DefinedFunction(name, arity, variableParms, function));
+			}
+
+			
 		} catch (Exception e) {
 			throw new InvalidTemplateExtensionException(e);
 		}
 	}
+
+	protected abstract ClassLoader getExtensionClassloader();
 
 	protected abstract String getConfig() throws IOException;
 
