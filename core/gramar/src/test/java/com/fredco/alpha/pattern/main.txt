@@ -1,0 +1,8 @@
+
+before
+
+<c:createFile  path="/someproject/dir1/dir2/output.txt"  template="file.txt"  />
+
+
+after
+

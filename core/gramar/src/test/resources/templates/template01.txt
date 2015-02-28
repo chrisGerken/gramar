@@ -1,0 +1,3 @@
+some stuff <tag/> more stuff
+<fred a=">" c='>' e="'>'" g='">"' />
+the end</end>

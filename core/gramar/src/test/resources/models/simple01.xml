@@ -1,0 +1,7 @@
+<root>
+	<fred  id="a"  color="red"  />
+	<fred  id="b"  color="yellow"  />
+	<fred  id="c"  color="blue"  />
+	<fred  id="d"  color="blue"  />
+	<biff    />
+</root>
