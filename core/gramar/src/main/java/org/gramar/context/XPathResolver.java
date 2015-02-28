@@ -26,7 +26,9 @@ public class XPathResolver implements XPathFunctionResolver, XPathVariableResolv
 	public XPathFunction resolveFunction(QName functionName, int arity) {
 		XPathFunction function = null;
 		try {
-			function = context.getXPathFunction(functionName.getLocalPart(), arity);
+			String namespace = functionName.getNamespaceURI();
+			String name = functionName.getLocalPart();
+			function = context.getXPathFunction(namespace, name, arity);
 		} catch (GramarException e) {
 
 		}

@@ -86,9 +86,10 @@ public interface IGramarContext {
 	public ICustomTagHandler getCustomTagHandler(String namespace, String tagName) throws GramarException;
 
 	/*
-	 * Answers the xpath function that best matches the given name and arity
+	 * Answers the xpath function that best matches the given name and arity from the extension associated
+	 * with the given namespace
 	 */
-	public XPathFunction getXPathFunction(String name, int arity) throws GramarException;
+	public XPathFunction getXPathFunction(String namespace, String name, int arity) throws GramarException;
 	
 	public boolean isExtensionDefined(String extensionId);
 

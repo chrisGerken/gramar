@@ -121,7 +121,8 @@ public class GramarContext implements IGramarContext {
 
 	@Override
 	public String resolveToString(String expression) throws XPathExpressionException {
-		return (String) ModelAccess.getDefault().resolve(primaryModel, expression, this, XPathConstants.STRING);
+		Object obj = ModelAccess.getDefault().resolve(primaryModel, expression, this, XPathConstants.STRING);
+		return (String) obj;
 	}
 
 	@Override
@@ -169,13 +170,11 @@ public class GramarContext implements IGramarContext {
 	}
 
 	@Override
-	public XPathFunction getXPathFunction(String name, int arity) throws GramarException {
-		for (String id: extensions.values()) {
-			ITemplatingExtension extension = getPlatform().getTemplatingExtension(id);
-			XPathFunction function = extension.getFunction(name, arity);
-			if (function != null) {
-				return function;
-			}
+	public XPathFunction getXPathFunction(String namespace, String name, int arity) throws GramarException {
+		ITemplatingExtension extension = extensionForNamespace(namespace);
+		XPathFunction function = extension.getFunction(name, arity);
+		if (function != null) {
+			return function;
 		}
 		throw new NoSuchXPathFunctionException();
 	}

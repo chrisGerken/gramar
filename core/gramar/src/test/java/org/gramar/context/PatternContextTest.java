@@ -119,16 +119,4 @@ public class PatternContextTest {
 		}
 	}
 
-	@Test
-	public void testFunction01() throws Exception {
-		Document doc = DocumentHelper.loadDocument("/models/simple02.xml");
-		GramarContext context = new GramarContext(new SimpleGramarPlatform(),doc);
-
-		String value = context.resolveToString("g:fred(/lookup/pair[@key='z']/@value, 3, /lookup)");
-		
-		if (!"Waka Waka!!".equals(value)) {
-			fail("Did not get the correct value");
-		}
-	}
-
 }
