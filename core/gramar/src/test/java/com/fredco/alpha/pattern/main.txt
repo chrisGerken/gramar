@@ -1,8 +1,9 @@
 
 before
 
-<c:createFile  path="/someproject/dir1/dir2/output.txt"  template="file.txt"  />
-
+<c:iterate select="/root/fred" var="fred" >
+<c:createFile  path="/someproject/dir1/dir2/output_{$fred/@id}.txt"  template="file.txt"  />
+</c:iterate>
 
 after
 

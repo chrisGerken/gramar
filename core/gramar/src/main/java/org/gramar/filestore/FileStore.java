@@ -37,4 +37,10 @@ public abstract class FileStore implements IFileStore {
 		updates.add(update);
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

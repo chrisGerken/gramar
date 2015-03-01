@@ -85,19 +85,20 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	}
 
 	@Override
-	public IGramarApplicationStatus apply(IModel model, IGramar pattern, IFileStore fileStore) throws GramarException {
-		String mainId = pattern.getMainTemplateId();
+	public IGramarApplicationStatus apply(IModel model, IGramar gramar, IFileStore fileStore) throws GramarException {
+		String mainId = gramar.getMainTemplateId();
 		IGramarContext context = new GramarContext(this, model.asDOM());
-		context.setPattern(pattern);
+		context.setPattern(gramar);
 		context.setFileStore(fileStore);
-		ITemplate mainTemplate = pattern.getTemplate(mainId, context);
-		return apply(mainTemplate,pattern, context);
+		ITemplate mainTemplate = gramar.getTemplate(mainId, context);
+		return apply(mainTemplate,gramar, context);
 	}
 
-	public IGramarApplicationStatus apply(ITemplate mainTemplate, IGramar pattern, IGramarContext context) {
+	public IGramarApplicationStatus apply(ITemplate mainTemplate, IGramar gramar, IGramarContext context) {
 		try {
 			MergeStream stream = new MergeStream();
 			mainTemplate.mergeTo(stream,context);
+			context.getFileStore().commit("Applied gramar "+gramar.getId(), context);
 		} catch (IOException e) {
 			context.error(e);
 		}

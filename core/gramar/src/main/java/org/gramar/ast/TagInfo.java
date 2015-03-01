@@ -35,7 +35,7 @@ public class TagInfo {
 		if (buf.startsWith("/")) {
 			buf = buf.substring(1);
 		}
-		StringTokenizer st = new StringTokenizer(buf," \t\r\f:",true);
+		StringTokenizer st = new StringTokenizer(buf," \t\r\f:>",true);
 		
 		namespaced = true;
 		if (st.countTokens() < 3) {

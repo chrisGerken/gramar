@@ -2,10 +2,10 @@
 <root>
 	<fred  id="c"  color="blue"  />
 
-This is the boilerplate text for <c:get select="/root/fred[@id='c']/@color" />.  Please
+This is the boilerplate text for <c:get select="$fred/@color" />.  Please
 use it with care.
 
-Upper case: <c:get select=" c:uppercaseFirst(/root/fred[@id='c']/@color) " />
+Upper case: <c:get select=" c:uppercaseFirst($fred/@color) " />
 
 <x:log severity="info">This is how we log roll</x:log>
 
