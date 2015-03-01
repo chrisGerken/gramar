@@ -13,6 +13,8 @@ import org.w3c.dom.Node;
 public interface IGramarContext {
 
 	public void setVariable(String name, Object value);
+
+	public void unsetVariable(String var);
 	
 	public Object getVariable(String name);
 

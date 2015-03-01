@@ -81,6 +81,11 @@ public class GramarContext implements IGramarContext {
 	}
 
 	@Override
+	public void unsetVariable(String var) {
+		variables.remove(var);
+	}
+
+	@Override
 	public void setAttribute(String nodeExpression, String attrName, String value) throws XPathExpressionException {
 		Node node = resolveToNode(nodeExpression);
 		ModelAccess.getDefault().setAttribute(node, attrName, value);

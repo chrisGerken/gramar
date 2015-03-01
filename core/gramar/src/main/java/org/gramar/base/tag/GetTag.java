@@ -1,4 +1,4 @@
-package org.gramar.base;
+package org.gramar.base.tag;
 
 import org.gramar.ICustomTagHandler;
 import org.gramar.IGramarContext;

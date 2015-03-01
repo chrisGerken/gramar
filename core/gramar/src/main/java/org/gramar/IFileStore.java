@@ -4,6 +4,7 @@ import java.io.InputStream;
 
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.filestore.MergeStream;
+import org.gramar.filestore.ResourceUpdate;
 
 
 /**
@@ -35,11 +36,21 @@ public interface IFileStore {
 	 */
 	public void createProject(String projectName, String path);
 	
-	public void createFolder(String projectName, String pathName) throws NoSuchResourceException;
+	public void createFolder(String pathName) throws NoSuchResourceException;
+	
+	/*
+	 * Initialize to prepare for gramar application
+	 */
+	public void reset();
 	
 	/*
 	 * Commit to the file store all pending resource changes
 	 */
-	public void commit(String comment);
+	public void commit(String comment, IGramarContext context);
 	
+	/*
+	 * Add an update request to the set of changes that need to be made as a result of
+	 * applying this gramar
+	 */
+	public void addUpdate(ResourceUpdate update);
 }

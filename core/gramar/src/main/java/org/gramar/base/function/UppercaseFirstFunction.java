@@ -1,4 +1,4 @@
-package org.gramar.base;
+package org.gramar.base.function;
 
 import java.util.List;
 

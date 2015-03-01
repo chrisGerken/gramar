@@ -20,7 +20,7 @@ import org.gramar.platform.Util;
  * @author chrisgerken
  *
  */
-public class LocalFileStore implements IFileStore {
+public class LocalFileStore extends FileStore implements IFileStore {
 
 	private String rootDir;
 	
@@ -61,8 +61,7 @@ public class LocalFileStore implements IFileStore {
 	}
 
 	@Override
-	public void createFolder(String projectName, String pathName)
-			throws NoSuchResourceException {
+	public void createFolder(String pathName) throws NoSuchResourceException {
 		// TODO Auto-generated method stub
 
 	}
@@ -77,8 +76,9 @@ public class LocalFileStore implements IFileStore {
 	}
 
 	@Override
-	public void commit(String comment) {
-		// Does nothing as there is no penalty for writing files 
-		// one at a time to the local file system
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
+
 }

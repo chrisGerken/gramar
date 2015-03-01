@@ -1,9 +1,10 @@
-package org.gramar.base;
+package org.gramar.base.tag;
 
 import org.gramar.ICustomTagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.ITemplate;
 import org.gramar.extension.TagHandler;
+import org.gramar.filestore.FileUpdate;
 import org.gramar.filestore.MergeStream;
 
 
@@ -27,7 +28,7 @@ public class CreateFileTag extends TagHandler implements ICustomTagHandler {
 			ITemplate template = context.getPattern().getTemplate(templateName, context);
 			template.mergeTo(newStream, context);
 			
-			context.getFileStore().setFileContent(path, newStream.asInputStream());
+			context.getFileStore().addUpdate(new FileUpdate(path, newStream));
 			
 		} catch (Exception e) {
 			context.error(e);

@@ -16,7 +16,7 @@ import org.gramar.util.GramarHelper;
  * @author chrisgerken
  *
  */
-public class ConsoleFileStore implements IFileStore {
+public class ConsoleFileStore extends FileStore implements IFileStore {
 
 	public ConsoleFileStore() {
 
@@ -48,13 +48,14 @@ public class ConsoleFileStore implements IFileStore {
 	}
 
 	@Override
-	public void createFolder(String projectName, String pathName) throws NoSuchResourceException {
-		System.out.println("\n\nCreated folder: "+projectName+"/"+pathName);
+	public void createFolder(String pathName) throws NoSuchResourceException {
+		System.out.println("\n\nCreated folder: "+pathName);
 	}
 
 	@Override
-	public void commit(String comment) {
-
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
