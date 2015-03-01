@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFunction;
 
@@ -147,6 +148,38 @@ public class GramarContext implements IGramarContext {
 	@Override
 	public boolean resolveToBoolean(String expression) throws XPathExpressionException {
 		return (Boolean) ModelAccess.getDefault().resolve(primaryModel, expression, this, XPathConstants.BOOLEAN);
+	}
+
+	@Override
+	public double resolveToNumber(String expression) throws XPathExpressionException {
+		return (Double) ModelAccess.getDefault().resolve(primaryModel, expression, this, XPathConstants.NUMBER);
+	}
+
+	@Override
+	public Object resolveToObject(String expression) throws XPathExpressionException {
+
+		try {
+			Node[] node = resolveToNodes(expression);
+			if (node.length > 0) {
+				return node[0];
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			// Guess it wasn't a node. Ignore exception and try another return type
+		}
+		
+		try {
+			Double result = resolveToNumber(expression);
+			if (!Double.isNaN(result)) {
+				return result;
+			}
+		} catch (Exception e) {
+			// Guess it wasn't a number. Ignore exception and try another return type
+		}
+
+		return resolveToString(expression);
+	
 	}
 
 	@Override

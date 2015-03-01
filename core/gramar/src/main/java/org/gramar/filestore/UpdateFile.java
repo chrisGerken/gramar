@@ -3,18 +3,19 @@ package org.gramar.filestore;
 import org.gramar.IFileStore;
 import org.gramar.exception.NoSuchResourceException;
 
-public class FolderUpdate extends ResourceUpdate {
+public class UpdateFile extends ResourceUpdate {
+	
+	private MergeStream content;
 
-	public FolderUpdate(String path) {
+	public UpdateFile(String path, MergeStream content) {
 		super(path);
-		// TODO Auto-generated constructor stub
+		this.content = content;
 	}
 
 	@Override
 	public void execute(IFileStore store) throws NoSuchResourceException {
-		
-		store.createFolder(path);
-		
+
+		store.setFileContent(path, content.asInputStream());
 	}
 
 }

@@ -1,5 +1,5 @@
 
-<root>
+<root> 
 	<fred  id="c"  color="blue"  />
 
 This is the boilerplate text for <c:get select="$fred/@color" />.  Please

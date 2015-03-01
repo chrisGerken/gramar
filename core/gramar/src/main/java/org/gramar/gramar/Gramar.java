@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.gramar.IGramar;
 import org.gramar.IGramarContext;
 import org.gramar.ITemplate;
-import org.gramar.ast.StringTemplate;
+import org.gramar.ast.Template;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.IllFormedTemplateException;
 import org.gramar.exception.InvalidGramarException;
@@ -86,7 +86,7 @@ public abstract class Gramar implements IGramar {
 		try {
 			String source = getTemplateSource(id); 
 			TagDocument document = TagDocument.build(source,context);
-			return new StringTemplate(document);
+			return new Template(document);
 		} catch (NoSuchResourceException e) {
 			throw new NoSuchTemplateException(e);
 		} 

@@ -8,11 +8,11 @@ import org.gramar.filestore.MergeStream;
 import org.gramar.tag.TagDocument;
 
 
-public class StringTemplate implements ITemplate {
+public class Template implements ITemplate {
 
 	private TagDocument document;
 	
-	public StringTemplate(TagDocument document) {
+	public Template(TagDocument document) {
 		this.document = document;
 	}
 

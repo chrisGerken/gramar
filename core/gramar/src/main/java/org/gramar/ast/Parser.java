@@ -48,7 +48,7 @@ public class Parser {
 				region = new SourceRegion(tagInfo.getTagSource(),tagInfo.getTagStartOffset(),tagInfo.getTagEndOffset(),type);
 				region.setTagInfo(tagInfo);
 				regions.add(region);
-				begin = end + 1;
+				begin = end;
 
 			} else if (directiveBeginsAt(source,begin+1)) {
 				int prevEnd = end;	

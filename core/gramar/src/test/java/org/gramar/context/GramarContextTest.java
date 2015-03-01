@@ -10,7 +10,51 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 
-public class PatternContextTest {
+public class GramarContextTest {
+
+	@Test
+	public void testResolveObjects01() throws Exception {
+		String expression = " /root/fred ";
+		Document doc = DocumentHelper.loadDocument("/models/simple01.xml");
+		GramarContext context = new GramarContext(new SimpleGramarPlatform(),doc);
+		Object result = context.resolveToObject(expression);
+		if (!(result instanceof Node)) {
+			fail("Incorrect result type");
+		}
+	}
+
+	@Test
+	public void testResolveObjects02() throws Exception {
+		String expression = " 3 + 4 ";
+		Document doc = DocumentHelper.loadDocument("/models/simple01.xml");
+		GramarContext context = new GramarContext(new SimpleGramarPlatform(),doc);
+		Object result = context.resolveToObject(expression);
+		if (!(result instanceof Double)) {
+			fail("Incorrect result type");
+		}
+	}
+
+	@Test
+	public void testResolveObjects03() throws Exception {
+		String expression = " 'abc' ";
+		Document doc = DocumentHelper.loadDocument("/models/simple01.xml");
+		GramarContext context = new GramarContext(new SimpleGramarPlatform(),doc);
+		Object result = context.resolveToObject(expression);
+		if (!(result instanceof String)) {
+			fail("Incorrect result type");
+		}
+	}
+
+	@Test
+	public void testResolveObjects04() throws Exception {
+		String expression = " /root/fredx ";
+		Document doc = DocumentHelper.loadDocument("/models/simple01.xml");
+		GramarContext context = new GramarContext(new SimpleGramarPlatform(),doc);
+		Object result = context.resolveToObject(expression);
+		if (result != null) {
+			fail("Incorrect result value");
+		}
+	}
 
 	@Test
 	public void testResolve01() throws Exception {

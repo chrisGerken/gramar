@@ -39,6 +39,18 @@ public interface IGramarContext {
 	 * Resolve the given XPath expression to a boolean value
 	 */
 	public boolean resolveToBoolean(String expression) throws XPathExpressionException;
+
+	public double resolveToNumber(String expression) throws XPathExpressionException;
+	
+	/*
+	 * Resolve the given XPath expression to a value and return the correct type of result.
+	 * If the expression results in a NodeSet of length greater than one then return the 
+	 * first node in the NodeSet.  Otherwise if the expression returns a numeric value that is
+	 * not NaN then return the result as a Double.  Otherwise, return the result as a String.
+	 * Booleans won't be returned because of the difficulty in differentiating between 
+	 * 'false' and true.
+	 */
+	public Object resolveToObject(String expression) throws XPathExpressionException;
 	
 	/*
 	 * Resolve the given XPath expression to a single node

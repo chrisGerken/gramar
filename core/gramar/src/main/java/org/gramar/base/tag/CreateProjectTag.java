@@ -2,15 +2,14 @@ package org.gramar.base.tag;
 
 import org.gramar.ICustomTagHandler;
 import org.gramar.IGramarContext;
-import org.gramar.ITemplate;
 import org.gramar.extension.TagHandler;
-import org.gramar.filestore.UpdateFile;
 import org.gramar.filestore.MergeStream;
+import org.gramar.filestore.UpdateProject;
 
 
-public class CreateFileTag extends TagHandler implements ICustomTagHandler {
+public class CreateProjectTag extends TagHandler implements ICustomTagHandler {
 
-	public CreateFileTag() {
+	public CreateProjectTag() {
 
 	}
 
@@ -21,14 +20,13 @@ public class CreateFileTag extends TagHandler implements ICustomTagHandler {
 			String path = getAttributes().get("path");
 			path = context.resolveExpressions(path);
 
-			String templateName = getAttributes().get("template");
-			
-			MergeStream newStream = new MergeStream();
-			
-			ITemplate template = context.getPattern().getTemplate(templateName, context);
-			template.mergeTo(newStream, context);
-			
-			context.getFileStore().addUpdate(new UpdateFile(path, newStream));
+			String altPath = getAttributes().get("altPath");
+			altPath = context.resolveExpressions(altPath);
+			if ((altPath==null)||(altPath.trim().length()==0)) {
+				altPath = "";
+			}
+
+			context.getFileStore().addUpdate(new UpdateProject(path,altPath));
 			
 		} catch (Exception e) {
 			context.error(e);
