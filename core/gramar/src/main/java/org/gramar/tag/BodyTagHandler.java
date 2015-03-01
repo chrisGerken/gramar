@@ -1,7 +1,6 @@
 package org.gramar.tag;
 
 import org.gramar.IGramarContext;
-import org.gramar.extension.TagHandler;
 import org.gramar.filestore.MergeStream;
 
 

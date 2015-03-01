@@ -1,4 +1,4 @@
-package org.gramar.extension;
+package org.gramar.tag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,6 @@ import org.gramar.ast.TagInfo;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.IllFormedTemplateException;
 import org.gramar.filestore.MergeStream;
-import org.gramar.tag.StaticTextTag;
 
 
 public abstract class TagHandler implements ICustomTagHandler {
@@ -87,6 +86,25 @@ public abstract class TagHandler implements ICustomTagHandler {
 
 	public void setAttributes(HashMap<String, String> attributes) {
 		this.attributes = attributes;
+	}
+	
+	/*
+	 * Merge all of the receiver's child handlers with the given stream
+	 */
+	public void processChildren(MergeStream stream, IGramarContext context) {
+		for (ICustomTagHandler child: children) {
+			child.mergeTo(stream, context);
+		}
+	}
+	
+	/*
+	 * Create a new stream and merge all of the receiver's child handlers
+	 * with that stream.  Return the stream.
+	 */
+	public MergeStream processChildren(IGramarContext context) {
+		MergeStream stream = new MergeStream();
+		processChildren(stream, context);
+		return stream;
 	}
 
 }

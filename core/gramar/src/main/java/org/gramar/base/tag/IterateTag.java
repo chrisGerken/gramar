@@ -6,8 +6,8 @@ import javax.xml.xpath.XPathExpressionException;
 
 import org.gramar.ICustomTagHandler;
 import org.gramar.IGramarContext;
-import org.gramar.extension.TagHandler;
 import org.gramar.filestore.MergeStream;
+import org.gramar.tag.TagHandler;
 import org.w3c.dom.Node;
 
 public class IterateTag extends TagHandler implements ICustomTagHandler {
@@ -38,9 +38,7 @@ public class IterateTag extends TagHandler implements ICustomTagHandler {
 				
 				context.setVariable(var, n);
 				
-				for (ICustomTagHandler child: children) {
-					child.mergeTo(stream, context);
-				}
+				processChildren(stream, context);
 				
 				context.unsetVariable(var);
 			}

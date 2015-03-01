@@ -3,9 +3,9 @@ package org.gramar.base.tag;
 import org.gramar.ICustomTagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.ITemplate;
-import org.gramar.extension.TagHandler;
 import org.gramar.filestore.UpdateFile;
 import org.gramar.filestore.MergeStream;
+import org.gramar.tag.TagHandler;
 
 
 public class CreateFileTag extends TagHandler implements ICustomTagHandler {

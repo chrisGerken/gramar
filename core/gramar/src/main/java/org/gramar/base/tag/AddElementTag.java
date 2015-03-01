@@ -4,10 +4,12 @@ import org.gramar.ICustomTagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.filestore.MergeStream;
 import org.gramar.tag.TagHandler;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
-public class SetVariableTag extends TagHandler implements ICustomTagHandler {
+public class AddElementTag extends TagHandler implements ICustomTagHandler {
 
-	public SetVariableTag() {
+	public AddElementTag() {
 
 	}
 
@@ -15,16 +17,17 @@ public class SetVariableTag extends TagHandler implements ICustomTagHandler {
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 
 		String select = getAttributes().get("select");
+		String name = getAttributes().get("name");
 		String var = getAttributes().get("var");
 		
 		try {
-
-			Object result = context.resolveToObject(select);
-
-			if (result != null) {
-				context.setVariable(var, result);
-			} else {
-				context.unsetVariable(var);
+			Node node = context.resolveToNode(select);
+			if (node != null) {
+				Element element = node.getOwnerDocument().createElement(name);
+				node.appendChild(element);
+				if (var != null) {
+					context.setVariable(var, element);
+				}
 			}
 		} catch (Exception e) {
 			context.error(e);
@@ -34,7 +37,7 @@ public class SetVariableTag extends TagHandler implements ICustomTagHandler {
 
 	@Override
 	public String getTagName() {
-		return "setVariable";
+		return "addElement";
 	}
 
 }

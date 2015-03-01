@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.gramar.ICustomTagHandler;
 import org.gramar.IGramarContext;
-import org.gramar.extension.TagHandler;
 import org.gramar.filestore.MergeStream;
 
 
