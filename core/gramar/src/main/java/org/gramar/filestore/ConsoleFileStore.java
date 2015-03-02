@@ -2,6 +2,7 @@ package org.gramar.filestore;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.gramar.IFileStore;
 import org.gramar.exception.NoSuchResourceException;
@@ -54,7 +55,6 @@ public class ConsoleFileStore extends FileStore implements IFileStore {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		
 	}
 

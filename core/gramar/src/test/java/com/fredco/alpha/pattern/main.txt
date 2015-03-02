@@ -1,8 +1,16 @@
 
 before
 
+
 <c:iterate select="/root/fred" var="fred" >
-<c:createFile  path="/someproject/dir1/dir2/output_{$fred/@id}.txt"  template="file.txt"  />
+<c:set  select="$fred" name="file">ABC_<c:get select="$fred/@id"/>_DEF</c:set>
+</c:iterate>
+
+<c:addElement select="/root" name="wanda" var="wanda1"/>
+<c:addTextElement select="$wanda1" name="fish">abcdefghijk</c:addTextElement>
+
+<c:iterate select="/root/fred" var="fred" >
+<c:createFile  path="/someproject/dir1/dir2/output_{$fred/@file}.txt"  template="file.txt"  />
 </c:iterate>
 
 after

@@ -1,10 +1,10 @@
 package org.gramar;
 
 import java.io.InputStream;
+import java.util.List;
 
 import org.gramar.exception.NoSuchResourceException;
-import org.gramar.filestore.MergeStream;
-import org.gramar.filestore.ResourceUpdate;
+import org.gramar.filestore.UpdateResource;
 
 
 /**
@@ -27,14 +27,18 @@ public interface IFileStore {
 	 */
 	public void setFileContent(String path, InputStream is) throws NoSuchResourceException;
 	
+	/*
+	 * Answers a boolean indicating that the resource at the given path exists (true) or
+	 * that it does not (false)
+	 */
 	public boolean resourceExists(String path);
 	
 	/*
 	 * Create a target project with the given name.  If non null or blank, the 
-	 * path represents a store-dependent alternate or relative location to be used
+	 * altPath represents a store-dependent alternate or relative location to be used
 	 * in the creation of the project
 	 */
-	public void createProject(String projectName, String path);
+	public void createProject(String projectName, String altPath);
 	
 	public void createFolder(String pathName) throws NoSuchResourceException;
 	
@@ -52,5 +56,6 @@ public interface IFileStore {
 	 * Add an update request to the set of changes that need to be made as a result of
 	 * applying this gramar
 	 */
-	public void addUpdate(ResourceUpdate update);
+	public void addUpdate(UpdateResource update);
+
 }

@@ -56,6 +56,13 @@ public class ModelAccess {
 		return node;
 	}
 	
+	public Node getNode(Node sourceNode, String xpathExpresion, boolean elementsOnly, IGramarContext context) throws XPathExpressionException {
+		if (sourceNode == null) { return null; }
+		XPath xpath = getXpath(context);
+		Node node = (Node) xpath.evaluate(xpathExpresion,sourceNode,XPathConstants.NODE);
+		return node;
+	}
+	
 	public String getText(Node sourceNode, String xpathExpression, IGramarContext context) throws XPathExpressionException {
 		XPath xpath = getXpath(context);
 		NodeList nodes = (NodeList) xpath.evaluate(xpathExpression,sourceNode,XPathConstants.NODESET);

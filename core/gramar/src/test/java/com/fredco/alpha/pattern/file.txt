@@ -9,4 +9,6 @@ Upper case: <c:get select=" c:uppercaseFirst($fred/@color) " />
 
 <x:log severity="info">This is how we log roll</x:log>
 
+<c:get select="/root/wanda/fish" />
+
 fin

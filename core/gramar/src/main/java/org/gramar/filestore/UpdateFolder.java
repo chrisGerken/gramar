@@ -3,7 +3,7 @@ package org.gramar.filestore;
 import org.gramar.IFileStore;
 import org.gramar.exception.NoSuchResourceException;
 
-public class UpdateFolder extends ResourceUpdate {
+public class UpdateFolder extends UpdateResource {
 
 	public UpdateFolder(String path) {
 		super(path);
@@ -15,6 +15,10 @@ public class UpdateFolder extends ResourceUpdate {
 		
 		store.createFolder(path);
 		
+	}
+	
+	public String toString() {
+		return "UpdateFolder:  " + path;
 	}
 
 }

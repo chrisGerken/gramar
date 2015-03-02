@@ -2,7 +2,7 @@ package org.gramar.filestore;
 
 import org.gramar.IFileStore;
 
-public class UpdateProject extends ResourceUpdate {
+public class UpdateProject extends UpdateResource {
 
 	private String altPath;
 	
@@ -16,6 +16,10 @@ public class UpdateProject extends ResourceUpdate {
 
 		store.createProject(path, altPath);
 		
+	}
+	
+	public String toString() {
+		return "UpdateProject: " + path;
 	}
 
 }

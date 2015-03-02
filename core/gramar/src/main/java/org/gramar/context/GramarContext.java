@@ -133,11 +133,7 @@ public class GramarContext implements IGramarContext {
 
 	@Override
 	public Node resolveToNode(String expression) throws XPathExpressionException {
-		Node node[] = ModelAccess.getDefault().getNodes(primaryModel, expression, true, this);
-		if (node.length == 0) {
-			return null;
-		}
-		return node[0];
+		return ModelAccess.getDefault().getNode(primaryModel, expression, true, this);
 	}
 
 	@Override

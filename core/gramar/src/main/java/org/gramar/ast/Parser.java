@@ -35,7 +35,7 @@ public class Parser {
 				regions.add(region);
 				
 				int prevEnd = end;	
-				end = begin + tagInfo.getTagLength();
+				end = begin + tagInfo.getTagLength() - 1;
 				int type = SourceRegion.TYPE_TEXT;
 				if (validate(tagInfo)) {
 					type = SourceRegion.TYPE_TAG;
