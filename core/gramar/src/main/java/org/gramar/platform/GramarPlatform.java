@@ -96,6 +96,7 @@ public abstract class GramarPlatform implements IGramarPlatform {
 
 	public IGramarApplicationStatus apply(ITemplate mainTemplate, IGramar gramar, IGramarContext context) {
 		try {
+			context.getFileStore().reset();
 			MergeStream stream = new MergeStream();
 			mainTemplate.mergeTo(stream,context);
 			context.getFileStore().commit("Applied gramar "+gramar.getId(), context);

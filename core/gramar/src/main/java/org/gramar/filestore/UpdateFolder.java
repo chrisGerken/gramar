@@ -1,5 +1,7 @@
 package org.gramar.filestore;
 
+import java.io.IOException;
+
 import org.gramar.IFileStore;
 import org.gramar.exception.NoSuchResourceException;
 
@@ -11,7 +13,7 @@ public class UpdateFolder extends UpdateResource {
 	}
 
 	@Override
-	public void execute(IFileStore store) throws NoSuchResourceException {
+	public void execute(IFileStore store) throws NoSuchResourceException, IOException {
 		
 		store.createFolder(path);
 		

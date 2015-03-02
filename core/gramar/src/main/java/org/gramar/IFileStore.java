@@ -1,5 +1,6 @@
 package org.gramar;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface IFileStore {
 	 * Store the content of the specified file.  The path is assumed to start at
 	 * a project within the file store. 
 	 */
-	public void setFileContent(String path, InputStream is) throws NoSuchResourceException;
+	public void setFileContent(String path, InputStream is) throws NoSuchResourceException, IOException;
 	
 	/*
 	 * Answers a boolean indicating that the resource at the given path exists (true) or
@@ -38,9 +39,9 @@ public interface IFileStore {
 	 * altPath represents a store-dependent alternate or relative location to be used
 	 * in the creation of the project
 	 */
-	public void createProject(String projectName, String altPath);
+	public void createProject(String projectName, String altPath) throws IOException;
 	
-	public void createFolder(String pathName) throws NoSuchResourceException;
+	public void createFolder(String pathName) throws NoSuchResourceException, IOException;
 	
 	/*
 	 * Initialize to prepare for gramar application

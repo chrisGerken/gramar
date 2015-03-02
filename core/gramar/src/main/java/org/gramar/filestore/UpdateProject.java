@@ -1,5 +1,7 @@
 package org.gramar.filestore;
 
+import java.io.IOException;
+
 import org.gramar.IFileStore;
 
 public class UpdateProject extends UpdateResource {
@@ -12,7 +14,7 @@ public class UpdateProject extends UpdateResource {
 	}
 
 	@Override
-	public void execute(IFileStore store) {
+	public void execute(IFileStore store) throws IOException {
 
 		store.createProject(path, altPath);
 		
