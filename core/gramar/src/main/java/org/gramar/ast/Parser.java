@@ -9,8 +9,7 @@ import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NamespaceNotDefinedException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.exception.TemplatingExtensionNotDefinedException;
-
-
+import org.gramar.extension.DefinedTag;
 
 public class Parser {
 
@@ -34,7 +33,6 @@ public class Parser {
 				SourceRegion region = new SourceRegion(source.substring(end+1,begin),end+1,begin-1,SourceRegion.TYPE_TEXT);
 				regions.add(region);
 				
-				int prevEnd = end;	
 				end = begin + tagInfo.getTagLength() - 1;
 				int type = SourceRegion.TYPE_TEXT;
 				if (validate(tagInfo)) {
@@ -110,7 +108,19 @@ public class Parser {
 		}
 		
 		for (int i = 0; i < regions.size(); i++) {
-			
+			if (((i==0) || regions.get(i-1).lastLineEntirelyWhitespace()) && 
+				(regions.get(i).isControlTag()) &&
+				((i<(regions.size()-1))|| regions.get(i+1).firstLineEntirelyWhitespace())) {
+
+				// We have a control tag sitting on a line all by itself
+				
+				if (i > 0) {
+					regions.get(i-1).truncateTrailingWhitespace();
+				}
+				if (i < (regions.size()-1)) {
+					regions.get(i+1).truncateLeadingWhitespace();
+				}
+			}
 		}
 		
 		return result;
@@ -130,11 +140,11 @@ public class Parser {
 			if (!tagInfo.isNamespaced()) {
 				return false;
 			}
-			ICustomTagHandler handler = patternContext.getCustomTagHandler(tagInfo.getNamespace(), tagInfo.getTagName());
-			if (handler == null) {
+			DefinedTag dt = patternContext.getTagDef(tagInfo.getNamespace(), tagInfo.getTagName());
+			if (dt == null) {
 				return false;
 			}
-			tagInfo.setHandler(handler);
+			tagInfo.setTagDef(dt);
 			return true;
 		} catch (TemplatingExtensionNotDefinedException e) {
 			

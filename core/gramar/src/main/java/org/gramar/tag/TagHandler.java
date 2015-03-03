@@ -30,7 +30,7 @@ public abstract class TagHandler implements ICustomTagHandler {
 			TagInfo info = region.getTagInfo();
 			String namespace = info.getNamespace();
 			String tagName = info.getTagName();
-			ICustomTagHandler handler = context.getCustomTagHandler(namespace, tagName);
+			ICustomTagHandler handler = context.getTagHandler(namespace, tagName);
 			handler.setAttributes(region.getAttributes());
 			handler.setParent(this);
 			addChild(handler);
@@ -44,7 +44,7 @@ public abstract class TagHandler implements ICustomTagHandler {
 			TagInfo info = region.getTagInfo();
 			String namespace = info.getNamespace();
 			String tagName = info.getTagName();
-			ICustomTagHandler handler = context.getCustomTagHandler(namespace, tagName);
+			ICustomTagHandler handler = context.getTagHandler(namespace, tagName);
 			handler.setAttributes(region.getAttributes());
 			handler.setParent(this);
 			addChild(handler);

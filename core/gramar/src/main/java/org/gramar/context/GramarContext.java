@@ -22,6 +22,7 @@ import org.gramar.exception.NoSuchCustomTagException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.exception.NoSuchXPathFunctionException;
 import org.gramar.exception.TemplatingExtensionNotDefinedException;
+import org.gramar.extension.DefinedTag;
 import org.gramar.model.ModelAccess;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -197,7 +198,14 @@ public class GramarContext implements IGramarContext {
 	}
 
 	@Override
-	public ICustomTagHandler getCustomTagHandler(String namespace, String tagName) throws GramarException {
+	public DefinedTag getTagDef(String namespace, String tagName) throws GramarException {
+		
+		ITemplatingExtension extension = extensionForNamespace(namespace);
+		return extension.getTagDef(tagName);
+	}
+
+	@Override
+	public ICustomTagHandler getTagHandler(String namespace, String tagName) throws GramarException {
 		
 		ITemplatingExtension extension = extensionForNamespace(namespace);
 		return extension.getCustomTagHandler(tagName);

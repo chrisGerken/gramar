@@ -154,6 +154,15 @@ public abstract class AbstractTemplatingExtension implements ITemplatingExtensio
 	}
 
 	@Override
+	public DefinedTag getTagDef(String tagName) throws NoSuchCustomTagException {
+		DefinedTag dt = tags.get(tagName);
+		if (dt == null) {
+			throw new NoSuchCustomTagException();
+		}
+		return dt;
+	}
+
+	@Override
 	public boolean hasCustomTagHandler(String tagName) {
 		return tags.containsKey(tagName);
 	}

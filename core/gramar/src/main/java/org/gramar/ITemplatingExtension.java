@@ -3,6 +3,7 @@ package org.gramar;
 import javax.xml.xpath.XPathFunction;
 
 import org.gramar.exception.NoSuchCustomTagException;
+import org.gramar.extension.DefinedTag;
 
 
 public interface ITemplatingExtension {
@@ -19,6 +20,8 @@ public interface ITemplatingExtension {
 	public String getExtensionId();
 	
 	public XPathFunction getFunction(String name, int arity);
+
+	public DefinedTag getTagDef(String tagName) throws NoSuchCustomTagException;
 	
 	public ICustomTagHandler getCustomTagHandler(String tagName) throws NoSuchCustomTagException;
 

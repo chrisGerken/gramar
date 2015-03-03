@@ -6,6 +6,7 @@ import javax.xml.xpath.XPathFunction;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.NamespaceNotDefinedException;
 import org.gramar.exception.NoSuchXPathFunctionException;
+import org.gramar.extension.DefinedTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -95,9 +96,14 @@ public interface IGramarContext {
 	public IGramarPlatform getPlatform();
 
 	/*
+	 * Answers the tag definition with the given name from the extension associated with the given namespace
+	 */
+	public DefinedTag getTagDef(String namespace, String tagName) throws GramarException;
+
+	/*
 	 * Answers the tag handler with the given name from the extension associated with the given namespace
 	 */
-	public ICustomTagHandler getCustomTagHandler(String namespace, String tagName) throws GramarException;
+	public ICustomTagHandler getTagHandler(String namespace, String tagName) throws GramarException;
 
 	/*
 	 * Answers the xpath function that best matches the given name and arity from the extension associated

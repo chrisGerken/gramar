@@ -1,6 +1,9 @@
 
-<root> 
-	<fred  id="c"  color="blue"  />
+.before.
+<c:iterate select="/root/fred" var="fred3" >
+.during.
+</c:iterate>
+.after.
 
 This is the boilerplate text for <c:get select="$fred/@color" />.  Please
 use it with care.

@@ -3,6 +3,7 @@ package org.gramar.ast;
 import java.util.StringTokenizer;
 
 import org.gramar.ICustomTagHandler;
+import org.gramar.extension.DefinedTag;
 
 
 public class TagInfo {
@@ -16,7 +17,7 @@ public class TagInfo {
 	private boolean namespaced;
 	private boolean endTag;
 	private boolean emptyTag;
-	private ICustomTagHandler	handler;
+	private DefinedTag	tagDef;;
 	
 	public TagInfo(int tagStartOffset, int tagEndOffset, String tagSource) {
 		super();
@@ -100,12 +101,12 @@ public class TagInfo {
 		return namespaced;
 	}
 
-	public ICustomTagHandler getHandler() {
-		return handler;
+	public DefinedTag getTagDef() {
+		return tagDef;
 	}
 
-	public void setHandler(ICustomTagHandler handler) {
-		this.handler = handler;
+	public void setTagDef(DefinedTag tagDef) {
+		this.tagDef = tagDef;
 	}
 
 }

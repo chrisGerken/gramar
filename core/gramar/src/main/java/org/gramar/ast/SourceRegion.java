@@ -176,4 +176,62 @@ public class SourceRegion {
 		this.tagInfo = tagInfo;
 	}
 
+	/*
+	 * Answers whether all characters up to the first new line are all whitespace.
+	 * Answers false if the region does not contain a new line char.
+	 */
+	public boolean firstLineEntirelyWhitespace() {
+		
+		int index = content.indexOf('\n');
+		if (index == -1) { return false; }
+		for (int i = 0; i < index; i++) {
+			if (!Character.isWhitespace(content.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+
+	/*
+	 * Answers whether all characters after the last new line are all whitespace.
+	 * Answers false if the region does not contain a new line char.
+	 */
+	public boolean lastLineEntirelyWhitespace() {
+		
+		int index = content.lastIndexOf('\n');
+		if (index == -1) { return false; }
+		for (int i = index; i < content.length(); i++) {
+			if (!Character.isWhitespace(content.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+
+	public boolean isControlTag() {
+		return (tagInfo!=null) && (tagInfo.getTagDef()!= null) && (tagInfo.getTagDef().isControlTag());
+	}
+
+	/*
+	 * Truncate trailing whitespace after the last new line char, but not the newline itself
+	 */
+	public void truncateTrailingWhitespace() {
+
+		int index = content.lastIndexOf('\n');
+		content = content.substring(0,index+1);
+		
+	}
+
+	/*
+	 * Truncate leading whitespace up to and including the first new line char
+	 */
+	public void truncateLeadingWhitespace() {
+
+		int index = content.indexOf('\n');
+		content = content.substring(index+1);
+		
+	}
+
 }
