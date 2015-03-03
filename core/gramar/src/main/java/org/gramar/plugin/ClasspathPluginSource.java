@@ -12,7 +12,7 @@ import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
-import org.gramar.extension.AbstractTemplatingExtension;
+import org.gramar.extension.TemplatingExtension;
 import org.gramar.extension.ClasspathTemplatingExtension;
 import org.gramar.gramar.ClasspathGramar;
 import org.gramar.gramar.ClasspathZipGramar;
@@ -65,7 +65,7 @@ public class ClasspathPluginSource extends PluginSource implements IPluginSource
 		
 		// First, look for a config file
 		String pkg = extensionId.replace('.', '/');
-		String resource = "/" + pkg + "/" + AbstractTemplatingExtension.META_FILE_NAME;
+		String resource = "/" + pkg + "/" + TemplatingExtension.META_FILE_NAME;
 		InputStream is = ClasspathPluginSource.class.getResourceAsStream(resource);
 		if (is != null) {
 			try { is.close(); } catch (Throwable t) {  }

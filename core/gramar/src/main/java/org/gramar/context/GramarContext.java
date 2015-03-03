@@ -78,13 +78,15 @@ public class GramarContext implements IGramarContext {
 	}
 
 	@Override
-	public void setVariable(String name, Object value) {
-		variables.put(name,value);
+	public void setVariable(String variableName, Object value) {
+		if (variableName == null) { return; }
+		variables.put(variableName, value);
 	}
 
 	@Override
-	public void unsetVariable(String var) {
-		variables.remove(var);
+	public void unsetVariable(String variableName) {
+		if (variableName == null) { return; }
+		variables.remove(variableName);
 	}
 
 	@Override

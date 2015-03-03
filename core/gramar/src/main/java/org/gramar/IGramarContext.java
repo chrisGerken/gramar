@@ -5,7 +5,6 @@ import javax.xml.xpath.XPathFunction;
 
 import org.gramar.exception.GramarException;
 import org.gramar.exception.NamespaceNotDefinedException;
-import org.gramar.exception.NoSuchXPathFunctionException;
 import org.gramar.extension.DefinedTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -13,11 +12,22 @@ import org.w3c.dom.Node;
 
 public interface IGramarContext {
 
-	public void setVariable(String name, Object value);
+	/*
+	 * Sets associates the value with the variable name.  
+	 * Ignored if the variabe name is null 
+	 */
+	public void setVariable(String variableName, Object value);
 
-	public void unsetVariable(String var);
+	/*
+	 * Removes the association between the variable name and its value.  
+	 * Ignored if the variabe name is null
+	 */
+	public void unsetVariable(String variableName);
 	
-	public Object getVariable(String name);
+	/*
+	 * Answers the value associated with the variable name
+	 */
+	public Object getVariable(String variableName);
 
 	/*
 	 * Sets the attribute on the node (obtained by resolving the nodeExpression) to
@@ -101,7 +111,8 @@ public interface IGramarContext {
 	public DefinedTag getTagDef(String namespace, String tagName) throws GramarException;
 
 	/*
-	 * Answers the tag handler with the given name from the extension associated with the given namespace
+	 * Answers the tag handler with the given name from the extension associated with the given namespace.
+	 * Each call to this method returns a new instance of the tag handler class.
 	 */
 	public ICustomTagHandler getTagHandler(String namespace, String tagName) throws GramarException;
 

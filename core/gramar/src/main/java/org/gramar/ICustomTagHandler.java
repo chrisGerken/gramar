@@ -22,4 +22,6 @@ public interface ICustomTagHandler {
 
 	public void setAttributes(HashMap<String, String> attributes);
 
+	public ICustomTagHandler parentNamed(String name);
+
 }

@@ -19,7 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 
-public abstract class AbstractTemplatingExtension implements ITemplatingExtension {
+public abstract class TemplatingExtension implements ITemplatingExtension {
 
 	/*
 	 * The extension ID in the form of a java package name.
@@ -53,12 +53,12 @@ public abstract class AbstractTemplatingExtension implements ITemplatingExtensio
 	 
 	public static final String META_FILE_NAME = "extension.config";
 	
-	public AbstractTemplatingExtension(String id, ArrayList<DefinedFunction> functions) {
+	public TemplatingExtension(String id, ArrayList<DefinedFunction> functions) {
 		this.extensionId = id;
 		this.functions = functions;
 	}
 	
-	public AbstractTemplatingExtension(String extensionID) throws InvalidTemplateExtensionException {
+	public TemplatingExtension(String extensionID) throws InvalidTemplateExtensionException {
 		this.extensionId = extensionID;
 		loadMeta();
 	}

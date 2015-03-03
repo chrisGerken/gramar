@@ -106,5 +106,18 @@ public abstract class TagHandler implements ICustomTagHandler {
 		processChildren(stream, context);
 		return stream;
 	}
+	
+	/*
+	 * Answers the first parent (direct or indirect) with the given tag name
+	 */
+	public ICustomTagHandler parentNamed(String name) {
+		if (getTagName().equalsIgnoreCase(name)) {
+			return this;
+		} else if (getParent() == null) {
+			return null;
+		} else {
+			return getParent().parentNamed(name);
+		}
+	}
 
 }
