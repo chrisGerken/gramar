@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
 
 
 /**

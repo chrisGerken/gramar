@@ -1,7 +1,7 @@
 package org.gramar.tag;
 
 import org.gramar.IGramarContext;
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
 
 
 public abstract class BodyTagHandler extends TagHandler {

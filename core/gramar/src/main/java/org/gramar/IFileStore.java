@@ -6,7 +6,7 @@ import java.io.Reader;
 import java.util.List;
 
 import org.gramar.exception.NoSuchResourceException;
-import org.gramar.filestore.UpdateResource;
+import org.gramar.resource.UpdateResource;
 
 
 /**

@@ -10,7 +10,7 @@ import org.gramar.ast.SourceRegion;
 import org.gramar.ast.TagInfo;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.IllFormedTemplateException;
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
 
 
 public abstract class TagHandler implements ITagHandler {

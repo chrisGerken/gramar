@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.gramar.ast.SourceRegion;
 import org.gramar.exception.GramarException;
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
 
 
 public interface ITagHandler {

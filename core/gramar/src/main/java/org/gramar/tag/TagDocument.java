@@ -6,7 +6,7 @@ import org.gramar.ast.Parser;
 import org.gramar.ast.SourceRegion;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.IllFormedTemplateException;
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
 
 
 public class TagDocument extends TagHandler {

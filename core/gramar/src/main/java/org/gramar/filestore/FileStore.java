@@ -7,6 +7,7 @@ import java.util.List;
 import org.gramar.IFileStore;
 import org.gramar.IGramarContext;
 import org.gramar.exception.NoSuchResourceException;
+import org.gramar.resource.UpdateResource;
 
 public abstract class FileStore implements IFileStore {
 

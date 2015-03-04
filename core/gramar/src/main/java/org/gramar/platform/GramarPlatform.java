@@ -23,7 +23,7 @@ import org.gramar.exception.NoFileStoreSpecifiedException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplateException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
 
 
 public abstract class GramarPlatform implements IGramarPlatform {

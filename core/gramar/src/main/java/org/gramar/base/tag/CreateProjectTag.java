@@ -2,8 +2,8 @@ package org.gramar.base.tag;
 
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
-import org.gramar.filestore.MergeStream;
-import org.gramar.filestore.UpdateProject;
+import org.gramar.resource.MergeStream;
+import org.gramar.resource.UpdateProject;
 import org.gramar.tag.TagHandler;
 
 

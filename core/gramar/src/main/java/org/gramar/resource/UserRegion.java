@@ -1,4 +1,4 @@
-package org.gramar.filestore;
+package org.gramar.resource;
 
 public class UserRegion {
 
@@ -27,6 +27,22 @@ public class UserRegion {
 
 	public void markInitialCodeEnd() {
 		initialCodeEnd = stream.position();
+	}
+
+	public int getUserRegionStart() {
+		return userRegionStart;
+	}
+
+	public int getInitialCodeStart() {
+		return initialCodeStart;
+	}
+
+	public int getInitialCodeEnd() {
+		return initialCodeEnd;
+	}
+
+	public int getUserRegionEnd() {
+		return userRegionEnd;
 	}
 
 	

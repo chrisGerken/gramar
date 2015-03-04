@@ -3,8 +3,8 @@ package org.gramar.base.tag;
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.ITemplate;
-import org.gramar.filestore.UpdateFile;
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
+import org.gramar.resource.UpdateFile;
 import org.gramar.tag.TagHandler;
 
 

@@ -1,9 +1,11 @@
-package org.gramar.filestore;
+package org.gramar.resource;
 
 import java.io.IOException;
+import java.io.Reader;
 
 import org.gramar.IFileStore;
 import org.gramar.exception.NoSuchResourceException;
+import org.gramar.util.GramarHelper;
 
 public class UpdateFile extends UpdateResource {
 	
@@ -17,6 +19,15 @@ public class UpdateFile extends UpdateResource {
 	@Override
 	public void execute(IFileStore store) throws NoSuchResourceException, IOException {
 
+		Reader reader = store.getFileContent(path);
+		if ((content.hasUserRegions()) && (reader != null)) {
+			
+			String prev = GramarHelper.asString(reader);
+			
+			content = content.saveRegionChanges(prev);
+			
+		}
+		
 		store.setFileContent(path, content.asReader());
 	}
 	

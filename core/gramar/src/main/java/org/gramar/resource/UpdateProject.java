@@ -1,4 +1,4 @@
-package org.gramar.filestore;
+package org.gramar.resource;
 
 import java.io.IOException;
 

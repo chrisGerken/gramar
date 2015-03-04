@@ -2,7 +2,7 @@ package org.gramar;
 
 import java.io.IOException;
 
-import org.gramar.filestore.MergeStream;
+import org.gramar.resource.MergeStream;
 import org.gramar.tag.TagDocument;
 
 

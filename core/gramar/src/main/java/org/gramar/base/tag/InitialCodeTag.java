@@ -2,8 +2,8 @@ package org.gramar.base.tag;
 
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
-import org.gramar.filestore.MergeStream;
-import org.gramar.filestore.UserRegion;
+import org.gramar.resource.MergeStream;
+import org.gramar.resource.UserRegion;
 import org.gramar.tag.TagHandler;
 
 public class InitialCodeTag extends TagHandler implements ITagHandler {
