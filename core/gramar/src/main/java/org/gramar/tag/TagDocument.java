@@ -1,6 +1,6 @@
 package org.gramar.tag;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.ast.Parser;
 import org.gramar.ast.SourceRegion;
@@ -23,7 +23,7 @@ public class TagDocument extends TagHandler {
 	@Override
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 
-		for (ICustomTagHandler child: children) {
+		for (ITagHandler child: children) {
 			child.mergeTo(stream, context);
 		}
 		
@@ -38,7 +38,7 @@ public class TagDocument extends TagHandler {
 		
 		// Variable current always points to the Tag in the DOM that will process the 
 		// next source region
-		ICustomTagHandler current = doc;
+		ITagHandler current = doc;
 		
 		for (SourceRegion sr: region) {
 			current = current.glomUsing(sr, context);

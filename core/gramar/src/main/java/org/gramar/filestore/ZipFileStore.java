@@ -2,10 +2,9 @@ package org.gramar.filestore;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -29,14 +28,14 @@ public class ZipFileStore extends FileStore implements IFileStore {
 	}
 
 	@Override
-	public InputStream getFileContent(String path) throws NoSuchResourceException {
+	public Reader getFileContent(String path) throws NoSuchResourceException {
 		return null;
 	}
 
 	@Override
-	public void setFileContent(String path, InputStream is) throws NoSuchResourceException, IOException {
+	public void setFileContent(String path, Reader reader) throws NoSuchResourceException, IOException {
 		zos.putNextEntry(new ZipEntry(path));
-		GramarHelper.copy(is, zos);
+		GramarHelper.copy(reader, zos);
 		zos.closeEntry();
 	}
 

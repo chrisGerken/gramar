@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.ast.SourceRegion;
 import org.gramar.ast.TagInfo;
@@ -13,10 +13,10 @@ import org.gramar.exception.IllFormedTemplateException;
 import org.gramar.filestore.MergeStream;
 
 
-public abstract class TagHandler implements ICustomTagHandler {
+public abstract class TagHandler implements ITagHandler {
 
-	protected ICustomTagHandler parent;
-	protected ArrayList<ICustomTagHandler> children = new ArrayList<ICustomTagHandler>();
+	protected ITagHandler parent;
+	protected ArrayList<ITagHandler> children = new ArrayList<ITagHandler>();
 	protected HashMap<String, String> attributes;
 	
 	public TagHandler() {
@@ -24,13 +24,13 @@ public abstract class TagHandler implements ICustomTagHandler {
 	}
 
 	@Override
-	public ICustomTagHandler glomUsing(SourceRegion region, IGramarContext context) throws GramarException {
+	public ITagHandler glomUsing(SourceRegion region, IGramarContext context) throws GramarException {
 
 		if (region.isTag()) {
 			TagInfo info = region.getTagInfo();
 			String namespace = info.getNamespace();
 			String tagName = info.getTagName();
-			ICustomTagHandler handler = context.getTagHandler(namespace, tagName);
+			ITagHandler handler = context.getTagHandler(namespace, tagName);
 			handler.setAttributes(region.getAttributes());
 			handler.setParent(this);
 			addChild(handler);
@@ -44,7 +44,7 @@ public abstract class TagHandler implements ICustomTagHandler {
 			TagInfo info = region.getTagInfo();
 			String namespace = info.getNamespace();
 			String tagName = info.getTagName();
-			ICustomTagHandler handler = context.getTagHandler(namespace, tagName);
+			ITagHandler handler = context.getTagHandler(namespace, tagName);
 			handler.setAttributes(region.getAttributes());
 			handler.setParent(this);
 			addChild(handler);
@@ -63,20 +63,20 @@ public abstract class TagHandler implements ICustomTagHandler {
 
 	public abstract String getTagName();
 
-	private void addChild(ICustomTagHandler handler) {
+	private void addChild(ITagHandler handler) {
 		children.add(handler);
 	}
 
 	@Override
-	public List<ICustomTagHandler> getChildren() {
+	public List<ITagHandler> getChildren() {
 		return children;
 	}
 
-	public ICustomTagHandler getParent() {
+	public ITagHandler getParent() {
 		return parent;
 	}
 
-	public void setParent(ICustomTagHandler parent) {
+	public void setParent(ITagHandler parent) {
 		this.parent = parent;
 	}
 
@@ -92,7 +92,7 @@ public abstract class TagHandler implements ICustomTagHandler {
 	 * Merge all of the receiver's child handlers with the given stream
 	 */
 	public void processChildren(MergeStream stream, IGramarContext context) {
-		for (ICustomTagHandler child: children) {
+		for (ITagHandler child: children) {
 			child.mergeTo(stream, context);
 		}
 	}
@@ -110,7 +110,7 @@ public abstract class TagHandler implements ICustomTagHandler {
 	/*
 	 * Answers the first parent (direct or indirect) with the given tag name
 	 */
-	public ICustomTagHandler parentNamed(String name) {
+	public ITagHandler parentNamed(String name) {
 		if (getTagName().equalsIgnoreCase(name)) {
 			return this;
 		} else if (getParent() == null) {

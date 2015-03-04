@@ -1,17 +1,14 @@
 package org.gramar.filestore;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
-
-import org.gramar.util.GramarHelper;
 
 
 public class MergeStream {
 
-	private ByteArrayOutputStream stream = new ByteArrayOutputStream(2000);
+	private StringBuilder builder = new StringBuilder(2000);
 	
 	private ArrayList<UserRegion> userRegions = new ArrayList<UserRegion>();
 	
@@ -20,26 +17,22 @@ public class MergeStream {
 	}
 	
 	public void append(String content) throws IOException {
-		stream.write(content.getBytes());
+		builder.append(content);
 	}
 	
 	public void addUserRegion(UserRegion userRegion) {
 		userRegions.add(userRegion);
 	}
 
-	public InputStream asInputStream() {
-		return new ByteArrayInputStream(stream.toByteArray());
+	public Reader asReader() {
+		return new StringReader(builder.toString());
 	}
 	
 	public String toString() {
-		try {
-			return GramarHelper.asString(asInputStream());
-		} catch (IOException e) {
-			return e.toString();
-		}
+		return builder.toString();
 	}
 
 	public int position() {
-		return stream.size();
+		return builder.length();
 	}
 }

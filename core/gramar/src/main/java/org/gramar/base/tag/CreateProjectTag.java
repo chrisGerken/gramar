@@ -1,13 +1,13 @@
 package org.gramar.base.tag;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.filestore.MergeStream;
 import org.gramar.filestore.UpdateProject;
 import org.gramar.tag.TagHandler;
 
 
-public class CreateProjectTag extends TagHandler implements ICustomTagHandler {
+public class CreateProjectTag extends TagHandler implements ITagHandler {
 
 	public CreateProjectTag() {
 

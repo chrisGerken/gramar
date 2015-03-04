@@ -2,6 +2,7 @@ package org.gramar.filestore;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.List;
 
 import org.gramar.IFileStore;
@@ -24,14 +25,14 @@ public class ConsoleFileStore extends FileStore implements IFileStore {
 	}
 
 	@Override
-	public InputStream getFileContent(String path) throws NoSuchResourceException {
+	public Reader getFileContent(String path) throws NoSuchResourceException {
 		return null;
 	}
 
 	@Override
-	public void setFileContent(String path, InputStream is) throws NoSuchResourceException {
+	public void setFileContent(String path, Reader reader) throws NoSuchResourceException {
 		try {
-			String content = GramarHelper.asString(is);
+			String content = GramarHelper.asString(reader);
 			System.out.println("\n\nPath: "+path+"\n\n"+content);
 		} catch (IOException e) {
 			e.printStackTrace();

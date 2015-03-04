@@ -2,7 +2,7 @@ package org.gramar.tag;
 
 import java.io.IOException;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.filestore.MergeStream;
 
@@ -18,7 +18,7 @@ public class StaticTextTag extends TagHandler {
 
 		private String content;
 		
-	public StaticTextTag(ICustomTagHandler parent, String content) {
+	public StaticTextTag(ITagHandler parent, String content) {
 		this.content = content;
 		this.parent = parent;
 	}

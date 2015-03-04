@@ -2,6 +2,7 @@ package org.gramar;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.List;
 
 import org.gramar.exception.NoSuchResourceException;
@@ -20,13 +21,13 @@ public interface IFileStore {
 	 * Retrieve the content of the specified file.  The path is assumed to start at
 	 * a project within the file store. 
 	 */
-	public InputStream getFileContent(String path) throws NoSuchResourceException;
+	public Reader getFileContent(String path) throws NoSuchResourceException;
 	
 	/*
 	 * Store the content of the specified file.  The path is assumed to start at
 	 * a project within the file store. 
 	 */
-	public void setFileContent(String path, InputStream is) throws NoSuchResourceException, IOException;
+	public void setFileContent(String path, Reader reader) throws NoSuchResourceException, IOException;
 	
 	/*
 	 * Answers a boolean indicating that the resource at the given path exists (true) or

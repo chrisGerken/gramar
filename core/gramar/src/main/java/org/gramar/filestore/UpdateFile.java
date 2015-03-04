@@ -17,7 +17,7 @@ public class UpdateFile extends UpdateResource {
 	@Override
 	public void execute(IFileStore store) throws NoSuchResourceException, IOException {
 
-		store.setFileContent(path, content.asInputStream());
+		store.setFileContent(path, content.asReader());
 	}
 	
 	public String toString() {

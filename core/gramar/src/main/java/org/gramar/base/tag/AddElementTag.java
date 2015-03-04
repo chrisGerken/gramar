@@ -1,13 +1,13 @@
 package org.gramar.base.tag;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.filestore.MergeStream;
 import org.gramar.tag.TagHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class AddElementTag extends TagHandler implements ICustomTagHandler {
+public class AddElementTag extends TagHandler implements ITagHandler {
 
 	public AddElementTag() {
 

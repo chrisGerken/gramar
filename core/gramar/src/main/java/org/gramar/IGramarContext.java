@@ -114,7 +114,7 @@ public interface IGramarContext {
 	 * Answers the tag handler with the given name from the extension associated with the given namespace.
 	 * Each call to this method returns a new instance of the tag handler class.
 	 */
-	public ICustomTagHandler getTagHandler(String namespace, String tagName) throws GramarException;
+	public ITagHandler getTagHandler(String namespace, String tagName) throws GramarException;
 
 	/*
 	 * Answers the xpath function that best matches the given name and arity from the extension associated

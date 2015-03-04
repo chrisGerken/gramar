@@ -8,20 +8,20 @@ import org.gramar.exception.GramarException;
 import org.gramar.filestore.MergeStream;
 
 
-public interface ICustomTagHandler {
+public interface ITagHandler {
 
 	public void mergeTo(MergeStream stream, IGramarContext context);
 	
-	public ICustomTagHandler getParent();
+	public ITagHandler getParent();
 	
-	public List<ICustomTagHandler> getChildren();
+	public List<ITagHandler> getChildren();
 
-	public ICustomTagHandler glomUsing(SourceRegion region, IGramarContext context) throws GramarException;
+	public ITagHandler glomUsing(SourceRegion region, IGramarContext context) throws GramarException;
 
-	public void setParent(ICustomTagHandler parent);
+	public void setParent(ITagHandler parent);
 
 	public void setAttributes(HashMap<String, String> attributes);
 
-	public ICustomTagHandler parentNamed(String name);
+	public ITagHandler parentNamed(String name);
 
 }

@@ -2,7 +2,7 @@ package org.gramar.ast;
 
 import java.util.ArrayList;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;

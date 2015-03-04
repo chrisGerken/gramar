@@ -1,13 +1,13 @@
 package org.gramar.base.tag;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.filestore.UpdateFolder;
 import org.gramar.filestore.MergeStream;
 import org.gramar.tag.TagHandler;
 
 
-public class CreateFolderTag extends TagHandler implements ICustomTagHandler {
+public class CreateFolderTag extends TagHandler implements ITagHandler {
 
 	public CreateFolderTag() {
 

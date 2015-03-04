@@ -4,13 +4,13 @@ import java.io.IOException;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.filestore.MergeStream;
 import org.gramar.tag.TagHandler;
 import org.w3c.dom.Node;
 
-public class IterateTag extends TagHandler implements ICustomTagHandler {
+public class IterateTag extends TagHandler implements ITagHandler {
 
 	public IterateTag() {
 

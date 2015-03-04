@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import javax.xml.xpath.XPathFunction;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.ITemplatingExtension;
 import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;
@@ -138,15 +138,15 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 	}
 
 	@Override
-	public ICustomTagHandler getCustomTagHandler(String tagName) throws NoSuchCustomTagException {
+	public ITagHandler getCustomTagHandler(String tagName) throws NoSuchCustomTagException {
 		DefinedTag dt = tags.get(tagName);
 		if (dt == null) {
 			throw new NoSuchCustomTagException();
 		}
 		ClassLoader loader = ClassLoader.getSystemClassLoader();
-		ICustomTagHandler handler;
+		ITagHandler handler;
 		try {
-			handler = (ICustomTagHandler) loader.loadClass(dt.getFQClassName()).newInstance();
+			handler = (ITagHandler) loader.loadClass(dt.getFQClassName()).newInstance();
 		} catch (Exception e) {
 			throw new NoSuchCustomTagException(e);
 		}

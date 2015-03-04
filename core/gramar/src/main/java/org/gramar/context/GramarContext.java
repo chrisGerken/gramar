@@ -9,7 +9,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFunction;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IFileStore;
 import org.gramar.IGramar;
 import org.gramar.IGramarContext;
@@ -207,7 +207,7 @@ public class GramarContext implements IGramarContext {
 	}
 
 	@Override
-	public ICustomTagHandler getTagHandler(String namespace, String tagName) throws GramarException {
+	public ITagHandler getTagHandler(String namespace, String tagName) throws GramarException {
 		
 		ITemplatingExtension extension = extensionForNamespace(namespace);
 		return extension.getCustomTagHandler(tagName);

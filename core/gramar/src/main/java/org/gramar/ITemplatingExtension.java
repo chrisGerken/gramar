@@ -23,7 +23,7 @@ public interface ITemplatingExtension {
 
 	public DefinedTag getTagDef(String tagName) throws NoSuchCustomTagException;
 	
-	public ICustomTagHandler getCustomTagHandler(String tagName) throws NoSuchCustomTagException;
+	public ITagHandler getCustomTagHandler(String tagName) throws NoSuchCustomTagException;
 
 	public boolean hasCustomTagHandler(String tagName);
 	

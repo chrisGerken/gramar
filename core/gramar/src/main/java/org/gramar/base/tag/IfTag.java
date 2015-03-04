@@ -2,13 +2,13 @@ package org.gramar.base.tag;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.filestore.MergeStream;
 import org.gramar.tag.TagHandler;
 import org.w3c.dom.Node;
 
-public class IfTag extends TagHandler implements ICustomTagHandler {
+public class IfTag extends TagHandler implements ITagHandler {
 
 	public IfTag() {
 

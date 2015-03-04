@@ -2,7 +2,7 @@ package org.gramar.ast;
 
 import java.util.StringTokenizer;
 
-import org.gramar.ICustomTagHandler;
+import org.gramar.ITagHandler;
 import org.gramar.extension.DefinedTag;
 
 
