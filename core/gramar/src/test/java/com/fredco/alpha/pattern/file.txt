@@ -1,16 +1,19 @@
 
-.before.
-<c:iterate select="/root/fred" var="fred3" >
-.during.
-</c:iterate>
-.after.
 
-This is the boilerplate text for <c:get select="$fred/@color" />.  Please
-use it with care.
+Fred ID: <c:get select="$fred/@id" />
 
-Upper case: <c:get select=" c:uppercaseFirst($fred/@color) " />
+Color:   <c:get select="$fred/@color" />
 
-<x:log severity="info">This is how we log roll</x:log>
+abc<c:userRegion>def<c:initialCode>ghi
+
+Changes made to this line are kept
+
+jkl</c:initialCode>mno</c:userRegion>pqr
+
+
+Upper case first: <c:get select=" c:uppercaseFirst($fred/@color) " />
+
+<x:log severity="info">This is not a tag</x:log>
 
 <c:get select="/root/wanda/fish" />
 

@@ -99,10 +99,14 @@ public class SourceRegion {
 			}
 			if (isTag() | isEmptyTag()) {
 				int index = content.indexOf(" "); 
-				String buf = content.substring(index);
-				index = Math.max(buf.lastIndexOf("\""), buf.lastIndexOf("'")) + 1;
-				buf = buf.substring(0,index);
-				attrs = attributesFrom(buf);
+				if (index > -1) {
+					String buf = content.substring(index);
+					index = Math.max(buf.lastIndexOf("\""), buf.lastIndexOf("'")) + 1;
+					buf = buf.substring(0,index);
+					attrs = attributesFrom(buf);
+				} else {
+					attrs = new HashMap<String, String>();
+				}
 			}
 		}
 		return attrs;

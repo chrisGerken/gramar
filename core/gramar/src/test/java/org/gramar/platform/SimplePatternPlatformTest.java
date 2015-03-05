@@ -7,6 +7,7 @@ import org.gramar.IGramarPlatform;
 import org.gramar.IModel;
 import org.gramar.exception.GramarException;
 import org.gramar.filestore.ConsoleFileStore;
+import org.gramar.filestore.MemoryFileStore;
 import org.gramar.filestore.ZipFileStore;
 import org.gramar.model.DocumentHelper;
 import org.junit.Test;
@@ -37,12 +38,11 @@ public class SimplePatternPlatformTest {
 		try {
 			
 			IGramarPlatform platform = new SimpleGramarPlatform();
-			ZipFileStore store = new ZipFileStore();
+			MemoryFileStore store = new MemoryFileStore();
 			IModel model = DocumentHelper.modelFromResource("/models/simple01.xml");
 			
 			platform.apply(model, "com.fredco.alpha.pattern", store);
 			
-			store.writeZipFile("/home/chrisgerken/fred.zip");
 		} catch (GramarException e) {
 			fail(e.toString());
 		}
