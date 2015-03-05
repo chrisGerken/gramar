@@ -45,7 +45,7 @@ public interface IFileStore {
 	public void createFolder(String pathName) throws NoSuchResourceException, IOException;
 	
 	/*
-	 * Initialize to prepare for gramar application
+	 * Initialize to prepare for gramar application.  Does not change the state of any resources.
 	 */
 	public void reset();
 	

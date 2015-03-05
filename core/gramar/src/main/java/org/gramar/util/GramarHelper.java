@@ -1,8 +1,10 @@
 package org.gramar.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
@@ -44,6 +46,14 @@ public class GramarHelper {
 		StringWriter writer = new StringWriter();
 		copy(reader,writer);
 		os.write(writer.toString().getBytes());
+	}
+
+	public static Reader fromResource(String path) throws IOException {
+		InputStream stream = GramarHelper.class.getResourceAsStream(path);
+		if (stream == null) { 
+			stream = new ByteArrayInputStream(new byte[0]); 
+		}
+		return new InputStreamReader(stream);
 	}
 
 }

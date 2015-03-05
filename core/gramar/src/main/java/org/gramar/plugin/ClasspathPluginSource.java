@@ -12,14 +12,15 @@ import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
-import org.gramar.extension.TemplatingExtension;
 import org.gramar.extension.ClasspathTemplatingExtension;
+import org.gramar.extension.TemplatingExtension;
 import org.gramar.gramar.ClasspathGramar;
 import org.gramar.gramar.ClasspathZipGramar;
 import org.gramar.gramar.Gramar;
-import org.gramar.gramar.ZipGrammar;
 
-
+/*
+ * An implementation of IPluginSource that searches the classpath for gramars and extensions
+ */
 public class ClasspathPluginSource extends PluginSource implements IPluginSource {
 
 	public ClasspathPluginSource() {

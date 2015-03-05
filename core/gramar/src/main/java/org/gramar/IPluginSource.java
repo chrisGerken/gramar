@@ -6,8 +6,11 @@ import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 
-/*
- * An object that can list its available IPatterns and return an IPattern by name
+/**
+ * Represents a means by which gramars and extensions can be located and retrieved.
+ * 
+ * @author chrisgerken
+ *
  */
 public interface IPluginSource {
 

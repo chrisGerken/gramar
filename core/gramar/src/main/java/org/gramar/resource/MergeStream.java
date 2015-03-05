@@ -59,11 +59,11 @@ public class MergeStream {
 		for (UserRegion region: userRegions) {
 			
 			// Write unwritten content up to the start of the initial code
-			updated.append(pure.substring(written,region.getInitialCodeStart()+1));
+			updated.append(pure.substring(written,region.getInitialCodeStart()));
 			
 			// get the before and after eye catchers
-			String before = pure.substring(region.getUserRegionStart()+1, region.getInitialCodeStart()+1);
-			String after = pure.substring(region.getInitialCodeEnd()+1, region.getUserRegionEnd()+1);
+			String before = pure.substring(region.getUserRegionStart(), region.getInitialCodeStart());
+			String after = pure.substring(region.getInitialCodeEnd(), region.getUserRegionEnd());
 			
 			// look for the strings in the previous revision of the resource
 			int beforeIndex = prev.indexOf(before);
@@ -72,9 +72,9 @@ public class MergeStream {
 			if (beforeIndex > -1) {
 				afterIndex = prev.indexOf(after, beforeIndex);
 				if (afterIndex > -1) {
-					String previousCode = prev.substring(beforeIndex+before.length()+1,afterIndex);
+					String previousCode = prev.substring(beforeIndex+before.length(),afterIndex);
 					updated.append(previousCode);
-					written = region.getInitialCodeEnd() + 1;
+					written = region.getInitialCodeEnd();
 				}
 			}
 			
