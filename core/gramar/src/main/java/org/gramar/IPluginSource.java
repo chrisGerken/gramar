@@ -14,19 +14,19 @@ import org.gramar.exception.NoSuchTemplatingExtensionException;
  */
 public interface IPluginSource {
 
-	/*
+	/**
 	 * Return an array of String id's for the available IPatterns.  Some implementations
 	 * may not be able to answer this request.  In these case, callers must know the 
 	 * desired patternId.
 	 */
 	public String[] list();
 
-	/*
+	/**
 	 * Return an array of available IPatterns.
 	 */
 	public IGramar[] patterns();
 	
-	/*
+	/**
 	 * Return an IPattern with the given id
 	 * 
 	 * A pattern is a collection of text templates and a property file.  It can be persisted 
@@ -35,12 +35,12 @@ public interface IPluginSource {
 	 */
 	public IGramar getPattern(String patternId) throws NoSuchGramarException, InvalidGramarException;
 	
-	/*
+	/**
 	 * Return the templating extension with the given id
 	 */
 	public ITemplatingExtension getTemplatingExtension(String extensionId) throws NoSuchTemplatingExtensionException, InvalidTemplateExtensionException;
 
-	/*
+	/**
 	 * Return the file store with the given id
 	 */
 	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;

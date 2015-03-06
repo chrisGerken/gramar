@@ -6,22 +6,23 @@ import java.io.InputStream;
 import org.gramar.IGramar;
 import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.NoSuchResourceException;
-import org.gramar.plugin.ClasspathPluginSource;
 import org.gramar.util.GramarHelper;
-
+import org.gramar.util.JarLoaders;
 
 /**
- * An implementation of IGramar representing a gramar whose resources are stored as individual 
- * files in the classpath.  All files are found in or under the package with the
- * same name as the gramar ID. 
+ * An implementation of IGramar representing a gramar whose resources are stored within a jar 
+ * file.  All files are found in or under the package with the same name as the gramar ID. 
  */
-public class ClasspathGramar extends Gramar implements IGramar {
+public class JarGramar extends Gramar implements IGramar {
 
+	private String jarPath;
+	
 	/**
 	 * Construct a Gramar object representing the pattern with ID patternID 
 	 */
-	public ClasspathGramar(String gramarId) throws InvalidGramarException {
+	public JarGramar(String gramarId, String jarPath) throws InvalidGramarException {
 		this.gramarId = gramarId;
+		this.jarPath = jarPath;
 		loadMeta();
 	}
 
@@ -36,8 +37,8 @@ public class ClasspathGramar extends Gramar implements IGramar {
 
 		try {
 			String pkg = gramarId.replace('.', '/');
-			String resource = "/" + pkg + "/" + id;
-			InputStream is = ClasspathPluginSource.class.getResourceAsStream(resource);
+			String resource =  pkg + "/" + id;
+			InputStream is = JarLoaders.loaderFor(jarPath).getResourceAsStream(resource);
 			return GramarHelper.asString(is);
 		} catch (IOException e) {
 			throw new NoSuchResourceException(e);

@@ -1,18 +1,16 @@
 package org.gramar.plugin;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 import org.gramar.IFileStore;
 import org.gramar.IGramar;
 import org.gramar.IPluginSource;
 import org.gramar.ITemplatingExtension;
-import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
+import org.gramar.gramar.JarGramar;
 import org.gramar.gramar.ZipFileGramar;
-import org.gramar.gramar.ZipGrammar;
 
 
 public class FileSystemPluginSource extends PluginSource implements IPluginSource {
@@ -43,10 +41,22 @@ public class FileSystemPluginSource extends PluginSource implements IPluginSourc
 			} else if (f.isFile()) {
 				int offset = name.lastIndexOf(".");
 				if (offset > -1) {
+					String allegedId = name.substring(0, offset);
 					String type = name.substring(offset+1);
-					if (type.equals("arch")) {
+					if (type.equals("zip")) {
 						try {
 							IGramar pattern = new ZipFileGramar(f);
+							String id = pattern.getId();
+							if (!map.containsKey(id)) {
+								map.put(pattern.getId(), pattern);
+							}
+						} catch (Exception e) {
+
+						}
+					}
+					if (type.equals("jar")) {
+						try {
+							IGramar pattern = new JarGramar(allegedId,f.getAbsolutePath());
 							String id = pattern.getId();
 							if (!map.containsKey(id)) {
 								map.put(pattern.getId(), pattern);

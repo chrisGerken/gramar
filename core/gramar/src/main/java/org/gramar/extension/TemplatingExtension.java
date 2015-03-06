@@ -1,7 +1,6 @@
 package org.gramar.extension;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,10 +8,8 @@ import javax.xml.xpath.XPathFunction;
 
 import org.gramar.ITagHandler;
 import org.gramar.ITemplatingExtension;
-import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchCustomTagException;
-import org.gramar.gramar.TagLibSpec;
 import org.gramar.model.DocumentHelper;
 import org.gramar.model.ModelAccess;
 import org.w3c.dom.Document;
@@ -21,12 +18,12 @@ import org.w3c.dom.Node;
 
 public abstract class TemplatingExtension implements ITemplatingExtension {
 
-	/*
+	/**
 	 * The extension ID in the form of a java package name.
 	 */
 	protected String extensionId;
 
-	/*
+	/**
 	 * The default abbreviation (namespace) to use when referencing specific
 	 * custom tags and xpath functions in this platform extension
 	 */
@@ -36,7 +33,7 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 	
 	protected String provider;
 	
-	/*
+	/**
 	 * A cache of XPath functions defined in this extension.  The functions are 
 	 * wrapped as a DefinedFunction which has a reference to the implementation
 	 * of the function as well as metadata about the function, including arity,
@@ -45,19 +42,20 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 	 */
 	protected ArrayList<DefinedFunction> functions = new ArrayList<DefinedFunction>();
 	
-	/*
+	/**
 	 * A cache of custom tag handlers defined in this extension, keyed by the name
 	 * of the tag each enables
 	 */
 	private HashMap<String,DefinedTag> tags = new HashMap<String,DefinedTag>();
 	 
 	public static final String META_FILE_NAME = "extension.config";
-	
-	public TemplatingExtension(String id, ArrayList<DefinedFunction> functions) {
-		this.extensionId = id;
-		this.functions = functions;
-	}
-	
+
+	/**
+	 * Constructs an extension with the given ID
+	 * 
+	 * @param extensionID
+	 * @throws InvalidTemplateExtensionException
+	 */
 	public TemplatingExtension(String extensionID) throws InvalidTemplateExtensionException {
 		this.extensionId = extensionID;
 		loadMeta();
@@ -102,9 +100,9 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 		}
 	}
 
-	protected abstract ClassLoader getExtensionClassloader();
+	protected abstract ClassLoader getExtensionClassloader() throws Exception;
 
-	protected abstract String getConfig() throws IOException;
+	protected abstract String getConfig() throws Exception;
 
 	public void addFunction(DefinedFunction definedFunction) {
 		functions.add(definedFunction);

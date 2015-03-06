@@ -26,7 +26,7 @@ public abstract class Gramar implements IGramar {
 	private HashMap<String, ITemplate> cache = new HashMap<String, ITemplate>();
 	private HashMap<String, String> sources = new HashMap<String, String>();
 
-	protected String patternId;
+	protected String gramarId;
 	protected String label;
 	protected String provider;
 	protected String mainTemplate;
@@ -40,7 +40,7 @@ public abstract class Gramar implements IGramar {
 
 	@Override
 	public String getId() {		
-		return patternId;
+		return gramarId;
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public abstract class Gramar implements IGramar {
 			String source = getTemplateSource(META_FILE_NAME);
 			Document doc = DocumentHelper.buildModel(source);
 			
-			patternId = ModelAccess.getDefault().getText(doc, "/gramar/id");
+			gramarId = ModelAccess.getDefault().getText(doc, "/gramar/id");
 			label = ModelAccess.getDefault().getText(doc, "/gramar/label");
 			provider = ModelAccess.getDefault().getText(doc, "/gramar/provider");
 			mainTemplate = ModelAccess.getDefault().getText(doc, "/gramar/main");

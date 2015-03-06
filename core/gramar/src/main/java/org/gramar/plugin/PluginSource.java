@@ -10,7 +10,7 @@ import org.gramar.exception.NoSuchGramarException;
 
 public abstract class PluginSource implements IPluginSource {
 
-	private boolean autoRefresh = false;
+	protected boolean autoRefresh = true;
 	private HashMap<String, IGramar> cache = null;
 	
 	public PluginSource() {
