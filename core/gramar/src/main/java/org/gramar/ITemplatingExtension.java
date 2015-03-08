@@ -5,7 +5,15 @@ import javax.xml.xpath.XPathFunction;
 import org.gramar.exception.NoSuchCustomTagException;
 import org.gramar.extension.DefinedTag;
 
-
+/**
+ * Represents an object that extends the templating platform with tag handlers and/or
+ * XPath functions.  Platform extensions can be deployed in many ways and each deployment
+ * method requires an implementation of ITemplatingExtension to answer the extending tag
+ * handlers and XPath functions.
+ * 
+ * @author chrisgerken
+ *
+ */
 public interface ITemplatingExtension {
 
 	/*
@@ -26,5 +34,7 @@ public interface ITemplatingExtension {
 	public ITagHandler getCustomTagHandler(String tagName) throws NoSuchCustomTagException;
 
 	public boolean hasCustomTagHandler(String tagName);
+	
+	public Class loadClass(String fullyQualifiedName) throws ClassNotFoundException, Exception;
 	
 }

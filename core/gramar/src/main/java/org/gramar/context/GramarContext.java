@@ -98,6 +98,8 @@ public class GramarContext implements IGramarContext {
 	@Override
 	public String resolveExpressions(String pattern) throws XPathExpressionException {
 
+		if (pattern == null) { return null; }
+		
 		StringTokenizer st = new StringTokenizer(pattern, "{}", true);
 		ArrayList<String> tokens = new ArrayList<String>();
 		while (st.hasMoreTokens()) {
@@ -107,7 +109,7 @@ public class GramarContext implements IGramarContext {
 		boolean reduced = true;
 		while (reduced) {
 			reduced = false;
-			for (int t = 1; t < tokens.size()-2; t++) {
+			for (int t = 1; t < tokens.size()-1; t++) {
 				if (tokens.get(t-1).equals("{") & tokens.get(t+1).equals("}")) {
 					String result = resolveToString(tokens.get(t));
 					tokens.remove(t-1);

@@ -98,7 +98,10 @@ public class SourceRegion {
 				attrs = attributesFrom(buf);
 			}
 			if (isTag() | isEmptyTag()) {
-				int index = content.indexOf(" "); 
+				int index = 0;
+				while ((index<content.length()) && !Character.isWhitespace(content.charAt(index))) {
+					index++;
+				}
 				if (index > -1) {
 					String buf = content.substring(index);
 					index = Math.max(buf.lastIndexOf("\""), buf.lastIndexOf("'")) + 1;

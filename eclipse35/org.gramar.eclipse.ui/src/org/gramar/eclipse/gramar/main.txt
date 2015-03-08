@@ -1,0 +1,11 @@
+
+
+
+<c:createProject  	path="{/gramar/@id}"  />
+
+<c:createFile	path="{/gramar/@id}/.gramar"  		template="templates/empty.txt"  />
+<c:createFile	path="{/gramar/@id}/main.txt"  		template="templates/empty.txt"  />
+<c:createFile	path="{/gramar/@id}/gramar.config"  template="templates/gramarConfig.txt"  />
+<c:createFile	path="{/gramar/@id}/templates/file.txt"  		template="templates/empty.txt"  />
+
+

@@ -40,7 +40,7 @@ public interface IFileStore {
 	 * altPath represents a store-dependent alternate or relative location to be used
 	 * in the creation of the project
 	 */
-	public void createProject(String projectName, String altPath) throws IOException;
+	public void createProject(String projectName, String altPath) throws Exception;
 	
 	public void createFolder(String pathName) throws NoSuchResourceException, IOException;
 	

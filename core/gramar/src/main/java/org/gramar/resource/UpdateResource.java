@@ -13,7 +13,7 @@ public abstract class UpdateResource implements Comparable<UpdateResource> {
 		this.path = path;
 	}
 	
-	public abstract void execute(IFileStore store) throws NoSuchResourceException, IOException;
+	public abstract void execute(IFileStore store) throws Exception;
 
 	@Override
 	public int compareTo(UpdateResource o) {

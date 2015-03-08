@@ -14,7 +14,7 @@ public class UpdateProject extends UpdateResource {
 	}
 
 	@Override
-	public void execute(IFileStore store) throws IOException {
+	public void execute(IFileStore store) throws Exception {
 
 		store.createProject(path, altPath);
 		

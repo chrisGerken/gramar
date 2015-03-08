@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.StringTokenizer;
 
 public class GramarHelper {
 	
@@ -19,6 +20,12 @@ public class GramarHelper {
 			os.write(b, 0, len);
 			len = is.read(b);
 		}
+	}
+	
+	public static InputStream asStream(Reader reader) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(4000);
+		copy(reader, baos);
+		return new ByteArrayInputStream(baos.toByteArray());
 	}
 	
 	public static String asString(InputStream is) throws IOException {
@@ -54,6 +61,15 @@ public class GramarHelper {
 			stream = new ByteArrayInputStream(new byte[0]); 
 		}
 		return new InputStreamReader(stream);
+	}
+	
+	public static String[] pathSegments(String path) {
+		StringTokenizer st = new StringTokenizer(path, "/\\");
+		String segment[] = new String[st.countTokens()];
+		for (int s = 0; s < segment.length; s++) {
+			segment[s] = st.nextToken();
+		}
+		return segment;
 	}
 
 }

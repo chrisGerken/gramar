@@ -24,7 +24,7 @@ public class ClasspathTemplatingExtension extends TemplatingExtension {
 
 	@Override
 	protected ClassLoader getExtensionClassloader() {
-		return ClassLoader.getSystemClassLoader();
+		return ClasspathTemplatingExtension.class.getClassLoader();
 	}
 
 }

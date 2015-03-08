@@ -102,6 +102,11 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 
 	protected abstract ClassLoader getExtensionClassloader() throws Exception;
 
+	@Override
+	public Class loadClass(String fullyQualifiedName) throws ClassNotFoundException, Exception {
+		return getExtensionClassloader().loadClass(fullyQualifiedName);
+	}
+
 	protected abstract String getConfig() throws Exception;
 
 	public void addFunction(DefinedFunction definedFunction) {
@@ -141,9 +146,9 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 		if (dt == null) {
 			throw new NoSuchCustomTagException();
 		}
-		ClassLoader loader = ClassLoader.getSystemClassLoader();
 		ITagHandler handler;
 		try {
+			ClassLoader loader = getExtensionClassloader();
 			handler = (ITagHandler) loader.loadClass(dt.getFQClassName()).newInstance();
 		} catch (Exception e) {
 			throw new NoSuchCustomTagException(e);
