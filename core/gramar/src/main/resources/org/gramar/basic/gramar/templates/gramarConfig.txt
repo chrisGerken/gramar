@@ -1,0 +1,14 @@
+<gramar>
+
+	<id><d:get select="/gramar/@id" /></id>
+	<label><d:get select="/gramar/@label" /></label>
+	<provider><d:get select="/gramar/@provider" /></provider>
+	<main>main.txt</main>
+
+	<taglibs>
+	
+		<taglib  prefix="c" extension="org.gramar.base" />
+		
+	</taglibs>
+
+</gramar>

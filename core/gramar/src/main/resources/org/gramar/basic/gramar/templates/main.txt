@@ -1,0 +1,14 @@
+
+
+
+Use the following tags to create resources:
+
+<c:createProject  path=""  />
+
+<c:createFolder  path=""   />
+
+<c:createFile    path=""  template="" />
+
+
+
+

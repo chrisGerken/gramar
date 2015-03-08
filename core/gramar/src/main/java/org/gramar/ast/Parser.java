@@ -48,6 +48,20 @@ public class Parser {
 				regions.add(region);
 				begin = end;
 
+			} else if (commentBeginsAt(source,begin+1)) {
+				int prevEnd = end;	
+				end = source.indexOf("--%>",begin);
+				if (end > -1) {
+					SourceRegion region = new SourceRegion(source.substring(prevEnd+1,begin),begin,end+2,SourceRegion.TYPE_COMMENT);
+					regions.add(region);
+					executeDirective(region);
+					begin = end + 1;
+				} else {
+					SourceRegion region = new SourceRegion(source.substring(end+3),end+1,source.length()-1,SourceRegion.TYPE_TEXT);
+					regions.add(region);
+					end = source.length() - 1;
+					begin = source.length();
+				}
 			} else if (directiveBeginsAt(source,begin+1)) {
 				int prevEnd = end;	
 				end = source.indexOf("%>",begin);
@@ -218,6 +232,14 @@ public class Parser {
 		
 		if (i >= source.length()) { return false; }
 		return (source.substring(i).startsWith("%@taglib"));
+	}
+	
+	private boolean commentBeginsAt(String source, int i) {
+		
+		//    <%--  comment  --%>
+		
+		if (i >= source.length()) { return false; }
+		return (source.substring(i).startsWith("%--"));
 	}
 
 	public boolean isCompressRegions() {

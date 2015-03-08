@@ -25,6 +25,7 @@ public class SourceRegion {
 	public static int TYPE_END_TAG   	= 2;
 	public static int TYPE_EMPTY_TAG	= 3;
 	public static int TYPE_DIRECTIVE 	= 4;
+	public static int TYPE_COMMENT   	= 5;
 	
 	private String content;
 	private int start;
@@ -89,7 +90,7 @@ public class SourceRegion {
 	 * 
 	 */
 	public HashMap<String, String> getAttributes() {
-		if (isEndTag() | isText()) {
+		if (isEndTag() | isText() | isComment()) {
 			return new HashMap<String, String>();
 		}
 		if (attrs == null) {
@@ -163,6 +164,10 @@ public class SourceRegion {
 	
 	public boolean isDirective() {
 		return type == TYPE_DIRECTIVE;
+	}
+	
+	public boolean isComment() {
+		return type == TYPE_COMMENT;
 	}
 
 	public boolean closes(SourceRegion region) {
