@@ -23,4 +23,8 @@ public class UpdateFolder extends UpdateResource {
 		return "UpdateFolder:  " + path;
 	}
 
+	public String report() {
+		return "created folder "+path;
+	}
+
 }

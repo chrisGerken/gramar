@@ -1,9 +1,7 @@
 package org.gramar.resource;
 
-import java.io.IOException;
-
 import org.gramar.IFileStore;
-import org.gramar.exception.NoSuchResourceException;
+import org.gramar.util.GramarHelper;
 
 public abstract class UpdateResource implements Comparable<UpdateResource> {
 
@@ -20,4 +18,38 @@ public abstract class UpdateResource implements Comparable<UpdateResource> {
 		return path.compareTo(o.path);
 	}
 
+	public abstract String report();
+	
+	public String getProject() {
+		return GramarHelper.pathSegments(path)[0];
+	}
+	
+	public String getProjectRelativePath() {
+		StringBuffer sb = new StringBuffer();
+		String segment[] = GramarHelper.pathSegments(path);
+		String delim = "";
+		for (int i = 1; i < segment.length; i++) {
+			sb.append(delim);
+			delim = "/";
+			sb.append(segment[i]);
+		}
+		return sb.toString();
+	}
+	
+	public String getContainingFolder() {
+		StringBuffer sb = new StringBuffer();
+		String segment[] = GramarHelper.pathSegments(path);
+		String delim = "";
+		for (int i = 0; i < segment.length-1; i++) {
+			sb.append(delim);
+			delim = "/";
+			sb.append(segment[i]);
+		}
+		return sb.toString();
+	}
+	
+	public String getFileName() {
+		String segment[] = GramarHelper.pathSegments(path);
+		return segment[segment.length-1];
+	}
 }

@@ -27,6 +27,7 @@ public abstract class FileStore implements IFileStore {
 		for (UpdateResource ru: update) {
 			try {
 				ru.execute(this);
+				System.out.println(ru.report());
 			} catch (Exception e) {
 				context.error(e);
 			}

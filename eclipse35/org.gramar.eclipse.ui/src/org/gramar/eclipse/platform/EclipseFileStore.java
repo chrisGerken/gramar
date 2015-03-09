@@ -7,6 +7,7 @@ import java.io.Reader;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -53,6 +54,11 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 				}
 			} else {
 				current = current.getFolder(new Path(segment[s]));
+				try {
+					((IFolder)current).create(true, true, (IProgressMonitor)null);
+				} catch (CoreException e) {
+					throw new NoSuchResourceException(e);
+				}
 			}
 		}
 	}
@@ -94,6 +100,12 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 			if (file.exists()) {
 				file.setContents(is, true, true, (IProgressMonitor)null);
 			} else {
+				String segment[] = GramarHelper.pathSegments(path);
+				if (segment.length > 1) {
+					int index = path.lastIndexOf('/');
+					String prp = path.substring(0,index);
+					createFolder(prp);
+				}
 				file.create(is, true, (IProgressMonitor)null);
 			}
 		} catch (CoreException e) {

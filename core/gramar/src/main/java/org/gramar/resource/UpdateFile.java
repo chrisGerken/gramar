@@ -35,4 +35,7 @@ public class UpdateFile extends UpdateResource {
 		return "UpdateFile:    " + path;
 	}
 
+	public String report() {
+		return "created file "+path;
+	}
 }

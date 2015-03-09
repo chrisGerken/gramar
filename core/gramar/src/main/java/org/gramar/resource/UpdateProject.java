@@ -24,4 +24,8 @@ public class UpdateProject extends UpdateResource {
 		return "UpdateProject: " + path;
 	}
 
+	public String report() {
+		return "created project "+path;
+	}
+
 }
