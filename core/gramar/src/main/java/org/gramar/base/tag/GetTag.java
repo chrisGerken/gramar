@@ -21,7 +21,7 @@ public class GetTag extends TagHandler implements ITagHandler {
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 
 		try {
-			String select = getAttributes().get("select");
+			String select = getRawAttribute("select");
 			String value = context.resolveToString(select);
 			stream.append(value);
 		} catch (Exception e) {

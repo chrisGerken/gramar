@@ -13,11 +13,12 @@ public class SetVariableTag extends TagHandler implements ITagHandler {
 
 	@Override
 	public void mergeTo(MergeStream stream, IGramarContext context) {
-
-		String select = getAttributes().get("select");
-		String var = getAttributes().get("var");
 		
 		try {
+
+			String select = getRawAttribute("select");
+
+			String var = getStringAttribute("var", context);
 
 			Object result = context.resolveToObject(select);
 

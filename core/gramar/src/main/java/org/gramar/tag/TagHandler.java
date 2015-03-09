@@ -4,15 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.xpath.XPathExpressionException;
+
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.ast.SourceRegion;
 import org.gramar.ast.TagInfo;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.IllFormedTemplateException;
+import org.gramar.exception.MissingRequiredAttributeException;
 import org.gramar.resource.MergeStream;
 
-
+/**
+ * A class that handles the interpretation and subsequent templating behavior
+ * of a templating tag in a Gramar template.
+ * 
+ * @author chrisgerken
+ *
+ */
 public abstract class TagHandler implements ITagHandler {
 
 	protected ITagHandler parent;
@@ -88,7 +97,7 @@ public abstract class TagHandler implements ITagHandler {
 		this.attributes = attributes;
 	}
 	
-	/*
+	/**
 	 * Merge all of the receiver's child handlers with the given stream
 	 */
 	public void processChildren(MergeStream stream, IGramarContext context) {
@@ -97,7 +106,7 @@ public abstract class TagHandler implements ITagHandler {
 		}
 	}
 	
-	/*
+	/**
 	 * Create a new stream and merge all of the receiver's child handlers
 	 * with that stream.  Return the stream.
 	 */
@@ -107,7 +116,7 @@ public abstract class TagHandler implements ITagHandler {
 		return stream;
 	}
 	
-	/*
+	/**
 	 * Answers the first parent (direct or indirect) with the given tag name
 	 */
 	public ITagHandler parentNamed(String name) {
@@ -119,5 +128,130 @@ public abstract class TagHandler implements ITagHandler {
 			return getParent().parentNamed(name);
 		}
 	}
+	
+	/**
+	 * Get the boolean value of the given property name.  If the property isn't
+	 * found, default to the defaultValue.  Any XPath expressions nested in
+	 * curly brackets are resolved.
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 */
+	protected Boolean getBooleanAttribute(String attributeName, IGramarContext context, boolean defaultValue) throws XPathExpressionException {
+		try {
+			Boolean value = getBooleanAttribute(attributeName, context);
+			return value;
+		} catch (MissingRequiredAttributeException e) {
+		}
+		return defaultValue;
+	}
+
+	
+	/**
+	 * Get the boolean value of the given property name.  If the property isn't
+	 * found then throw a MissingRequiredAttributeException.  Any XPath expressions nested in
+	 * curly brackets are resolved.
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 * @throws MissingRequiredAttributeException 
+	 */
+	protected Boolean getBooleanAttribute(String attributeName, IGramarContext context) throws XPathExpressionException, MissingRequiredAttributeException {
+		String value = getAttributes().get(attributeName);
+		if (value == null) {
+			throw new MissingRequiredAttributeException();
+		}
+		value = context.resolveExpressions(value);
+		try { return Boolean.parseBoolean(value); } catch (Throwable t) { }
+		return null;
+	}
+	
+	/**
+	 * Get the String value of the given property name.  If the property isn't
+	 * found, default to the defaultValue.  Any XPath expressions nested in
+	 * curly brackets are resolved.
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 */
+	protected String getStringAttribute(String attributeName, IGramarContext context, String defaultValue) throws XPathExpressionException {
+		try {
+			String value = getStringAttribute(attributeName, context);
+			return value;
+		} catch (MissingRequiredAttributeException e) {
+		}
+		return defaultValue;
+	}
+
+	
+	/**
+	 * Get the String value of the given property name.  If the property isn't
+	 * found then throw a MissingRequiredAttributeException.  Any XPath expressions nested in
+	 * curly brackets are resolved.
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 * @throws MissingRequiredAttributeException 
+	 */
+	protected String getStringAttribute(String attributeName, IGramarContext context) throws XPathExpressionException, MissingRequiredAttributeException {
+		String value = getAttributes().get(attributeName);
+		if (value == null) {
+			throw new MissingRequiredAttributeException();
+		}
+		return context.resolveExpressions(value);
+	}
+	
+	/**
+	 * Get the raw String value of the given property name.  If the property isn't
+	 * found, default to the defaultValue.  No XPath expression resolution is performsed
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 */
+	protected String getRawAttribute(String attributeName, String defaultValue) {
+		try {
+			String value = getRawAttribute(attributeName);
+			return value;
+		} catch (MissingRequiredAttributeException e) {
+		}
+		return defaultValue;
+	}
+
+	
+	/**
+	 * Get the raw String value of the given property name.  If the property isn't
+	 * found then throw a MissingRequiredAttributeException.  No XPath expression resolution
+	 * is performed.
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 * @throws MissingRequiredAttributeException 
+	 */
+	protected String getRawAttribute(String attributeName) throws MissingRequiredAttributeException {
+		String value = getAttributes().get(attributeName);
+		if (value == null) {
+			throw new MissingRequiredAttributeException();
+		}
+		return value;
+	}
+
 
 }

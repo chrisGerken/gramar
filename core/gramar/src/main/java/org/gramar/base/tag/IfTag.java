@@ -18,8 +18,8 @@ public class IfTag extends TagHandler implements ITagHandler {
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 		
 		try {
-			String test = getAttributes().get("test");
-			String var = getAttributes().get("var");
+			String test = getRawAttribute("test");
+			String var = getStringAttribute("var", context);
 
 			boolean result = context.resolveToBoolean(test);
 			
@@ -37,7 +37,7 @@ public class IfTag extends TagHandler implements ITagHandler {
 					context.unsetVariable(var);
 				}
 			}
-		} catch (XPathExpressionException e) {
+		} catch (Exception e) {
 			context.error(e);
 		}
 

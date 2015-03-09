@@ -18,17 +18,18 @@ public class CreateFileTag extends TagHandler implements ITagHandler {
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 
 		try {
-			String path = getAttributes().get("path");
-			path = context.resolveExpressions(path);
+			String path = getStringAttribute("path", context);
 
-			String templateName = getAttributes().get("template");
+			String templateName = getStringAttribute("template", context);
+
+			Boolean replace = getBooleanAttribute("replace", context, true);
 			
 			MergeStream newStream = new MergeStream();
 			
 			ITemplate template = context.getPattern().getTemplate(templateName, context);
 			template.mergeTo(newStream, context);
 			
-			context.getFileStore().addUpdate(new UpdateFile(path, newStream));
+			context.getFileStore().addUpdate(new UpdateFile(path, newStream, replace));
 			
 		} catch (Exception e) {
 			context.error(e);

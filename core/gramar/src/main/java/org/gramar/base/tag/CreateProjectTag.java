@@ -17,14 +17,9 @@ public class CreateProjectTag extends TagHandler implements ITagHandler {
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 
 		try {
-			String path = getAttributes().get("path");
-			path = context.resolveExpressions(path);
+			String path = getStringAttribute("path", context);
 
-			String altPath = getAttributes().get("altPath");
-			altPath = context.resolveExpressions(altPath);
-			if ((altPath==null)||(altPath.trim().length()==0)) {
-				altPath = "";
-			}
+			String altPath = getStringAttribute("altPath", context, "");
 
 			context.getFileStore().addUpdate(new UpdateProject(path,altPath));
 			

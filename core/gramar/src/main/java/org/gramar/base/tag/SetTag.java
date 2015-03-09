@@ -14,11 +14,11 @@ public class SetTag extends TagHandler implements ITagHandler {
 
 	@Override
 	public void mergeTo(MergeStream stream, IGramarContext context) {
-
-		String select = getAttributes().get("select");
-		String name = getAttributes().get("name");
 		
 		try {
+
+			String select = getRawAttribute("select");
+			String name = getStringAttribute("name", context);
 
 			MergeStream newStream = processChildren(context);
 			String content = newStream.toString();
