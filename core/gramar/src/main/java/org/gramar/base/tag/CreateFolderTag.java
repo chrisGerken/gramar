@@ -17,8 +17,7 @@ public class CreateFolderTag extends TagHandler implements ITagHandler {
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 
 		try {
-			String path = getAttributes().get("path");
-			path = context.resolveExpressions(path);
+			String path = getStringAttribute("path", context);
 
 			context.getFileStore().addUpdate(new UpdateFolder(path));
 			

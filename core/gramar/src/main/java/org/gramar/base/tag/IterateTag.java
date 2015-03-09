@@ -1,11 +1,7 @@
 package org.gramar.base.tag;
 
-import java.io.IOException;
-
-import javax.xml.xpath.XPathExpressionException;
-
-import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
+import org.gramar.ITagHandler;
 import org.gramar.resource.MergeStream;
 import org.gramar.tag.TagHandler;
 import org.w3c.dom.Node;
@@ -18,15 +14,13 @@ public class IterateTag extends TagHandler implements ITagHandler {
 
 	@Override
 	public void mergeTo(MergeStream stream, IGramarContext context) {
-
-		String select = getAttributes().get("select");
-		String var = getAttributes().get("var");
-		String delim = getAttributes().get("delim");
-		if (delim == null) {
-			delim = "";
-		}
 		
 		try {
+
+			String select = getRawAttribute("select");
+			String var = getStringAttribute("var", context);
+			String delim = getStringAttribute("delim", context, "");
+
 			boolean first = true;
 			Node[] node = context.resolveToNodes(select);
 

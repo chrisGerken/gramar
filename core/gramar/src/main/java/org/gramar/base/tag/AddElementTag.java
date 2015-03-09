@@ -15,12 +15,13 @@ public class AddElementTag extends TagHandler implements ITagHandler {
 
 	@Override
 	public void mergeTo(MergeStream stream, IGramarContext context) {
-
-		String select = getAttributes().get("select");
-		String name = getAttributes().get("name");
-		String var = getAttributes().get("var");
 		
 		try {
+
+			String select = getRawAttribute("select");
+			String name = getStringAttribute("name", context);
+			String var = getStringAttribute("var", context);
+
 			Node node = context.resolveToNode(select);
 			if (node != null) {
 				Element element = node.getOwnerDocument().createElement(name);

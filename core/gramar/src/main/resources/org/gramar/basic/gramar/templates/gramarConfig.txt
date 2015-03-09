@@ -5,10 +5,10 @@
 	<provider><d:get select="/gramar/@provider" /></provider>
 	<main>main.txt</main>
 
-	<taglibs>
+	<d:userRegion><taglibs><d:initialCode>
 	
 		<taglib  prefix="c" extension="org.gramar.base" />
 		
-	</taglibs>
+	</d:initialCode></taglibs></d:userRegion>
 
 </gramar>

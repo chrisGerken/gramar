@@ -5,9 +5,9 @@
 <d:createProject  	path="{/gramar/@id}"  />
 
 <d:createFile	path="{/gramar/@id}/.gramar"  									template="templates/empty.txt"  />
-<d:createFile	path="{/gramar/@id}/pom.xml" 					 				template="templates/pom.txt"  />
-<d:createFile	path="{/gramar/@id}/src/main/java/{/gramar/@dir}/gramar.config"	template="templates/gramarConfig.txt"  />
-<d:createFile	path="{/gramar/@id}/src/main/java/{/gramar/@dir}/main.txt"  	template="templates/main.txt"  />
+<d:createFile	path="{/gramar/@id}/pom.xml" 					 				template="templates/pom.txt"  			replace="false" />
+<d:createFile	path="{/gramar/@id}/src/main/java/{/gramar/@dir}/gramar.config"	template="templates/gramarConfig.txt"  	replace="true" />
+<d:createFile	path="{/gramar/@id}/src/main/java/{/gramar/@dir}/main.txt"  	template="templates/main.txt"  			replace="false" />
 <d:createFolder	path="{/gramar/@id}/src/main/java"  />
 <d:createFolder	path="{/gramar/@id}/src/main/resources"  />
 <d:createFolder	path="{/gramar/@id}/src/test/java"  />
