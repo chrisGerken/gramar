@@ -18,18 +18,16 @@ public class AddElementTag extends TagHandler implements ITagHandler {
 		
 		try {
 
-			String select = getRawAttribute("select");
+			Node node = getNodeAttribute("select", context);
 			String name = getStringAttribute("name", context);
 			String var = getStringAttribute("var", context);
 
-			Node node = context.resolveToNode(select);
-			if (node != null) {
-				Element element = node.getOwnerDocument().createElement(name);
-				node.appendChild(element);
-				if (var != null) {
-					context.setVariable(var, element);
-				}
+			Element element = node.getOwnerDocument().createElement(name);
+			node.appendChild(element);
+			if (var != null) {
+				context.setVariable(var, element);
 			}
+
 		} catch (Exception e) {
 			context.error(e);
 		}

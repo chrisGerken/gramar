@@ -14,6 +14,7 @@ import org.gramar.exception.GramarException;
 import org.gramar.exception.IllFormedTemplateException;
 import org.gramar.exception.MissingRequiredAttributeException;
 import org.gramar.resource.MergeStream;
+import org.w3c.dom.Node;
 
 /**
  * A class that handles the interpretation and subsequent templating behavior
@@ -215,7 +216,7 @@ public abstract class TagHandler implements ITagHandler {
 	
 	/**
 	 * Get the raw String value of the given property name.  If the property isn't
-	 * found, default to the defaultValue.  No XPath expression resolution is performsed
+	 * found, default to the defaultValue.  No XPath expression resolution is performed
 	 * 
 	 * @param attributeName
 	 * @param context
@@ -251,6 +252,25 @@ public abstract class TagHandler implements ITagHandler {
 			throw new MissingRequiredAttributeException();
 		}
 		return value;
+	}
+	
+	/**
+	 * Get the Node that is the result of evaluating the given property name as an XPath expression.
+	 * If the property isn't found then throw an exception.  No XPath expression resolution is performed
+	 * on expressions nested in curly brackets
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @return
+	 * @throws MissingRequiredAttributeException 
+	 * @throws XPathExpressionException
+	 */
+	protected Node getNodeAttribute(String attributeName, IGramarContext context) throws MissingRequiredAttributeException, XPathExpressionException {
+		String expression = getAttributes().get(attributeName);
+		if (expression == null) {
+			throw new MissingRequiredAttributeException();
+		}
+		return context.resolveToNode(expression);
 	}
 
 
