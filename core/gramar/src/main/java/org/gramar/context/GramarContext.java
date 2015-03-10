@@ -9,6 +9,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFunction;
 
+import org.gramar.IGramarStatus;
 import org.gramar.ITagHandler;
 import org.gramar.IFileStore;
 import org.gramar.IGramar;
@@ -24,6 +25,7 @@ import org.gramar.exception.NoSuchXPathFunctionException;
 import org.gramar.exception.TemplatingExtensionNotDefinedException;
 import org.gramar.extension.DefinedTag;
 import org.gramar.model.ModelAccess;
+import org.gramar.platform.GramarStatus;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -45,6 +47,8 @@ public class GramarContext implements IGramarContext {
 	private IGramarPlatform platform;
 	
 	private IGramar pattern;
+	
+	private ArrayList<IGramarStatus> stati = new ArrayList<IGramarStatus>();
 	
 	public GramarContext(IGramarPlatform platform, Document model) {
 		this.platform = platform;
@@ -271,12 +275,12 @@ public class GramarContext implements IGramarContext {
 
 	@Override
 	public void warning(Exception e) {
-		
+		stati.add(GramarStatus.warning(e));
 	}
 
 	@Override
 	public void error(Exception e) {
-		
+		stati.add(GramarStatus.error(e));
 	}
 	
 

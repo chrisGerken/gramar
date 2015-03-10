@@ -65,7 +65,9 @@ public abstract class TagHandler implements ITagHandler {
 			return this;
 		} else if (region.isDirective()) {
 			return this;
-		} 
+		} else if (region.isComment()) {
+			return this;
+		}
 		
 		throw new IllFormedTemplateException(region, "Unknown source region type");
 		

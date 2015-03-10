@@ -13,12 +13,12 @@ import org.gramar.extension.DefinedTag;
 
 public class Parser {
 
-	private IGramarContext patternContext;
+	private IGramarContext gramarContext;
 	
 	private boolean compressRegions = true;
 	
-	public Parser(IGramarContext patternContext) {
-		this.patternContext = patternContext;
+	public Parser(IGramarContext gramarContext) {
+		this.gramarContext = gramarContext;
 	}
 
 	public SourceRegion[] parse(String source) {
@@ -141,7 +141,7 @@ public class Parser {
 	}
 
 	/*
-	 * Interact with the pattern context add the taglib described by this directive
+	 * Interact with the gramar context add the taglib described by this directive
 	 */
 	private void executeDirective(SourceRegion region) {
 		
@@ -154,7 +154,7 @@ public class Parser {
 			if (!tagInfo.isNamespaced()) {
 				return false;
 			}
-			DefinedTag dt = patternContext.getTagDef(tagInfo.getNamespace(), tagInfo.getTagName());
+			DefinedTag dt = gramarContext.getTagDef(tagInfo.getNamespace(), tagInfo.getTagName());
 			if (dt == null) {
 				return false;
 			}

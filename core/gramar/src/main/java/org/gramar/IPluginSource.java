@@ -7,7 +7,8 @@ import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 
 /**
- * Represents a means by which gramars and extensions can be located and retrieved.
+ * Represents a means by which gramars and extensions can be located and retrieved
+ * from the execution environment
  * 
  * @author chrisgerken
  *
