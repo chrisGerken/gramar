@@ -25,15 +25,23 @@ public class ClasspathPluginSource extends PluginSource implements IPluginSource
 
 	public ClasspathPluginSource() {
 		super();
+		try {
+			addKnownGramar("org.gramar.basic.gramar");
+//			addKnownGramar("org.gramar.basic.extension");
+		} catch (NoSuchGramarException e) {
+
+		} catch (InvalidGramarException e) {
+
+		}
 	}
 
 	@Override
 	public void gather(HashMap<String, IGramar> map) {
-		// Do nothing.  We can't query the classpath
+		super.gather(map);
 	}
 
 	@Override
-	public IGramar getPattern(String patternId) throws NoSuchGramarException, InvalidGramarException {
+	public IGramar getGramar(String patternId) throws NoSuchGramarException, InvalidGramarException {
 
 		// First, look for a zip file in the classpath with the same name as the pattern ID in 
 		// the package associated with that id.  For example, the zip file for pattern ID

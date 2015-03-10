@@ -23,6 +23,7 @@ public class FileSystemPluginSource extends PluginSource implements IPluginSourc
 
 	@Override
 	public void gather(HashMap<String, IGramar> map) {
+		super.gather(map);
 		File root = new File(rootDir);
 		if (root.isDirectory()) {
 			gather(root,map);

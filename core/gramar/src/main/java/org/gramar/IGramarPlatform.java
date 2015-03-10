@@ -1,9 +1,10 @@
 package org.gramar;
 
+import java.util.List;
+
 import org.gramar.exception.GramarException;
 import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;
-import org.gramar.exception.NoFileStoreSpecifiedException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 
@@ -18,7 +19,7 @@ public interface IGramarPlatform {
 	
 	public void addPluginSource(IPluginSource source);
 	
-	public IGramar getPattern(String patternId) throws NoSuchGramarException, InvalidGramarException;
+	public IGramar getGramar(String gramarId) throws NoSuchGramarException, InvalidGramarException;
 	
 	public IFileStore getDefaultFileStore();
 	
@@ -41,5 +42,12 @@ public interface IGramarPlatform {
 	public IGramarApplicationStatus apply(IModel model, IGramar pattern, IFileStore fileStore) throws GramarException;
 	
 	public IGramarApplicationStatus apply(IModel model, String patternId, IFileStore fileStore) throws GramarException;
+	
+	/**
+	 * Returns a list of all Gramars known to any PluginSource
+	 * 
+	 * @return
+	 */
+	public List<IGramar> getKnownGramars();
 
 }

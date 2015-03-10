@@ -12,6 +12,7 @@ public abstract class PluginSource implements IPluginSource {
 
 	protected boolean autoRefresh = true;
 	private HashMap<String, IGramar> cache = null;
+	private HashMap<String, IGramar> knownPatterns = new HashMap<String, IGramar>();
 	
 	public PluginSource() {
 
@@ -25,7 +26,11 @@ public abstract class PluginSource implements IPluginSource {
 		}
 	}
 
-	public abstract void gather(HashMap<String, IGramar> map);
+	public void gather(HashMap<String, IGramar> map) {
+		for (String id: knownPatterns.keySet()) {
+			map.put(id, knownPatterns.get(id));
+		}
+	}
 
 	@Override
 	public String[] list() {
@@ -36,7 +41,7 @@ public abstract class PluginSource implements IPluginSource {
 	}
 
 	@Override
-	public IGramar[] patterns() {
+	public IGramar[] gramars() {
 		gather();
 		IGramar result[] = new IGramar[cache.size()];
 		cache.values().toArray(result);
@@ -44,13 +49,18 @@ public abstract class PluginSource implements IPluginSource {
 	}
 
 	@Override
-	public IGramar getPattern(String patternId) throws NoSuchGramarException, InvalidGramarException {
+	public IGramar getGramar(String gramarId) throws NoSuchGramarException, InvalidGramarException {
 		gather();
-		IGramar pattern = cache.get(patternId);
+		IGramar pattern = cache.get(gramarId);
 		if (pattern == null) {
 			throw new NoSuchGramarException();
 		}
 		return pattern;
+	}
+
+	@Override
+	public void addKnownGramar(String id) throws NoSuchGramarException, InvalidGramarException {
+		knownPatterns.put(id, getGramar(id));
 	}
 
 }

@@ -3,6 +3,8 @@ package org.gramar.platform;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.gramar.IFileStore;
 import org.gramar.IGramar;
@@ -35,10 +37,10 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	}
 
 	@Override
-	public IGramar getPattern(String patternId) throws NoSuchGramarException, InvalidGramarException {
+	public IGramar getGramar(String patternId) throws NoSuchGramarException, InvalidGramarException {
 		for (IPluginSource source : pluginSources) {
 			try {
-				IGramar pattern = source.getPattern(patternId);
+				IGramar pattern = source.getGramar(patternId);
 				return pattern;
 			} catch (NoSuchGramarException e) {
 				// Ignore and continue with the next source
@@ -75,12 +77,12 @@ public abstract class GramarPlatform implements IGramarPlatform {
 		if (fileStore == null) {
 			throw new NoFileStoreSpecifiedException();
 		}
-		return apply(model, getPattern(patternId), fileStore);
+		return apply(model, getGramar(patternId), fileStore);
 	}
 
 	@Override
 	public IGramarApplicationStatus apply(IModel model, String patternId, IFileStore fileStore) throws GramarException {
-		return apply(model,getPattern(patternId),fileStore);
+		return apply(model,getGramar(patternId),fileStore);
 	}
 
 	@Override
@@ -131,5 +133,20 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	}
 	
 	protected abstract void loadExtensions();
+
+	@Override
+	public List<IGramar> getKnownGramars() {
+		
+		ArrayList<IGramar> list = new ArrayList<IGramar>();
+		
+		for (IPluginSource pluginSource: pluginSources) {
+			IGramar[] gramar = pluginSource.gramars();
+			for (IGramar g: gramar) {
+				list.add(g);
+			}
+		}
+
+		return list;
+	}
 
 }

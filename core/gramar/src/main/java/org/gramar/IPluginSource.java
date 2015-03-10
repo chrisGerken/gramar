@@ -15,7 +15,7 @@ import org.gramar.exception.NoSuchTemplatingExtensionException;
 public interface IPluginSource {
 
 	/**
-	 * Return an array of String id's for the available IPatterns.  Some implementations
+	 * Return an array of String id's for the available IGramars.  Some implementations
 	 * may not be able to answer this request.  In these case, callers must know the 
 	 * desired patternId.
 	 */
@@ -24,16 +24,16 @@ public interface IPluginSource {
 	/**
 	 * Return an array of available IPatterns.
 	 */
-	public IGramar[] patterns();
+	public IGramar[] gramars();
 	
 	/**
-	 * Return an IPattern with the given id
+	 * Return an IGramar with the given id
 	 * 
-	 * A pattern is a collection of text templates and a property file.  It can be persisted 
-	 * as a zip file named <patternid>.zip or as a set of individual files in and under a
+	 * A gramar is a collection of text templates and a property file.  It can be persisted 
+	 * as a zip file named <gramerid>.zip or as a set of individual files in and under a
 	 * given subdirectory
 	 */
-	public IGramar getPattern(String patternId) throws NoSuchGramarException, InvalidGramarException;
+	public IGramar getGramar(String gramarId) throws NoSuchGramarException, InvalidGramarException;
 	
 	/**
 	 * Return the templating extension with the given id
@@ -45,4 +45,15 @@ public interface IPluginSource {
 	 */
 	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;
 	
+	/**
+	 * Tells the receiver that a pattern with the specified ID exists and is retrievable.  This is used
+	 * for gramars deployed with the GramarPlatform and which are to be retrieved via a PluginSource that
+	 * can not query for available gramars
+	 * 
+	 * @param id
+	 * @throws InvalidGramarException 
+	 * @throws NoSuchGramarException 
+	 */
+	public void addKnownGramar(String id) throws NoSuchGramarException, InvalidGramarException;
+		
 }
