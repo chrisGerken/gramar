@@ -31,19 +31,19 @@
 </d:iterate>
 
 
-<d:createProject  	path="{/extension/@project}"  />
+<d:project  	name="{/extension/@project}"  />
 
-<d:createFile	path="{/extension/@project}/pom.xml" 					 						template="templates/pom.txt"  			replace="false" />
-<d:createFile	path="{/extension/@project}/src/main/java/{/extension/@dir}/extension.config"	template="templates/extensionConfig.txt"  	replace="true" />
+<d:file	path="{/extension/@project}/pom.xml" 					 						template="templates/pom.txt"  			replace="false" />
+<d:file	path="{/extension/@project}/src/main/java/{/extension/@dir}/extension.config"	template="templates/extensionConfig.txt"  	replace="true" />
 
-<d:createFolder	path="{/extension/@project}/src/main/java"  />
-<d:createFolder	path="{/extension/@project}/src/main/resources"  />
-<d:createFolder	path="{/extension/@project}/src/test/java"  />
-<d:createFolder	path="{/extension/@project}/src/test/resources"  />
+<d:folder	path="{/extension/@project}/src/main/java"  />
+<d:folder	path="{/extension/@project}/src/main/resources"  />
+<d:folder	path="{/extension/@project}/src/test/java"  />
+<d:folder	path="{/extension/@project}/src/test/resources"  />
 
 <d:iterate select="/extension/tags/tag" var="tag" >
-	<d:createFile	path="{/extension/@project}/src/main/java/{/extension/@tagDir}/{$tag/@tagJava}.java"  	template="templates/tagHandler.txt" 	replace="true" />
+	<d:file	path="{/extension/@project}/src/main/java/{/extension/@tagDir}/{$tag/@tagJava}.java"  	template="templates/tagHandler.txt" 	replace="true" />
 </d:iterate>
 
-<d:createFile	path="{/extension/@project}/dump.xml" 					 						template="dump.txt"  			replace="true" />
+<d:file	path="{/extension/@project}/dump.xml" 					 						template="dump.txt"  			replace="true" />
 

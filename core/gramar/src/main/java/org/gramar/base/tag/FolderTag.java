@@ -3,13 +3,13 @@ package org.gramar.base.tag;
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.resource.MergeStream;
-import org.gramar.resource.UpdateProject;
+import org.gramar.resource.UpdateFolder;
 import org.gramar.tag.TagHandler;
 
 
-public class CreateProjectTag extends TagHandler implements ITagHandler {
+public class FolderTag extends TagHandler implements ITagHandler {
 
-	public CreateProjectTag() {
+	public FolderTag() {
 
 	}
 
@@ -19,9 +19,7 @@ public class CreateProjectTag extends TagHandler implements ITagHandler {
 		try {
 			String path = getStringAttribute("path", context);
 
-			String altPath = getStringAttribute("altPath", context, "");
-
-			context.getFileStore().addUpdate(new UpdateProject(path,altPath));
+			context.getFileStore().addUpdate(new UpdateFolder(path));
 			
 		} catch (Exception e) {
 			context.error(e);
@@ -31,7 +29,7 @@ public class CreateProjectTag extends TagHandler implements ITagHandler {
 
 	@Override
 	public String getTagName() {
-		return "createFile";
+		return "createFolder";
 	}
 
 }

@@ -8,9 +8,9 @@ import org.gramar.resource.UpdateFile;
 import org.gramar.tag.TagHandler;
 
 
-public class CreateFileTag extends TagHandler implements ITagHandler {
+public class FileTag extends TagHandler implements ITagHandler {
 
-	public CreateFileTag() {
+	public FileTag() {
 
 	}
 

@@ -3,11 +3,11 @@
 
 Use the following tags to create resources:
 
-<c:createProject  path=""  />
+<c:project  name=""  />
 
-<c:createFolder  path=""   />
+<c:folder  path=""   />
 
-<c:createFile    path=""  template="" />
+<c:file    path=""  template="" />
 
 
 
