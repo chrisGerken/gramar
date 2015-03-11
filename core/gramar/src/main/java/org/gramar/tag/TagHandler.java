@@ -300,6 +300,25 @@ public abstract class TagHandler implements ITagHandler {
 	}
 	
 	/**
+	 * Get the Object that is the result of evaluating the given property name as an XPath expression.
+	 * If the property isn't found then throw an exception.  No XPath expression resolution is performed
+	 * on expressions nested in curly brackets.  The return value can be a Node, a Double or a String
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @return
+	 * @throws MissingRequiredAttributeException 
+	 * @throws XPathExpressionException
+	 */
+	protected Object getObjectAttribute(String attributeName, IGramarContext context) throws MissingRequiredAttributeException, XPathExpressionException {
+		String expression = getAttributes().get(attributeName);
+		if (expression == null) {
+			throw new MissingRequiredAttributeException();
+		}
+		return context.resolveToObject(expression);
+	}
+	
+	/**
 	 * Get the Node that is the result of evaluating the given property name as an XPath expression.
 	 * If the property isn't found then throw an exception.  No XPath expression resolution is performed
 	 * on expressions nested in curly brackets

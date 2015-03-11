@@ -45,5 +45,14 @@ public class UserRegion {
 		return userRegionEnd;
 	}
 
+	public UserRegion offset(MergeStream existingStream, int offset) {
+		UserRegion region = new UserRegion(existingStream);
+		region.initialCodeEnd 	= initialCodeEnd + offset;
+		region.initialCodeStart = initialCodeStart + offset;
+		region.userRegionEnd 	= userRegionEnd + offset;
+		region.userRegionStart 	= userRegionStart + offset;
+		return region;
+	}
+
 	
 }

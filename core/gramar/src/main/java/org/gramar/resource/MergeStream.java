@@ -87,4 +87,16 @@ public class MergeStream {
 		
 	}
 
+	public void append(MergeStream stream) throws IOException {
+		
+		int offset = position();
+		
+		append(stream.toString());
+		
+		for (UserRegion region: stream.userRegions) {
+			addUserRegion(region.offset(stream, offset));
+		}
+		
+	}
+
 }
