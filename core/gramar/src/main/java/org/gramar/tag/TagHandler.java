@@ -172,7 +172,50 @@ public abstract class TagHandler implements ITagHandler {
 		}
 		value = context.resolveExpressions(value);
 		try { return Boolean.parseBoolean(value); } catch (Throwable t) { }
-		return null;
+		throw new MissingRequiredAttributeException();
+	}
+	
+	/**
+	 * Get the integer value of the given property name.  If the property isn't
+	 * found, default to the defaultValue.  Any XPath expressions nested in
+	 * curly brackets are resolved.
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 */
+	protected Integer getIntegerAttribute(String attributeName, IGramarContext context, int defaultValue) throws XPathExpressionException {
+		try {
+			Integer value = getIntegerAttribute(attributeName, context);
+			return value;
+		} catch (MissingRequiredAttributeException e) {
+		}
+		return defaultValue;
+	}
+
+	
+	/**
+	 * Get the integer value of the given property name.  If the property isn't
+	 * found then throw a MissingRequiredAttributeException.  Any XPath expressions nested in
+	 * curly brackets are resolved.
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @param defaultValue
+	 * @return
+	 * @throws XPathExpressionException
+	 * @throws MissingRequiredAttributeException 
+	 */
+	protected Integer getIntegerAttribute(String attributeName, IGramarContext context) throws XPathExpressionException, MissingRequiredAttributeException {
+		String value = getAttributes().get(attributeName);
+		if (value == null) {
+			throw new MissingRequiredAttributeException();
+		}
+		value = context.resolveExpressions(value);
+		try { return Integer.parseInt(value); } catch (Throwable t) { }
+		throw new MissingRequiredAttributeException();
 	}
 	
 	/**
@@ -273,6 +316,25 @@ public abstract class TagHandler implements ITagHandler {
 			throw new MissingRequiredAttributeException();
 		}
 		return context.resolveToNode(expression);
+	}
+	
+	/**
+	 * Get an array of Nodes that is the result of evaluating the given property name as an XPath expression.
+	 * If the property isn't found then throw an exception.  No XPath expression resolution is performed
+	 * on expressions nested in curly brackets
+	 * 
+	 * @param attributeName
+	 * @param context
+	 * @return
+	 * @throws MissingRequiredAttributeException 
+	 * @throws XPathExpressionException
+	 */
+	protected Node[] getNodesAttribute(String attributeName, IGramarContext context) throws MissingRequiredAttributeException, XPathExpressionException {
+		String expression = getAttributes().get(attributeName);
+		if (expression == null) {
+			throw new MissingRequiredAttributeException();
+		}
+		return context.resolveToNodes(expression);
 	}
 
 

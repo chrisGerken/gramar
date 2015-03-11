@@ -15,6 +15,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.gramar.IGramarApplicationStatus;
 import org.gramar.IModel;
 import org.gramar.eclipse.platform.EclipseFileStore;
 import org.gramar.eclipse.platform.EclipsePlatform;
@@ -58,9 +59,9 @@ public class ApplyGramar implements IObjectActionDelegate {
 				EclipsePlatform platform = new EclipsePlatform();
 				EclipseFileStore fileStore = new EclipseFileStore();
 				IModel model = fileStore.modelFrom(modelPath);
-				platform.apply(model, gramarId, fileStore);
+				IGramarApplicationStatus result = platform.apply(model, gramarId, fileStore);
 				
-				msg = "Apply Gramar was executed.";
+				msg = "Apply Gramar was executed.  Model accessed "+result.getModelAccesses()+" times";  
 			} catch (Exception e) {
 				msg = e.getMessage();
 			}

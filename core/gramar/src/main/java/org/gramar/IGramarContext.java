@@ -1,5 +1,6 @@
 package org.gramar;
 
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFunction;
 
@@ -138,4 +139,7 @@ public interface IGramarContext {
 	 */
 	public void error(Exception e);
 	
+	public XPath getXPath();
+	
+	public int getModelAccessCount();
 }

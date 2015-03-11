@@ -28,12 +28,12 @@ public class Parser {
 		int begin = source.indexOf("<");
 		int end = -1;
 		while (begin > -1) {
+			// end is the offset of the last character of the last parsed source region
+			// begin is the offset of the next left angle bracket (LAB)
 			TagInfo tagInfo = tagAfter(source,begin);
 			if (tagInfo.isWellFormed()) {
-				SourceRegion region = new SourceRegion(source.substring(end+1,begin),end+1,begin-1,SourceRegion.TYPE_TEXT);
-				regions.add(region);
+				SourceRegion staticRegion = new SourceRegion(source.substring(end+1,begin),end+1,begin-1,SourceRegion.TYPE_TEXT);
 				
-				end = begin + tagInfo.getTagLength() - 1;
 				int type = SourceRegion.TYPE_TEXT;
 				if (validate(tagInfo)) {
 					type = SourceRegion.TYPE_TAG;
@@ -42,10 +42,21 @@ public class Parser {
 					} else if (tagInfo.isEmptyTag()) {
 						type = SourceRegion.TYPE_EMPTY_TAG;
 					} 
+
+					SourceRegion region = new SourceRegion(tagInfo.getTagSource(),tagInfo.getTagStartOffset(),tagInfo.getTagEndOffset(),type);
+					region.setTagInfo(tagInfo);
+					end = begin + tagInfo.getTagLength() - 1;
+
+					regions.add(staticRegion);
+					regions.add(region);
+				} else {
+					// The tag we found turns out to not be a recognized custom tag
+					// Create a static text region up to and including the LAB and carry on
+					begin = begin + 1;
+					staticRegion = new SourceRegion(source.substring(end+1,begin),end+1,begin-1,SourceRegion.TYPE_TEXT);
+					regions.add(staticRegion);
+					end = begin - 1;
 				}
-				region = new SourceRegion(tagInfo.getTagSource(),tagInfo.getTagStartOffset(),tagInfo.getTagEndOffset(),type);
-				region.setTagInfo(tagInfo);
-				regions.add(region);
 				begin = end;
 
 			} else if (commentBeginsAt(source,begin+1)) {
@@ -79,7 +90,7 @@ public class Parser {
 			} else {
 				begin = begin + 1;
 			}
-			begin = source.indexOf("<",begin);
+			begin = source.indexOf("<",begin+1);
 		}
 		
 		if (end+1 < source.length()) {

@@ -27,7 +27,7 @@ public class ClasspathPluginSource extends PluginSource implements IPluginSource
 		super();
 		try {
 			addKnownGramar("org.gramar.basic.gramar");
-//			addKnownGramar("org.gramar.basic.extension");
+			addKnownGramar("org.gramar.basic.extension");
 		} catch (NoSuchGramarException e) {
 
 		} catch (InvalidGramarException e) {

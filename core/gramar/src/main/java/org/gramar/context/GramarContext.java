@@ -4,25 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFunction;
 
-import org.gramar.IGramarStatus;
-import org.gramar.ITagHandler;
 import org.gramar.IFileStore;
 import org.gramar.IGramar;
 import org.gramar.IGramarContext;
 import org.gramar.IGramarPlatform;
+import org.gramar.IGramarStatus;
+import org.gramar.ITagHandler;
 import org.gramar.ITemplatingExtension;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NamespaceNotDefinedException;
-import org.gramar.exception.NoSuchCustomTagException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.exception.NoSuchXPathFunctionException;
-import org.gramar.exception.TemplatingExtensionNotDefinedException;
 import org.gramar.extension.DefinedTag;
 import org.gramar.model.ModelAccess;
 import org.gramar.platform.GramarStatus;
@@ -50,6 +49,10 @@ public class GramarContext implements IGramarContext {
 	
 	private ArrayList<IGramarStatus> stati = new ArrayList<IGramarStatus>();
 	
+	private XPath xpath = null;
+	
+	private int modelAccess = 0;
+	
 	public GramarContext(IGramarPlatform platform, Document model) {
 		this.platform = platform;
 		this.primaryModel = model;
@@ -69,6 +72,7 @@ public class GramarContext implements IGramarContext {
 
 	@Override
 	public Object getVariable(String name) {
+		modelAccess++;
 		Object result = variables.get(name);
 		if (result != null) {
 			return result;
@@ -282,6 +286,23 @@ public class GramarContext implements IGramarContext {
 	public void error(Exception e) {
 		stati.add(GramarStatus.error(e));
 	}
-	
 
+	@Override
+	public XPath getXPath() {
+		modelAccess++;
+		if (xpath == null) {
+			XPathFactory factory = XPathFactory.newInstance();
+			xpath = factory.newXPath();
+			xpath.setXPathFunctionResolver(new XPathResolver(this));
+			xpath.setXPathVariableResolver(new XPathResolver(this));
+		}
+		return xpath;
+	}
+
+	@Override
+	public int getModelAccessCount() {
+		return modelAccess;
+	}
+	
+	
 }

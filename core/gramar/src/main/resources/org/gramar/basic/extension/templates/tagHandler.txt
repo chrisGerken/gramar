@@ -1,0 +1,54 @@
+package <d:get select="/extension/@tagPkg" />;
+
+	<d:userRegion>// Begin imports<d:initialCode>
+
+import org.gramar.IGramarContext;
+import org.gramar.ITagHandler;
+import org.gramar.resource.MergeStream;
+import org.gramar.tag.TagHandler;
+import org.w3c.dom.Node;
+
+	</d:initialCode>// End imports</d:userRegion>
+	
+public class <d:get select="$tag/@tagJava" /> extends TagHandler implements ITagHandler {
+
+<d:iterate select="$tag/arg" var="arg">
+	private <d:get select="$arg/@javaType" /> <d:get select="$arg/@name" />;
+</d:iterate>
+
+	public <d:get select="$tag/@tagJava" />() {
+
+	}
+
+	@Override
+	public void mergeTo(MergeStream stream, IGramarContext context) {
+
+	<d:userRegion>// Begin merge logic<d:initialCode>
+		
+		try {
+
+<d:iterate select="$tag/arg" var="arg">
+			<d:get select="$arg/@name" /> = <d:get select="$arg/@getMethod" />("<d:get select="$arg/@name" />", context<d:if test="$arg/@required='false'">, <d:get select="$arg/default" /></d:if>);
+</d:iterate>
+
+		} catch (Exception e) {
+			context.error(e);
+		}
+
+	</d:initialCode>// End merge logic</d:userRegion>
+
+	}
+
+	@Override
+	public String getTagName() {
+		return "<d:get select="$tag/@name" />";
+	}
+
+
+	<d:userRegion>// Begin custom code<d:initialCode>
+
+
+
+	</d:initialCode>// End custom code</d:userRegion>
+
+}

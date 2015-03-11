@@ -1,0 +1,22 @@
+<extension>
+
+	<id><d:get select="/extension/@id" /></id>
+	<label><d:get select="/extension/@label" /></label>
+	<provider><d:get select="/extension/@provider" /></provider>
+
+	<tags>
+	
+<d:iterate select="/extension/tags/tag" var="tag" >
+		<tag  name="<d:get select="$tag/@name" />" 	handler="<d:get select="/extension/@tagPkg" />.<d:get select="$tag/@tagJava" />"		controlTag="<d:get select="$tag/@control" />" />
+</d:iterate>
+		
+	</tags>
+
+	<functions>
+	
+		<function name="uppercaseFirst"  parms="1" variableNumber="false" impl="org.gramar.base.function.UppercaseFirstFunction"/>
+	
+	</functions>
+
+</extension>
+

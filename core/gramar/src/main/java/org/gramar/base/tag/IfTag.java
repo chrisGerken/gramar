@@ -1,9 +1,7 @@
 package org.gramar.base.tag;
 
-import javax.xml.xpath.XPathExpressionException;
-
-import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
+import org.gramar.ITagHandler;
 import org.gramar.resource.MergeStream;
 import org.gramar.tag.TagHandler;
 import org.w3c.dom.Node;
@@ -19,7 +17,7 @@ public class IfTag extends TagHandler implements ITagHandler {
 		
 		try {
 			String test = getRawAttribute("test");
-			String var = getStringAttribute("var", context);
+			String var = getStringAttribute("var", context, "");
 
 			boolean result = context.resolveToBoolean(test);
 			

@@ -1,0 +1,20 @@
+<extension  id="a.b.c.d"  project=""  label="Some short descriptive text"  provider="org.someone"   >
+
+	<tags>
+	
+	
+
+		<tag  name=""  control="true"  >
+			<arg   name=""  required="true|false"  type="String|Boolean|Integer|Node|Nodes"   ><default></default></arg>
+		</tag>
+	
+	</tags>
+		
+	<functions>
+	
+		<function  name=""  />
+	
+	</functions>
+
+
+</extension>

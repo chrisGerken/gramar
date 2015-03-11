@@ -20,6 +20,8 @@ public class ModelAccess {
 
 	private static ModelAccess instance = new ModelAccess();
 	
+	private XPath xpath;
+	
 	private ModelAccess() {
 
 	}
@@ -140,11 +142,12 @@ public class ModelAccess {
 	}
 	
 	private XPath getXpath(IGramarContext context) {
-		XPathFactory factory = XPathFactory.newInstance();
-		XPath xpath = factory.newXPath();
 		if (context != null) {
-			xpath.setXPathFunctionResolver(new XPathResolver(context));
-			xpath.setXPathVariableResolver(new XPathResolver(context));
+			return context.getXPath();
+		}
+		if (xpath == null) {
+			XPathFactory factory = XPathFactory.newInstance();
+			xpath = factory.newXPath();
 		}
 		return xpath;
 	}

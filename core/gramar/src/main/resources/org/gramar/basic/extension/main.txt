@@ -1,0 +1,49 @@
+
+
+<d:if test="not(/extension/@project)" >
+	<d:set select="/extension" name="project"><d:get select="/extension/@id" /></d:set>
+</d:if>
+
+<d:loadContent var="lookup">
+<types>
+	<type name="string"   	javaType="String"   getMethod="getStringAttribute"  />
+	<type name="int"   		javaType="Integer"  getMethod="getIntegerAttribute"  />
+	<type name="boolean"   	javaType="Boolean"  getMethod="getBooleanAttribute"  />
+	<type name="node"   	javaType="Node"   	getMethod="getNodeAttribute"  />
+	<type name="nodes"   	javaType="Node[]"   getMethod="getNodesAttribute"  />
+</types>
+</d:loadContent>
+
+<d:set select="/extension" name="dir" ><d:get select="translate(/extension/@id , '.', '/')" /></d:set>
+
+<d:set select="/extension" name="tagPkg" ><d:get select="/extension/@id" />.tag</d:set>
+<d:set select="/extension" name="tagDir" ><d:get select="translate(/extension/@tagPkg , '.', '/')" /></d:set>
+
+<d:set select="/extension" name="functionPkg" ><d:get select="/extension/@id" />.functiontag</d:set>
+<d:set select="/extension" name="functionDir" ><d:get select="translate(/extension/@functionPkg , '.', '/')" /></d:set>
+
+<d:iterate select="/extension/tags/tag" var="tag" >
+	<d:set select="$tag" name="tagJava" ><d:get select="d:uppercaseFirst($tag/@name)" />Tag</d:set>
+	<d:iterate select="$tag/arg" var="arg" >
+		<d:set select="$arg" name="javaType" ><d:get select="$lookup/types/type[@name=$arg/@type]/@javaType" /></d:set>
+		<d:set select="$arg" name="getMethod" ><d:get select="$lookup/types/type[@name=$arg/@type]/@getMethod" /></d:set>
+	</d:iterate>
+</d:iterate>
+
+
+<d:createProject  	path="{/extension/@project}"  />
+
+<d:createFile	path="{/extension/@project}/pom.xml" 					 						template="templates/pom.txt"  			replace="false" />
+<d:createFile	path="{/extension/@project}/src/main/java/{/extension/@dir}/extension.config"	template="templates/extensionConfig.txt"  	replace="true" />
+
+<d:createFolder	path="{/extension/@project}/src/main/java"  />
+<d:createFolder	path="{/extension/@project}/src/main/resources"  />
+<d:createFolder	path="{/extension/@project}/src/test/java"  />
+<d:createFolder	path="{/extension/@project}/src/test/resources"  />
+
+<d:iterate select="/extension/tags/tag" var="tag" >
+	<d:createFile	path="{/extension/@project}/src/main/java/{/extension/@tagDir}/{$tag/@tagJava}.java"  	template="templates/tagHandler.txt" 	replace="true" />
+</d:iterate>
+
+<d:createFile	path="{/extension/@project}/dump.xml" 					 						template="dump.txt"  			replace="true" />
+

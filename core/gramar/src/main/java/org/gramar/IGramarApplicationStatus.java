@@ -4,4 +4,6 @@ public interface IGramarApplicationStatus {
 
 	public int getStatus();
 	
+	public int getModelAccesses();
+	
 }
