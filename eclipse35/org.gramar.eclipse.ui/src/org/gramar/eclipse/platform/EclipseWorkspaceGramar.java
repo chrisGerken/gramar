@@ -67,7 +67,7 @@ public class EclipseWorkspaceGramar extends Gramar implements IGramar {
 			}
 			if (rsrc.getType() == IResource.FILE) {
 				IFile file = (IFile) rsrc;
-				if (file.getName().equalsIgnoreCase(".gramar")) {
+				if (file.getName().equalsIgnoreCase("gramar.config")) {
 					gramarOffset = file.getParent().getProjectRelativePath();
 					return true;
 				}
