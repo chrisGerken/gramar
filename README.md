@@ -9,7 +9,7 @@ noun | gram - ar | \ˈgra-mər\
  
 2. A normalization of a reference implementation represented as a set of file productions defined on each element type of the schema for the reference implementaion's points of variability.  
 
-3. A formal description of a software architecture captured as a set of deployable code generation template4. 
+3. A formal description of a software architecture captured as a set of deployable code generation templates. 
 
 ## Background
 
