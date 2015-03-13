@@ -3,7 +3,7 @@ Tooling that enables arbitrary grammatical architectures.
 
 **Gramar** 
 
-noun | gram - ar | \ˈgra-mər\
+noun **|** gram - ar **|** \ˈgra-mər\
 
 1. A specific grammatical architecture with an associated schema describing points of variability
  
