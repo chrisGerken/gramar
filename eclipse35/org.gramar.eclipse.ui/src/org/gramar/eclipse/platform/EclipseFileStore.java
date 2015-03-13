@@ -118,4 +118,11 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 		return new XmlModel(file.getContents(true));
 	}
 
+	@Override
+	public void log(String message) {
+
+//		MessageConsole myConsole = new MessageConsole(name, null);		
+
+	}
+
 }

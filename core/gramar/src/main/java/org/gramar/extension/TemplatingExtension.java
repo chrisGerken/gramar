@@ -10,6 +10,8 @@ import org.gramar.ITagHandler;
 import org.gramar.ITemplatingExtension;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchCustomTagException;
+import org.gramar.function.GramarFunction;
+import org.gramar.function.IGramarFunction;
 import org.gramar.model.DocumentHelper;
 import org.gramar.model.ModelAccess;
 import org.w3c.dom.Document;

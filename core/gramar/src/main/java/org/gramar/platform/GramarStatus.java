@@ -18,8 +18,16 @@ public class GramarStatus implements IGramarStatus {
 		return new GramarStatus(t, t.getMessage(), SEVERITY_ERROR );
 	}
 	
+	public static IGramarStatus error(String message) {
+		return new GramarStatus(null, message, SEVERITY_ERROR );
+	}
+	
 	public static IGramarStatus warning(Throwable t) {
 		return new GramarStatus(t, t.getMessage(), SEVERITY_WARN );
+	}
+	
+	public static IGramarStatus info(String message) {
+		return new GramarStatus(null, message, SEVERITY_INFO );
 	}
 
 	@Override

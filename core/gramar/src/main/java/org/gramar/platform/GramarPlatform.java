@@ -38,12 +38,14 @@ public abstract class GramarPlatform implements IGramarPlatform {
 
 	@Override
 	public IGramar getGramar(String patternId) throws NoSuchGramarException, InvalidGramarException {
+		IGramar pattern;
 		for (IPluginSource source : pluginSources) {
 			try {
-				IGramar pattern = source.getGramar(patternId);
+				pattern = source.getGramar(patternId);
 				return pattern;
 			} catch (NoSuchGramarException e) {
 				// Ignore and continue with the next source
+				pattern = null;
 			}
 		}
 		throw new NoSuchGramarException();
@@ -127,6 +129,7 @@ public abstract class GramarPlatform implements IGramarPlatform {
 				return extension;
 			} catch (NoSuchTemplatingExtensionException e) {
 				// Do nothing.  Keep looking.
+				extension = null;
 			}
 		}
 		throw new NoSuchTemplatingExtensionException();

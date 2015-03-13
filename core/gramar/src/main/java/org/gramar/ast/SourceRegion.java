@@ -2,6 +2,7 @@ package org.gramar.ast;
 
 import java.util.HashMap;
 
+import org.gramar.exception.IllFormedTemplateException;
 import org.gramar.model.DocumentHelper;
 import org.gramar.model.ModelAccess;
 import org.w3c.dom.Document;
@@ -89,7 +90,7 @@ public class SourceRegion {
 	 * TYPE_END_TAG:
 	 * 
 	 */
-	public HashMap<String, String> getAttributes() {
+	public HashMap<String, String> getAttributes() throws IllFormedTemplateException {
 		if (isEndTag() | isText() | isComment()) {
 			return new HashMap<String, String>();
 		}
@@ -120,7 +121,7 @@ public class SourceRegion {
 	 * given a String of the form:   a="" b='' c=""
 	 * return a hashmap of attribute names and literal values
 	 */
-	private HashMap<String, String> attributesFrom(String innards) {
+	private HashMap<String, String> attributesFrom(String innards) throws IllFormedTemplateException {
 
 		HashMap<String, String> map = new HashMap<String, String>();
 
@@ -134,16 +135,10 @@ public class SourceRegion {
 				map.put(n.getNodeName(), String.valueOf(n.getNodeValue()));
 			}
 		} catch (Exception e) {
-
+			throw new IllFormedTemplateException(this, "Invalid tag syntax");
 		}
 		
 		return map;
-	}
-	
-	public static void main(String[] args) {
-		SourceRegion sr = new SourceRegion("<sometag a=\"123\" b=\"fred\" c='s\"am' />", 1, 2, TYPE_TAG);
-		HashMap<String, String> map = sr.getAttributes();
-		int z = map.size();
 	}
 	
 	public boolean isText() {

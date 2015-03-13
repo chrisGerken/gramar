@@ -19,7 +19,7 @@ public class IterateTag extends TagHandler implements ITagHandler {
 
 			String select = getRawAttribute("select");
 			String var = getStringAttribute("var", context);
-			String delim = getStringAttribute("delim", context, "");
+			String delim = getStringAttribute("delimiter", context, "");
 
 			boolean first = true;
 			Node[] node = context.resolveToNodes(select);

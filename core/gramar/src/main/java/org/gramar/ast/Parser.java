@@ -178,7 +178,7 @@ public class Parser {
 		} catch (NoSuchTemplatingExtensionException e) {
 
 		} catch (InvalidTemplateExtensionException e) {
-
+			gramarContext.error(e);;
 		} catch (GramarException e) {
 
 		}

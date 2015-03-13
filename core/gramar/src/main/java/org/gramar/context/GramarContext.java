@@ -280,11 +280,29 @@ public class GramarContext implements IGramarContext {
 	@Override
 	public void warning(Exception e) {
 		stati.add(GramarStatus.warning(e));
+		log(e.getMessage());
 	}
 
 	@Override
 	public void error(Exception e) {
 		stati.add(GramarStatus.error(e));
+		log(e.getMessage());
+	}
+
+	@Override
+	public void error(String message) {
+		stati.add(GramarStatus.error(message));
+		log(message);
+	}
+
+	@Override
+	public void info(String message) {
+		stati.add(GramarStatus.info(message));
+		log(message);
+	}
+
+	public void log(String message) {
+		getFileStore().log(message);
 	}
 
 	@Override

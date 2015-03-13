@@ -80,4 +80,9 @@ public class LocalFileStore extends FileStore implements IFileStore {
 		
 	}
 
+	@Override
+	public void log(String message) {
+		System.out.println(message);
+	}
+
 }

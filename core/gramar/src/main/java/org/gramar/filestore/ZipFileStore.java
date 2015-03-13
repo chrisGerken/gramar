@@ -80,4 +80,9 @@ public class ZipFileStore extends FileStore implements IFileStore {
 		return false;
 	}
 
+	@Override
+	public void log(String message) {
+		
+	}
+
 }

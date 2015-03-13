@@ -142,4 +142,9 @@ public interface IGramarContext {
 	public XPath getXPath();
 	
 	public int getModelAccessCount();
+
+	public void info(String message);
+
+	public void error(String message);
+
 }

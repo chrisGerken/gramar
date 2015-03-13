@@ -7,6 +7,7 @@ import javax.xml.xpath.XPathVariableResolver;
 
 import org.gramar.IGramarContext;
 import org.gramar.exception.GramarException;
+import org.gramar.function.IGramarFunction;
 
 
 public class XPathResolver implements XPathFunctionResolver, XPathVariableResolver {
@@ -19,6 +20,10 @@ public class XPathResolver implements XPathFunctionResolver, XPathVariableResolv
 
 	@Override
 	public Object resolveVariable(QName variableName) {
+		Object value = context.getVariable(variableName.getLocalPart());
+		if (value == null) {
+			context.error("Unresolved valriable: "+variableName.getLocalPart());
+		}
 		return context.getVariable(variableName.getLocalPart());
 	}
 
@@ -29,8 +34,11 @@ public class XPathResolver implements XPathFunctionResolver, XPathVariableResolv
 			String namespace = functionName.getNamespaceURI();
 			String name = functionName.getLocalPart();
 			function = context.getXPathFunction(namespace, name, arity);
+			if (function instanceof IGramarFunction) {
+				((IGramarFunction)function).setContext(context);
+			}
 		} catch (GramarException e) {
-
+			context.error(e);
 		}
 		return function;
 	}

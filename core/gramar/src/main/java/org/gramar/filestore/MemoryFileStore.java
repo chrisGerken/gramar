@@ -3,6 +3,7 @@ package org.gramar.filestore;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -22,6 +23,7 @@ public class MemoryFileStore extends FileStore implements IFileStore {
 	private HashMap<String, String> files = new HashMap<String, String>();
 	private HashSet<String> folders = new HashSet<String>();
 	private HashSet<String> projects = new HashSet<String>();
+	private ArrayList<String> logs = new ArrayList<String>();
 	
 	public MemoryFileStore() {
 
@@ -54,6 +56,15 @@ public class MemoryFileStore extends FileStore implements IFileStore {
 	@Override
 	public void createFolder(String pathName) throws NoSuchResourceException, IOException {
 		folders.add(pathName);
+	}
+
+	@Override
+	public void log(String message) {
+		logs.add(message);
+	}
+	
+	public ArrayList<String> getLogs() {
+		return logs;
 	}
 
 }
