@@ -146,5 +146,10 @@ public interface IGramarContext {
 	public void info(String message);
 
 	public void error(String message);
+	
+	/**
+	 * Frees up any cached resources
+	 */
+	public void free();
 
 }

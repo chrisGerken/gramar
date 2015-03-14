@@ -85,4 +85,10 @@ public class ZipFileStore extends FileStore implements IFileStore {
 		
 	}
 
+	@Override
+	public void free() {
+		baos = null;
+		zos = null;
+	}
+
 }

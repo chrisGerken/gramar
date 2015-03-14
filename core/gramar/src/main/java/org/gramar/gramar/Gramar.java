@@ -22,6 +22,12 @@ import org.w3c.dom.Node;
 
 public abstract class Gramar implements IGramar {
 
+	@Override
+	public void free() {
+		cache = new HashMap<String, ITemplate>();
+		sources = new HashMap<String, String>();
+	}
+
 	private Properties props;
 	private HashMap<String, ITemplate> cache = new HashMap<String, ITemplate>();
 	private HashMap<String, String> sources = new HashMap<String, String>();

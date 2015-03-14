@@ -3,6 +3,7 @@ package org.gramar;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.gramar.exception.GramarException;
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.resource.UpdateResource;
 
@@ -50,7 +51,7 @@ public interface IFileStore {
 	/**
 	 * Commit to the file store all pending resource changes
 	 */
-	public void commit(String comment, IGramarContext context);
+	public void commit(String comment, IGramarContext context) throws GramarException;
 	
 	/**
 	 * Add an update request to the set of changes that need to be made as a result of
@@ -62,4 +63,9 @@ public interface IFileStore {
 	 * Logs a message in a FileStore-appropriate way
 	 */
 	public void log(String message);
+
+	/**
+	 * Free any cached resources
+	 */
+	public void free();
 }

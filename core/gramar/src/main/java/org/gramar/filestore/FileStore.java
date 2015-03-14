@@ -2,11 +2,10 @@ package org.gramar.filestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.gramar.IFileStore;
 import org.gramar.IGramarContext;
-import org.gramar.exception.NoSuchResourceException;
+import org.gramar.exception.GramarException;
 import org.gramar.resource.UpdateResource;
 
 public abstract class FileStore implements IFileStore {
@@ -18,7 +17,12 @@ public abstract class FileStore implements IFileStore {
 	}
 
 	@Override
-	public void commit(String comment, IGramarContext context) {
+	public void commit(String comment, IGramarContext context) throws GramarException {
+
+		executeUpdates(comment, context);
+	}
+	
+	protected void executeUpdates(String comment, IGramarContext context) {
 
 		UpdateResource update[] = new UpdateResource[updates.size()];
 		updates.toArray(update);
@@ -43,6 +47,11 @@ public abstract class FileStore implements IFileStore {
 	@Override
 	public void reset() {
 		
+	}
+
+	@Override
+	public void free() {
+		updates = new ArrayList<UpdateResource>();
 	}
 
 }

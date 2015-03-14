@@ -53,4 +53,9 @@ public class UpdateFile extends UpdateResource {
 	public String report() {
 		return "created file "+path;
 	}
+	
+	public boolean isFile() {
+		return true;
+	}
+
 }

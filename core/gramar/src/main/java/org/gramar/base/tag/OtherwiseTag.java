@@ -17,7 +17,7 @@ public class OtherwiseTag extends TagHandler implements ITagHandler {
 
 
 		try {
-			ChooseTag chooseTag = (ChooseTag) parentNamed("chooseTag");
+			ChooseTag chooseTag = (ChooseTag) parentNamed("choose");
 			if (chooseTag == null) {
 				throw new IllFormedTemplateException(null, "Otherwise tag not nested in a choose tag");
 			}

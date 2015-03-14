@@ -7,6 +7,11 @@ public abstract class UpdateResource implements Comparable<UpdateResource> {
 
 	protected String path;
 	
+	public static final int RESOURCE_FILE = 1;
+	public static final int RESOURCE_FOLDER = 2;
+	public static final int RESOURCE_PROJECT = 3;
+	
+	
 	public UpdateResource(String path) {
 		this.path = path;
 	}
@@ -52,4 +57,17 @@ public abstract class UpdateResource implements Comparable<UpdateResource> {
 		String segment[] = GramarHelper.pathSegments(path);
 		return segment[segment.length-1];
 	}
+	
+	public boolean isProject() {
+		return false;
+	}
+	
+	public boolean isFolder() {
+		return false;
+	}
+	
+	public boolean isFile() {
+		return false;
+	}
+
 }

@@ -19,6 +19,9 @@ public class ChooseTag extends TagHandler implements ITagHandler {
 	@Override
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 		
+		caseMet = false;
+		caseContent = null;
+		
 		try {
 			try {
 				select = getObjectAttribute("select", context);

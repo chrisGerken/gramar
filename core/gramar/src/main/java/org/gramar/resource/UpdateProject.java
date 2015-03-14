@@ -27,5 +27,9 @@ public class UpdateProject extends UpdateResource {
 	public String report() {
 		return "created project "+path;
 	}
+	
+	public boolean isProject() {
+		return true;
+	}
 
 }

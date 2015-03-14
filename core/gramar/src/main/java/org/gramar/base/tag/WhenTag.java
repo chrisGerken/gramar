@@ -19,7 +19,7 @@ public class WhenTag extends TagHandler implements ITagHandler {
 	public void mergeTo(MergeStream stream, IGramarContext context) {
 
 		try {
-			ChooseTag chooseTag = (ChooseTag) parentNamed("chooseTag");
+			ChooseTag chooseTag = (ChooseTag) parentNamed("choose");
 			if (chooseTag == null) {
 				throw new IllFormedTemplateException(null, "When tag not nested in a choose tag");
 			}

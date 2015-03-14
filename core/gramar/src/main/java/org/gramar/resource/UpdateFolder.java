@@ -26,5 +26,9 @@ public class UpdateFolder extends UpdateResource {
 	public String report() {
 		return "created folder "+path;
 	}
+	
+	public boolean isFolder() {
+		return true;
+	}
 
 }

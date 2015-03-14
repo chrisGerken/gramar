@@ -13,5 +13,10 @@ public interface IGramar {
 	public String getMainTemplateId();
 	
 	public ITemplate getTemplate(String id, IGramarContext context) throws GramarException;
-	
+
+	/**
+	 * Free any cached resources
+	 */
+	public void free();
+
 }

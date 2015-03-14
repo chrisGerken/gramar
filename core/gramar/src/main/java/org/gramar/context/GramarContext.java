@@ -172,7 +172,7 @@ public class GramarContext implements IGramarContext {
 			if (node.length > 0) {
 				return node[0];
 			} else {
-				return null;
+
 			}
 		} catch (Exception e) {
 			// Guess it wasn't a node. Ignore exception and try another return type
@@ -320,6 +320,33 @@ public class GramarContext implements IGramarContext {
 	@Override
 	public int getModelAccessCount() {
 		return modelAccess;
+	}
+
+	@Override
+	public void free() {
+		if (parentContext != null) { parentContext.free(); }
+		parentContext = null;
+		
+		primaryModel = null;
+		secondaryModels = new HashMap<String, Document>();
+		variables = new HashMap<String, Object>();
+		extensions = new HashMap<String, String>();
+		
+		if (fileStore != null) {
+			fileStore.free();
+		}
+		fileStore = null;
+		platform = null;
+		
+		if (pattern != null) {
+			pattern.free();
+		}
+		pattern = null;
+		
+		stati = new ArrayList<IGramarStatus>();
+		xpath = null;
+		modelAccess = 0;
+		
 	}
 	
 	

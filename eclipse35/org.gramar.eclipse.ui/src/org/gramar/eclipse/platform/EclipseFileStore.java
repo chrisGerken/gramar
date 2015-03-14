@@ -4,21 +4,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Arrays;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.gramar.IFileStore;
+import org.gramar.IGramarContext;
 import org.gramar.IModel;
+import org.gramar.exception.GramarException;
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.filestore.FileStore;
 import org.gramar.model.XmlModel;
+import org.gramar.resource.UpdateResource;
 import org.gramar.util.GramarHelper;
 
 
@@ -116,6 +121,59 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 	public IModel modelFrom(String modelPath) throws CoreException, Exception {
 		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(modelPath));
 		return new XmlModel(file.getContents(true));
+	}
+
+	@Override
+	public void commit(String comment, IGramarContext context) throws GramarException { 
+
+		try {
+			final EclipseFileStore fileStore 	= this;
+			final String commitComment 			= comment;
+			final IGramarContext commitContext 	= context;
+			
+			IWorkspaceRunnable batchCommit = new IWorkspaceRunnable() {
+				
+				@Override
+				public void run(IProgressMonitor monitor) throws CoreException {
+
+					fileStore.executeUpdates(commitComment, commitContext);
+
+					UpdateResource update[] = new UpdateResource[updates.size()];
+					updates.toArray(update);
+					Arrays.sort(update);
+					
+					for (UpdateResource ru: update) {
+						try {
+							if (ru.isProject()) {
+								ru.execute(fileStore);
+								System.out.println(ru.report());
+							}
+						} catch (Exception e) {
+							commitContext.error(e);
+						}
+					}
+					
+					ResourcesPlugin.getWorkspace().checkpoint(true);
+					
+					for (UpdateResource ru: update) {
+						try {
+							if (!ru.isProject()) {
+								ru.execute(fileStore);
+								System.out.println(ru.report());
+							}
+						} catch (Exception e) {
+							commitContext.error(e);
+						}
+					}
+					
+				}
+			};
+
+			ResourcesPlugin.getWorkspace().run(batchCommit, null);
+
+		} catch (CoreException e) {
+			throw new GramarException(e);
+		}
 	}
 
 	@Override

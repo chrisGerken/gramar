@@ -51,7 +51,7 @@ public class GramarContextTest {
 		Document doc = DocumentHelper.loadDocument("/models/simple01.xml");
 		GramarContext context = new GramarContext(new SimpleGramarPlatform(),doc);
 		Object result = context.resolveToObject(expression);
-		if (result != null) {
+		if (!result.equals("")) {
 			fail("Incorrect result value");
 		}
 	}

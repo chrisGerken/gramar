@@ -67,4 +67,12 @@ public class MemoryFileStore extends FileStore implements IFileStore {
 		return logs;
 	}
 
+	@Override
+	public void free() {
+		files = new HashMap<String, String>();
+		folders = new HashSet<String>();
+		projects = new HashSet<String>();
+		logs = new ArrayList<String>();
+	}
+
 }
