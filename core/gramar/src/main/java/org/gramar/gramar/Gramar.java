@@ -37,7 +37,7 @@ public abstract class Gramar implements IGramar {
 	protected String provider;
 	protected String mainTemplate;
 	protected ArrayList<TagLibSpec> taglibs = new ArrayList<TagLibSpec>();
- 
+
 	public static final String META_FILE_NAME = "gramar.config";
 	
 	public Gramar() throws InvalidGramarException {
@@ -131,5 +131,9 @@ public abstract class Gramar implements IGramar {
 			throw new InvalidGramarException(e);
 		}
 	}
+	 
+		public ArrayList<TagLibSpec> getTaglibs() {
+			return taglibs;
+		}
 
 }

@@ -10,6 +10,7 @@ public class EclipsePlatform extends GramarPlatform implements IGramarPlatform {
 		super();
 		addPluginSource(new EclipseWorkspacePluginSource());
 		addPluginSource(new ClasspathPluginSource());
+		setDefaultFileStore(new EclipseFileStore());
 	}
 
 	@Override

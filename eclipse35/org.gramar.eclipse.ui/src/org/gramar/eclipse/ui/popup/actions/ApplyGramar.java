@@ -57,7 +57,7 @@ public class ApplyGramar implements IObjectActionDelegate {
 				br.close();
 				
 				EclipsePlatform platform = new EclipsePlatform();
-				EclipseFileStore fileStore = new EclipseFileStore();
+				EclipseFileStore fileStore = (EclipseFileStore) platform.getDefaultFileStore();
 				IModel model = fileStore.modelFrom(modelPath);
 				IGramarApplicationStatus result = platform.apply(model, gramarId, fileStore);
 				

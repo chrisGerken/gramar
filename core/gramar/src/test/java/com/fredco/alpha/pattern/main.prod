@@ -10,7 +10,7 @@ before
 <c:addTextElement select="$wanda1" name="fish">abcdefghijk</c:addTextElement>
 
 <c:iterate select="/root/fred" var="fred" >
-<c:createFile  path="/someproject/dir1/dir2/output_{$fred/@file}.txt"  template="file.txt"  />
+<c:createFile  path="/someproject/dir1/dir2/output_{$fred/@file}.prod"  template="file.prod"  />
 </c:iterate>
 
 after

@@ -3,7 +3,7 @@
 	<id><d:get select="/gramar/@id" /></id>
 	<label><d:get select="/gramar/@label" /></label>
 	<provider><d:get select="/gramar/@provider" /></provider>
-	<main>main.txt</main>
+	<main>main.prod</main>
 
 	<d:userRegion><taglibs><d:initialCode>
 	

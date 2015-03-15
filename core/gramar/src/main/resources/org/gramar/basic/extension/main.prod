@@ -33,8 +33,8 @@
 
 <d:project  	name="{/extension/@project}"  />
 
-<d:file	path="{/extension/@project}/pom.xml" 					 						template="templates/pom.txt"  			replace="false" />
-<d:file	path="{/extension/@project}/src/main/java/{/extension/@dir}/extension.config"	template="templates/extensionConfig.txt"  	replace="true" />
+<d:file	path="{/extension/@project}/pom.xml" 					 						template="templates/pom.prod"  			replace="false" />
+<d:file	path="{/extension/@project}/src/main/java/{/extension/@dir}/extension.config"	template="templates/extensionConfig.prod"  	replace="true" />
 
 <d:folder	path="{/extension/@project}/src/main/java"  />
 <d:folder	path="{/extension/@project}/src/main/resources"  />
@@ -42,8 +42,8 @@
 <d:folder	path="{/extension/@project}/src/test/resources"  />
 
 <d:iterate select="/extension/tags/tag" var="tag" >
-	<d:file	path="{/extension/@project}/src/main/java/{/extension/@tagDir}/{$tag/@tagJava}.java"  	template="templates/tagHandler.txt" 	replace="true" />
+	<d:file	path="{/extension/@project}/src/main/java/{/extension/@tagDir}/{$tag/@tagJava}.java"  	template="templates/tagHandler.prod" 	replace="true" />
 </d:iterate>
 
-<d:file	path="{/extension/@project}/dump.xml" 					 						template="dump.txt"  			replace="true" />
+<d:file	path="{/extension/@project}/dump.xml" 					 						template="dump.prod"  			replace="true" />
 

@@ -34,5 +34,14 @@ public class XmlModel implements IModel {
 	public Document asDOM() {
 		return document;
 	}
+	
+	public static XmlModel emptyModel() {
+		try {
+			return new XmlModel("<root/>");
+		} catch (Exception e) {
+
+		}
+		return null;
+	}
 
 }

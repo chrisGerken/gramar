@@ -3,6 +3,18 @@
 <plugin>
 
    <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Gramar Production Editor"
+            extensions="prod"
+            icon="icons/sample.gif"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="org.gramar.eclipse.ui.editors.ProdEditor"
+            id="org.gramar.eclipse.ui.editors.ProdEditor">
+      </editor>
+   </extension>
+
+   <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             objectClass="org.eclipse.core.resources.IFile"
