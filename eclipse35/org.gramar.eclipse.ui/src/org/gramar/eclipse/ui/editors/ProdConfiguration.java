@@ -22,6 +22,7 @@ public class ProdConfiguration extends SourceViewerConfiguration {
 			ProdDocumentPartitioner.REGION_COMMENT,
 			ProdDocumentPartitioner.REGION_DIRECTIVE,
 			ProdDocumentPartitioner.REGION_TAG,
+			ProdDocumentPartitioner.REGION_CONTROL,
 			ProdDocumentPartitioner.REGION_TEXT	};
 	}
 		
@@ -52,6 +53,10 @@ public class ProdConfiguration extends SourceViewerConfiguration {
 		pdd = new ProdPresentationDamager(IProdColorConstants.DIRECTIVE, IProdColorConstants.BACKGROUND);
 		reconciler.setDamager(pdd, ProdDocumentPartitioner.REGION_DIRECTIVE);
 		reconciler.setRepairer(pdd, ProdDocumentPartitioner.REGION_DIRECTIVE);
+		
+		pdd = new ProdPresentationDamager(IProdColorConstants.CONTROL, IProdColorConstants.BACKGROUND);
+		reconciler.setDamager(pdd, ProdDocumentPartitioner.REGION_CONTROL);
+		reconciler.setRepairer(pdd, ProdDocumentPartitioner.REGION_CONTROL);
 		
 		return reconciler;
 	}
