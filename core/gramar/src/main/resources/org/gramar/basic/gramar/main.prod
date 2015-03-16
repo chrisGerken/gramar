@@ -5,7 +5,7 @@
 <d:project  	name="{/gramar/@id}"  />
 
 <d:file	path="{/gramar/@id}/.gramar"  									template="templates/empty.prod"  />
-<d:file	path="{/gramar/@id}/pom.xml" 					 				template="templates/pom.prod"  			replace="false" />
+<d:file	path="{/gramar/@id}/pom.xml" 					 				template="templates/pom.prod"  				replace="false" />
 <d:file	path="{/gramar/@id}/src/main/java/{/gramar/@dir}/gramar.config"	template="templates/gramarConfig.prod"  	replace="true" />
 <d:file	path="{/gramar/@id}/src/main/java/{/gramar/@dir}/main.prod"  	template="templates/main.prod"  			replace="false" />
 <d:folder	path="{/gramar/@id}/src/main/java"  />

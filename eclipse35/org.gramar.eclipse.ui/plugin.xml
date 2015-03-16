@@ -36,5 +36,19 @@
          </action>
       </objectContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.gramar.eclipse.ui"
+            name="Gramars">
+      </category>
+      <wizard
+            category="org.gramar.eclipse.ui"
+            class="org.gramar.eclipse.ui.wizards.NewGramarWizard"
+            icon="icons/sample.gif"
+            id="org.gramar.eclipse.ui.wizards.NewGramarWizard"
+            name="Gramar">
+      </wizard>
+   </extension>
 
 </plugin>
