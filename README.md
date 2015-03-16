@@ -1,5 +1,8 @@
 # gramar
-Tooling that enables arbitrary grammatical architectures.  
+
+A gramar is a set of production rules for source and other files in a component implementation adhering to a specific software architecture. Each gramar has an associated schema that models the allowed points of variability between instances of that software architecture. Each production describes how to generate a file from those points of variability and is often applied multiple times, depending on the cardinality of the model. A grammar does not describe the meaning of the generated files nor what can be done with them.  It only captures and generates their content.
+
+The Gramar toolset supports the creation, authoring, distribution and application of individual gramars accross a number of IDE's and runtime environments.
 
 **Gramar** 
 
