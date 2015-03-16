@@ -28,14 +28,14 @@ Gramars can be deployed:
 
 ## Productions
 
-A production is a text file whose boilerplate content generally resembles the file content it's meant to generate.  Imbedded in the txt content are gramar tags that can:
+A production is a text file whose boilerplate content generally resembles the file content it's meant to generate.  Imbedded in its text content are gramar tags that can:
 
 1. Read data from the model and insert in-place within the template boilerplate
 2. Transform and write data back into the model
 3. Conditionally process nested boilerplate and tags.  The conditional processing includes **if**, **case** and **iterative** behaviors.
 4. Create projects, folders and files
 
-As such, the processing of a production is effectively top-down procedural with possible side effects to model and, in the case of **main.prod**, the creation of projects, folders and files.
+As such, the processing of a production is effectively top-down procedural with possible side effects to the model and, in the case of **main.prod**, the creation of projects, folders and files.
 
 ## Background
 
