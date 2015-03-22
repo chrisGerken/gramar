@@ -81,12 +81,21 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 
 	@Override
 	public Reader getFileContent(String path) throws NoSuchResourceException {
+		InputStream stream = getFileByteContent(path);
+		if (stream == null) {
+			return null;
+		}
+		return new InputStreamReader(stream);
+	}
+
+	@Override
+	public InputStream getFileByteContent(String path) throws NoSuchResourceException {
 		try {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
 			if (!file.exists()) {
 				return null;
 			}
-			return new InputStreamReader(file.getContents(true));
+			return file.getContents(true);
 		} catch (CoreException e) {
 			throw new NoSuchResourceException(e);
 		}
@@ -99,11 +108,16 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 
 	@Override
 	public void setFileContent(String path, Reader reader) throws NoSuchResourceException, IOException {
+		InputStream stream = GramarHelper.asStream(reader);
+		setFileContent(path, stream);
+	}
+
+	@Override
+	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException, IOException {
 		try {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
-			InputStream is = GramarHelper.asStream(reader);
 			if (file.exists()) {
-				file.setContents(is, true, true, (IProgressMonitor)null);
+				file.setContents(stream, true, true, (IProgressMonitor)null);
 			} else {
 				String segment[] = GramarHelper.pathSegments(path);
 				if (segment.length > 1) {
@@ -111,7 +125,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 					String prp = path.substring(0,index);
 					createFolder(prp);
 				}
-				file.create(is, true, (IProgressMonitor)null);
+				file.create(stream, true, (IProgressMonitor)null);
 			}
 		} catch (CoreException e) {
 			throw new NoSuchResourceException(e);

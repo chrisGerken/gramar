@@ -1,6 +1,9 @@
 package org.gramar.filestore;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import org.gramar.util.GramarHelper;
 public class MemoryFileStore extends FileStore implements IFileStore {
 
 	private HashMap<String, String> files = new HashMap<String, String>();
+	private HashMap<String, byte[]> binaries = new HashMap<String, byte[]>();
 	private HashSet<String> folders = new HashSet<String>();
 	private HashSet<String> projects = new HashSet<String>();
 	private ArrayList<String> logs = new ArrayList<String>();
@@ -73,6 +77,24 @@ public class MemoryFileStore extends FileStore implements IFileStore {
 		folders = new HashSet<String>();
 		projects = new HashSet<String>();
 		logs = new ArrayList<String>();
+	}
+
+	@Override
+	public InputStream getFileByteContent(String path) throws NoSuchResourceException {
+		if (files.containsKey(path)) {
+			return new ByteArrayInputStream(files.get(path).getBytes());
+		}
+		if (binaries.containsKey(path)) {
+			return new ByteArrayInputStream(binaries.get(path));
+		}
+		return null;
+	}
+
+	@Override
+	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException, IOException {
+		ByteArrayOutputStream boas = new ByteArrayOutputStream();
+		GramarHelper.copy(stream, boas);
+		binaries.put(path, boas.toByteArray());
 	}
 
 }

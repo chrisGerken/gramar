@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -89,6 +90,18 @@ public class ZipFileStore extends FileStore implements IFileStore {
 	public void free() {
 		baos = null;
 		zos = null;
+	}
+
+	@Override
+	public InputStream getFileByteContent(String path) throws NoSuchResourceException {
+		return null;
+	}
+
+	@Override
+	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException, IOException {
+		zos.putNextEntry(new ZipEntry(path));
+		GramarHelper.copy(stream, zos);
+		zos.closeEntry();
 	}
 
 }

@@ -1,9 +1,13 @@
 package org.gramar.filestore;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 
 import org.gramar.IFileStore;
@@ -26,6 +30,26 @@ public class LocalFileStore extends FileStore implements IFileStore {
 	
 	public LocalFileStore(String rootDir) {
 		this.rootDir = rootDir;
+	}
+
+	@Override
+	public InputStream getFileByteContent(String path) throws NoSuchResourceException {
+		try {
+			return new FileInputStream(absolutePathFor(path));
+		} catch (FileNotFoundException e) {
+			throw new NoSuchResourceException(e);
+		}
+	}
+
+	@Override
+	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException {
+		try {
+			FileOutputStream fos = new FileOutputStream(absolutePathFor(path));
+			GramarHelper.copy(stream, fos);
+			fos.close();
+		} catch (Exception e) {
+			throw new NoSuchResourceException(e);
+		}
 	}
 
 	@Override

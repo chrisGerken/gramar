@@ -64,4 +64,16 @@ public class ConsoleFileStore extends FileStore implements IFileStore {
 		System.out.println(message);
 	}
 
+	@Override
+	public InputStream getFileByteContent(String path) throws NoSuchResourceException {
+		return null;
+	}
+
+	@Override
+	public void setFileContent(String path, InputStream stream)
+			throws NoSuchResourceException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
