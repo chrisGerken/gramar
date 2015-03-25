@@ -1,17 +1,16 @@
 package org.gramar.extension;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.xml.xpath.XPathFunction;
 
+import org.gramar.IFileStore;
 import org.gramar.ITagHandler;
 import org.gramar.ITemplatingExtension;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchCustomTagException;
-import org.gramar.function.GramarFunction;
-import org.gramar.function.IGramarFunction;
+import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.model.DocumentHelper;
 import org.gramar.model.ModelAccess;
 import org.w3c.dom.Document;
@@ -49,6 +48,11 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 	 * of the tag each enables
 	 */
 	private HashMap<String,DefinedTag> tags = new HashMap<String,DefinedTag>();
+	
+	/**
+	 * A set of filestore classes defined in this extension, keyed by the filestore ID
+	 */
+	private HashMap<String,Class<IFileStore>> filestores = new HashMap<String,Class<IFileStore>>();
 	 
 	public static final String META_FILE_NAME = "extension.config";
 
@@ -94,6 +98,14 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 				boolean variableParms = Boolean.parseBoolean(variable);
 				XPathFunction function = (XPathFunction) loader.loadClass(impl).newInstance();
 				functions.add(new DefinedFunction(name, arity, variableParms, function));
+			}
+			
+			node = ModelAccess.getDefault().getNodes(doc, "/extension/filestores/filestore", true, null);
+			for (Node n : node) {
+				String id = ModelAccess.getDefault().getAttribute(n, "@id");
+				String impl = ModelAccess.getDefault().getAttribute(n, "@impl");
+				Class<IFileStore> filestore = (Class<IFileStore>) loader.loadClass(impl);
+				filestores.put(id, filestore);
 			}
 
 			
@@ -170,6 +182,20 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 	@Override
 	public boolean hasCustomTagHandler(String tagName) {
 		return tags.containsKey(tagName);
+	}
+
+	@Override
+	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException {
+		if (filestores.containsKey(fileStoreId)) {
+			try {
+				return filestores.get(fileStoreId).newInstance();
+			} catch (InstantiationException e) {
+				throw new NoSuchFileStoreException(e);
+			} catch (IllegalAccessException e) {
+				throw new NoSuchFileStoreException(e);
+			}
+		}
+		throw new NoSuchFileStoreException();
 	}
 	
 }

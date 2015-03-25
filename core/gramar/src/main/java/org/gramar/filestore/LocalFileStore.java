@@ -9,8 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Properties;
 
 import org.gramar.IFileStore;
+import org.gramar.exception.GramarException;
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.util.GramarHelper;
 
@@ -28,6 +30,15 @@ public class LocalFileStore extends FileStore implements IFileStore {
 
 	private String rootDir;
 	
+	public LocalFileStore() {
+		
+	}
+	
+	/**
+	 * Convenience constructor
+	 * 
+	 * @param rootDir
+	 */
 	public LocalFileStore(String rootDir) {
 		this.rootDir = rootDir;
 	}
@@ -100,13 +111,21 @@ public class LocalFileStore extends FileStore implements IFileStore {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void log(String message) {
 		System.out.println(message);
+	}
+
+	@Override
+	public void configure(Properties properties) throws GramarException {
+		super.configure(properties);
+		rootDir = (String) properties.getProperty("filestore.local.root");
+		if (rootDir == null) {
+			throw new GramarException("Missing filestore.local.root property for LocalFileStore configuration");
+		}
 	}
 
 }

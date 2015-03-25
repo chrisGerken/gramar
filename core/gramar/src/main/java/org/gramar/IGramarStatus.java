@@ -9,6 +9,7 @@ package org.gramar;
  */
 public interface IGramarStatus {
 	
+	public static final int SEVERITY_NONE 	= 0;
 	public static final int SEVERITY_INFO 	= 1;
 	public static final int SEVERITY_WARN 	= 2;
 	public static final int SEVERITY_ERROR 	= 3;

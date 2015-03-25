@@ -5,6 +5,7 @@ import java.util.List;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;
+import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 
@@ -24,6 +25,16 @@ public interface IGramarPlatform {
 	public IFileStore getDefaultFileStore();
 	
 	public void setDefaultFileStore(IFileStore fileStore);
+
+	/**
+	 * Searches all known plugin sources for an extension that provides a filestore with the given
+	 * filestore ID.  Ask that extension for an instance of that filestare and return the instance.
+	 * 
+	 * @param fileStoreId
+	 * @return
+	 * @throws NoSuchFileStoreException 
+	 */
+	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;
 
 	/*
 	 * Caches the given extension for later use

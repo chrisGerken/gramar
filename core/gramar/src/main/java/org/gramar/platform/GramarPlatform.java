@@ -1,10 +1,8 @@
 package org.gramar.platform;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.gramar.IFileStore;
 import org.gramar.IGramar;
@@ -17,12 +15,11 @@ import org.gramar.ITemplate;
 import org.gramar.ITemplatingExtension;
 import org.gramar.context.GramarContext;
 import org.gramar.exception.GramarException;
-import org.gramar.exception.IllFormedTemplateException;
 import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoFileStoreSpecifiedException;
+import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
-import org.gramar.exception.NoSuchTemplateException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.resource.MergeStream;
 
@@ -34,18 +31,19 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	protected HashMap<String,ITemplatingExtension> 	extensions = new HashMap<String,ITemplatingExtension>();
 
 	public GramarPlatform() { 
+		loadExtensions();
 	}
 
 	@Override
-	public IGramar getGramar(String patternId) throws NoSuchGramarException, InvalidGramarException {
-		IGramar pattern;
+	public IGramar getGramar(String gramarId) throws NoSuchGramarException, InvalidGramarException {
+		IGramar gramar;
 		for (IPluginSource source : pluginSources) {
 			try {
-				pattern = source.getGramar(patternId);
-				return pattern;
+				gramar = source.getGramar(gramarId);
+				return gramar;
 			} catch (NoSuchGramarException e) {
 				// Ignore and continue with the next source
-				pattern = null;
+				gramar = null;
 			}
 		}
 		throw new NoSuchGramarException();
@@ -67,31 +65,31 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	}
 
 	@Override
-	public IGramarApplicationStatus apply(IModel model, IGramar pattern) throws GramarException {
+	public IGramarApplicationStatus apply(IModel model, IGramar gramar) throws GramarException {
 		if (fileStore == null) {
 			throw new NoFileStoreSpecifiedException();
 		}
-		return apply(model, pattern, fileStore);
+		return apply(model, gramar, fileStore);
 	}
 
 	@Override
-	public IGramarApplicationStatus apply(IModel model, String patternId) throws GramarException {
+	public IGramarApplicationStatus apply(IModel model, String gramarId) throws GramarException {
 		if (fileStore == null) {
 			throw new NoFileStoreSpecifiedException();
 		}
-		return apply(model, getGramar(patternId), fileStore);
+		return apply(model, getGramar(gramarId), fileStore);
 	}
 
 	@Override
-	public IGramarApplicationStatus apply(IModel model, String patternId, IFileStore fileStore) throws GramarException {
-		return apply(model,getGramar(patternId),fileStore);
+	public IGramarApplicationStatus apply(IModel model, String gramarId, IFileStore fileStore) throws GramarException {
+		return apply(model,getGramar(gramarId),fileStore);
 	}
 
 	@Override
 	public IGramarApplicationStatus apply(IModel model, IGramar gramar, IFileStore fileStore) throws GramarException {
 		String mainId = gramar.getMainTemplateId();
 		IGramarContext context = new GramarContext(this, model.asDOM());
-		context.setPattern(gramar);
+		context.setGramar(gramar);
 		context.setFileStore(fileStore);
 		ITemplate mainTemplate = gramar.getTemplate(mainId, context);
 		return apply(mainTemplate,gramar, context);
@@ -135,6 +133,10 @@ public abstract class GramarPlatform implements IGramarPlatform {
 		throw new NoSuchTemplatingExtensionException();
 	}
 	
+	/**
+	 * Called by the constructor to give the implementer the chance to load
+	 * any known extensions, gramars, etc
+	 */
 	protected abstract void loadExtensions();
 
 	@Override
@@ -150,6 +152,21 @@ public abstract class GramarPlatform implements IGramarPlatform {
 		}
 
 		return list;
+	}
+
+	@Override
+	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException {
+		IFileStore store;
+		for (IPluginSource source : pluginSources) {
+			try {
+				store = source.getFileStore(fileStoreId);
+				return store;
+			} catch (NoSuchFileStoreException e) {
+				// Ignore and continue with the next source
+				store = null;
+			}
+		}
+		throw new NoSuchFileStoreException();
 	}
 
 }

@@ -2,19 +2,23 @@ package org.gramar.platform;
 
 import org.gramar.IGramarApplicationStatus;
 import org.gramar.IGramarContext;
+import org.gramar.IGramarStatus;
 
 
 public class GramarApplicationResult implements IGramarApplicationStatus {
 
 	private IGramarContext  context;
-	private int status;
 	
 	public GramarApplicationResult(IGramarContext context) {
 		this.context = context;
 	}
 	
 	public int getStatus() {
-		return status;
+		return context.getMaxStatus();
+	}
+	
+	public boolean hadErrors() {
+		return context.getMaxStatus() <= IGramarStatus.SEVERITY_ERROR;
 	}
 
 	@Override

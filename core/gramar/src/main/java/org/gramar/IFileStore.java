@@ -3,6 +3,7 @@ package org.gramar;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Properties;
 
 import org.gramar.exception.GramarException;
 import org.gramar.exception.NoSuchResourceException;
@@ -84,4 +85,13 @@ public interface IFileStore {
 	 * Free any cached resources
 	 */
 	public void free();
+	
+	/**
+	 * Configure the filestore with values from the given properties file.
+	 * 
+	 * @param properties
+	 * @throws GramarException 
+	 */
+	public void configure(Properties properties) throws GramarException;
+	
 }

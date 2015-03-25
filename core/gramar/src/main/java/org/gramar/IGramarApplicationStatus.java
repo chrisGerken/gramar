@@ -6,4 +6,6 @@ public interface IGramarApplicationStatus {
 	
 	public int getModelAccesses();
 	
+	public boolean hadErrors();
+	
 }

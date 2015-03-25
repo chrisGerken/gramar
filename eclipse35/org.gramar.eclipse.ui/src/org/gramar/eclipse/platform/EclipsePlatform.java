@@ -11,14 +11,13 @@ public class EclipsePlatform extends GramarPlatform implements IGramarPlatform {
 
 	public EclipsePlatform() {
 		super();
-		addPluginSource(new EclipseWorkspacePluginSource());
-		addPluginSource(new ClasspathPluginSource());
-		setDefaultFileStore(new EclipseFileStore());
 	}
 
 	@Override
 	protected void loadExtensions() {
-		
+		addPluginSource(new EclipseWorkspacePluginSource());
+		addPluginSource(new ClasspathPluginSource());
+		setDefaultFileStore(new EclipseFileStore());
 	}
 
 	public static IGramarApplicationStatus apply(String modelContent, String gramarId) throws Exception {

@@ -2,6 +2,7 @@ package org.gramar.filestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Properties;
 
 import org.gramar.IFileStore;
 import org.gramar.IGramarContext;
@@ -52,6 +53,12 @@ public abstract class FileStore implements IFileStore {
 	@Override
 	public void free() {
 		updates = new ArrayList<UpdateResource>();
+	}
+
+	@Override
+	public void configure(Properties properties) throws GramarException {
+
+		
 	}
 
 }

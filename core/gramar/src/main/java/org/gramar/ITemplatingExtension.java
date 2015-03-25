@@ -3,6 +3,7 @@ package org.gramar;
 import javax.xml.xpath.XPathFunction;
 
 import org.gramar.exception.NoSuchCustomTagException;
+import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.extension.DefinedTag;
 
 /**
@@ -36,5 +37,15 @@ public interface ITemplatingExtension {
 	public boolean hasCustomTagHandler(String tagName);
 	
 	public Class loadClass(String fullyQualifiedName) throws ClassNotFoundException, Exception;
+	
+	/** 
+	 * Returns the IFileStore implementation for the given ID.  If no such filestore is 
+	 * supported by this extension then throw an exception
+	 * 
+	 * @param fileStoreId
+	 * @return
+	 * @throws NoSuchFileStoreException 
+	 */
+	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;
 	
 }

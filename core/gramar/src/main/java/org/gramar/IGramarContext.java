@@ -125,7 +125,7 @@ public interface IGramarContext {
 	
 	public boolean isExtensionDefined(String extensionId);
 
-	public void setPattern(IGramar pattern);
+	public void setGramar(IGramar pattern);
 	
 	public IGramar getPattern();
 
@@ -151,5 +151,7 @@ public interface IGramarContext {
 	 * Frees up any cached resources
 	 */
 	public void free();
+
+	public int getMaxStatus();
 
 }

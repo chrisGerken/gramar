@@ -268,7 +268,7 @@ public class GramarContext implements IGramarContext {
 	}
 
 	@Override
-	public void setPattern(IGramar pattern) {
+	public void setGramar(IGramar pattern) {
 		this.pattern = pattern;
 	}
 	
@@ -347,6 +347,17 @@ public class GramarContext implements IGramarContext {
 		xpath = null;
 		modelAccess = 0;
 		
+	}
+
+	@Override
+	public int getMaxStatus() {
+		int status = 0;
+		for (IGramarStatus stat: stati) {
+			if (stat.getSeverity() > status) {
+				status = stat.getSeverity();
+			}
+		}
+		return status;
 	}
 	
 	
