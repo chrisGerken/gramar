@@ -1,6 +1,7 @@
 package org.gramar.platform;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.gramar.exception.NoFileStoreSpecifiedException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
+import org.gramar.gramar.GramarScore;
 import org.gramar.resource.MergeStream;
 
 
@@ -136,8 +138,9 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	/**
 	 * Called by the constructor to give the implementer the chance to load
 	 * any known extensions, gramars, etc
+	 * @throws GramarException 
 	 */
-	protected abstract void loadExtensions();
+	protected abstract void loadExtensions() ;
 
 	@Override
 	public List<IGramar> getKnownGramars() {
@@ -156,17 +159,28 @@ public abstract class GramarPlatform implements IGramarPlatform {
 
 	@Override
 	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException {
-		IFileStore store;
-		for (IPluginSource source : pluginSources) {
+		for (ITemplatingExtension ext: extensions.values()) {
 			try {
-				store = source.getFileStore(fileStoreId);
-				return store;
-			} catch (NoSuchFileStoreException e) {
-				// Ignore and continue with the next source
-				store = null;
+				return ext.getFileStore(fileStoreId);
+			} catch (Exception e) {
+
 			}
 		}
 		throw new NoSuchFileStoreException();
+	}
+
+	@Override
+	public GramarScore[] scoreKnownGramars(IModel proposedModel) {
+		ArrayList<GramarScore> scores = new ArrayList<GramarScore>();
+		List<IGramar> gramars = getKnownGramars();
+		for (IGramar gramar: gramars) {
+			Double score = gramar.scoreApplicability(proposedModel);
+			scores.add(new GramarScore(gramar, score));
+		}
+		GramarScore gramarScore[] = new GramarScore[scores.size()];
+		scores.toArray(gramarScore);
+		Arrays.sort(gramarScore);
+		return gramarScore;
 	}
 
 }

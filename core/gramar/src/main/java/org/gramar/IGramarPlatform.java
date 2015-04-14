@@ -8,6 +8,7 @@ import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
+import org.gramar.gramar.GramarScore;
 
 /*
  * An IPatternPlatform manages an ordered set of IPatternSources and has helper methods
@@ -60,5 +61,11 @@ public interface IGramarPlatform {
 	 * @return
 	 */
 	public List<IGramar> getKnownGramars();
+	
+	/**
+	 * @return a sorted array of gramars with associated scores.  GramarScores are returned with the best match
+	 * first and the worst match last.
+	 */
+	public GramarScore[] scoreKnownGramars(IModel proposedModel);
 
 }

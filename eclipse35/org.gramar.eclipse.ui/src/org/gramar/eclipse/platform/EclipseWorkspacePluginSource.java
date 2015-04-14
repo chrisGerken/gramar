@@ -25,11 +25,6 @@ public class EclipseWorkspacePluginSource extends PluginSource implements
 	}
 
 	@Override
-	public IFileStore getFileStore(String arg0) throws NoSuchFileStoreException {
-		throw new NoSuchFileStoreException();
-	}
-
-	@Override
 	public ITemplatingExtension getTemplatingExtension(String extensionId) throws NoSuchTemplatingExtensionException, InvalidTemplateExtensionException {
 		
 		// First, look for a config file

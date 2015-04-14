@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -12,14 +13,19 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.gramar.IGramar;
 import org.gramar.IGramarApplicationStatus;
 import org.gramar.IModel;
 import org.gramar.eclipse.platform.EclipseFileStore;
 import org.gramar.eclipse.platform.EclipsePlatform;
+import org.gramar.eclipse.ui.dialog.ChooseGramarDialog;
 import org.gramar.exception.GramarException;
+import org.gramar.gramar.GramarScore;
+import org.gramar.model.XmlModel;
 
 public class ApplyGramar implements IObjectActionDelegate {
 
@@ -45,30 +51,47 @@ public class ApplyGramar implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 
-		String msg = "";
+		String msg = null;
 		if (target == null) {
 			msg = "No file selected";
 		} else {
 			try {
+
 				InputStream is = target.getContents();
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));
-				String gramarId = br.readLine();
-				String modelPath = br.readLine();
-				br.close();
-				
+				IModel proposedModel = new XmlModel(is);
+				try { is.close(); } catch (Throwable t) {  }
+
 				EclipsePlatform platform = new EclipsePlatform();
-				EclipseFileStore fileStore = (EclipseFileStore) platform.getDefaultFileStore();
-				IModel model = fileStore.modelFrom(modelPath);
-				IGramarApplicationStatus result = platform.apply(model, gramarId, fileStore);
+				GramarScore[] scored = platform.scoreKnownGramars(proposedModel);
+				if (scored.length == 0) {
+					msg = "No gramars were found.";  
+				} else {
+					ChooseGramarDialog cgd = new ChooseGramarDialog(shell, scored);
+					cgd.setBlockOnOpen(true);
+					int returnCode = cgd.open();
+					if (returnCode == Window.OK) {
+
+						IGramar gramar = cgd.getSelected();
+						
+						EclipseFileStore fileStore = (EclipseFileStore) platform.getDefaultFileStore();
+						String path = target.getFullPath().toString();
+						IGramarApplicationStatus result = platform.apply(proposedModel, gramar, fileStore);
+						
+						msg = "Apply Gramar was executed.  Model accessed "+result.getModelAccesses()+" times";  
+
+					}
+
+				}
 				
-				msg = "Apply Gramar was executed.  Model accessed "+result.getModelAccesses()+" times";  
 			} catch (Exception e) {
 				msg = e.getMessage();
 			}
 		}
 		
+		if (msg != null) {
+			MessageDialog.openInformation(shell, "Ui", msg);
+		}
 
-		MessageDialog.openInformation(shell, "Ui", msg);
 	}
 
 	/**

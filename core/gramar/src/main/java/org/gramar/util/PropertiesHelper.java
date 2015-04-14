@@ -14,6 +14,8 @@ public class PropertiesHelper {
 	public static final String PROPERTY_PROPERTY_FILE 	= "properties";
 	public static final String PROPERTY_GRAMAR_ID 		= "gramar";
 	public static final String PROPERTY_MODEL 			= "model";
+	public static final String PROPERTY_LIST_SAMPLES	= "list-samples";
+	public static final String PROPERTY_SAMPLE_NAME 	= "sample-name";
 	
 	private Properties props;
 	
@@ -72,6 +74,21 @@ public class PropertiesHelper {
 	}
 
 	/**
+	 * Answers whether the given property name was provided in the command line
+	 * arguments or in the property file
+	 * 
+	 * Note this class's static constants for common property names for convenience.
+	 * 
+	 * @param propertyName
+	 * @return true/false depending on whether a value exists for the given property name
+	 * @throws GramarException 
+	 */
+	public boolean hasValue(String propertyName) {
+		String value = (String) props.getProperty(propertyName);
+		return (value != null);
+	}
+
+	/**
 	 * Returns the value of the given property name as specified in either the
 	 * command line arguments or the specified property file.  If the property
 	 * is not present then return the given defaultValue.
@@ -110,4 +127,17 @@ public class PropertiesHelper {
 	public Properties getProperties() {
 		return props;
 	}
+
+	/**
+	 * Set the value of a property.  If the property is already set and override
+	 * is false, do not override the existing value.
+	 * @param key
+	 * @param value
+	 */
+	public void setProperty(String key, String value, boolean override) {
+		if (!props.containsKey(key) || override) {
+			props.setProperty(key, value);
+		}
+	}
+	
 }

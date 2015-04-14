@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Properties;
@@ -55,6 +54,7 @@ public class LocalFileStore extends FileStore implements IFileStore {
 	@Override
 	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException {
 		try {
+			ensurePath(path);
 			FileOutputStream fos = new FileOutputStream(absolutePathFor(path));
 			GramarHelper.copy(stream, fos);
 			fos.close();
@@ -64,17 +64,18 @@ public class LocalFileStore extends FileStore implements IFileStore {
 	}
 
 	@Override
-	public Reader getFileContent(String path) throws NoSuchResourceException {
+	public Reader getFileContent(String path) {
 		try {
 			return new FileReader(absolutePathFor(path));
 		} catch (FileNotFoundException e) {
-			throw new NoSuchResourceException(e);
+			return null;
 		}
 	}
 
 	@Override
 	public void setFileContent(String path, Reader reader) throws NoSuchResourceException {
 		try {
+			ensureContainingPath(path);
 			FileWriter writer = new FileWriter(absolutePathFor(path));
 			GramarHelper.copy(reader, writer);
 			writer.close();
@@ -90,8 +91,7 @@ public class LocalFileStore extends FileStore implements IFileStore {
 
 	@Override
 	public void createProject(String projectName, String path) {
-		// TODO Auto-generated method stub
-
+		ensurePath(projectName);
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class LocalFileStore extends FileStore implements IFileStore {
 		if (rootDir.endsWith("/") && resourcePath.startsWith("/")) {
 			return rootDir + resourcePath.substring(1);
 		} else if (!rootDir.endsWith("/") && !resourcePath.startsWith("/")) {
-			return rootDir + "/" + resourcePath.substring(1);
+			return rootDir + "/" + resourcePath;
 		}  
 		return rootDir + resourcePath.substring(1);
 	}
@@ -125,6 +125,53 @@ public class LocalFileStore extends FileStore implements IFileStore {
 		rootDir = (String) properties.getProperty("filestore.local.root");
 		if (rootDir == null) {
 			throw new GramarException("Missing filestore.local.root property for LocalFileStore configuration");
+		}
+	}
+	
+	/**
+	 * Ensures that the folder containing the specified resourcePath
+	 * exists.  If the attempt fails, an exception will be thrown by
+	 * calling methods.
+	 * 
+	 * @param resourcePath
+	 */
+	private void ensurePath(String resourcePath) {
+		String abs = absolutePathFor(resourcePath);
+		ensureAbsolutePath(abs);
+	}
+	
+	/**
+	 * Ensures that the folder containing the specified absolute
+	 * file name exists.  If the attempt fails, an exception will 
+	 * be thrown by calling methods.
+	 * 
+	 * @param resourcePath
+	 */
+	private void ensureAbsolutePath(String absolutePath) {
+		File file = new File(absolutePath);
+		if (file.isDirectory()) {
+			file = new File(file.getParent());
+		}
+		if (file.exists()) {
+			return;
+		}
+		file.mkdirs();
+	}
+	
+	/**
+	 * Ensures that the folder containing the specified resourcePath
+	 * exists.  If the attempt fails, an exception will be thrown by
+	 * calling methods.
+	 * 
+	 * @param resourcePath
+	 */
+	private void ensureContainingPath(String resourcePath) {
+		String abs = absolutePathFor(resourcePath);
+		int index = abs.lastIndexOf("/");
+		if (index < 0) {
+			ensureAbsolutePath(abs);
+		} else {
+			ensureAbsolutePath(abs.substring(0,index));
 		}
 	}
 

@@ -2,9 +2,12 @@ package org.gramar.plugin;
 
 import java.util.HashMap;
 
+import org.gramar.IFileStore;
 import org.gramar.IGramar;
 import org.gramar.IPluginSource;
+import org.gramar.ITemplatingExtension;
 import org.gramar.exception.InvalidGramarException;
+import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
 
 

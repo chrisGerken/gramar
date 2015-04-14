@@ -3,6 +3,8 @@ package org.gramar.eclipse.ui.editors;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentPartitioner;
@@ -14,6 +16,7 @@ import org.gramar.ast.SourceRegion;
 import org.gramar.context.GramarContext;
 import org.gramar.eclipse.platform.EclipsePlatform;
 import org.gramar.eclipse.platform.EclipseWorkspaceGramar;
+import org.gramar.eclipse.ui.Activator;
 import org.gramar.exception.GramarException;
 import org.gramar.gramar.TagLibSpec;
 import org.gramar.model.XmlModel;
@@ -49,6 +52,7 @@ public class ProdDocumentPartitioner implements IDocumentPartitioner {
 				context.declareTemplatingExtension(spec.getNamespace(), spec.getExtensionId());
 			}
 		} catch (GramarException e) {
+			Activator.logError(e);
 			// Continue parsing with no extensions defined;
 		}
 		parser = new Parser(context);

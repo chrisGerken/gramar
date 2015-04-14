@@ -19,20 +19,45 @@
       <objectContribution
             objectClass="org.eclipse.core.resources.IFile"
             id="org.gramar.eclipse.ui.contribution1">
-         <menu
-               label="Gramar"
-               path="additions"
-               id="org.gramar.eclipse.ui.menu1">
-            <separator
-                  name="group1">
-            </separator>
-         </menu>
          <action
-               label="Apply Gramar"
                class="org.gramar.eclipse.ui.popup.actions.ApplyGramar"
-               menubarPath="org.gramar.eclipse.ui.menu1/group1"
                enablesFor="1"
-               id="org.gramar.eclipse.ui.newAction">
+               id="org.gramar.eclipse.ui.ApplyGramar"
+               label="Apply Gramar..."
+               menubarPath="additions"
+               >
+         </action>
+      </objectContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            id="org.gramar.eclipse.ui.contribution2">
+         <action
+               class="org.gramar.eclipse.ui.popup.actions.RunGramarConfiguration"
+               enablesFor="1"
+               id="org.gramar.eclipse.ui.RunGramarConfiguration"
+               label="Run Gramar Config"
+               menubarPath="additions"
+               >
+         </action>
+      </objectContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IProject"
+            id="org.gramar.eclipse.ui.contribution3">
+         <action
+               class="org.gramar.eclipse.ui.popup.actions.MigrateJetTransform"
+               enablesFor="1"
+               id="org.gramar.eclipse.ui.migrateJetTransform"
+               label="Migrate JET Transform"
+               menubarPath="additions"
+               >
          </action>
       </objectContribution>
    </extension>

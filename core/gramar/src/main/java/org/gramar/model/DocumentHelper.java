@@ -2,13 +2,17 @@ package org.gramar.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.gramar.IModel;
+import org.gramar.exception.GramarException;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 
 public class DocumentHelper {
@@ -39,23 +43,31 @@ public class DocumentHelper {
 	}
 	
 
-	public static Document buildModel(String content) throws Exception {
+	public static Document buildModel(String content) throws GramarException {
 		return buildModel(new ByteArrayInputStream(content.getBytes()));
 	}
 
-	public static Document buildModel(InputStream is) throws Exception {
-		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-		DocumentBuilder parser = fact.newDocumentBuilder();
-		Document newDoc = parser.parse(is);
-		newDoc.normalize();
-		is.close();
-		return newDoc;
+	public static Document buildModel(InputStream is) throws GramarException {
+		try {
+			DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+			DocumentBuilder parser = fact.newDocumentBuilder();
+			Document newDoc = parser.parse(is);
+			newDoc.normalize();
+			is.close();
+			return newDoc;
+		} catch (Exception e) {
+			throw new GramarException(e);
+		}
 	}
 	
-	public static IModel modelFromResource(String resource) throws Exception {
-		InputStream is = load(resource);
-		XmlModel model = new XmlModel(is);
-		return model;
+	public static IModel modelFromResource(String resource) throws GramarException {
+		try {
+			InputStream is = load(resource);
+			XmlModel model = new XmlModel(is);
+			return model;
+		} catch (Exception e) {
+			throw new GramarException(e);
+		}
 	}
 
 }

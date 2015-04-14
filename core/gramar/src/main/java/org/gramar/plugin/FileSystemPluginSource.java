@@ -78,11 +78,4 @@ public class FileSystemPluginSource extends PluginSource implements IPluginSourc
 		return null;
 	}
 
-	@Override
-	public IFileStore getFileStore(String fileStoreId)
-			throws NoSuchFileStoreException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

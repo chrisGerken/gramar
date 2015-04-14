@@ -44,7 +44,7 @@ public interface IPluginSource {
 	/**
 	 * Return the file store with the given id
 	 */
-	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;
+//	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;
 	
 	/**
 	 * Tells the receiver that a pattern with the specified ID exists and is retrievable.  This is used

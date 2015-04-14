@@ -84,11 +84,4 @@ public class ClasspathPluginSource extends PluginSource implements IPluginSource
 		throw new NoSuchTemplatingExtensionException();
 	}
 
-	@Override
-	public IFileStore getFileStore(String fileStoreId)
-			throws NoSuchFileStoreException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
