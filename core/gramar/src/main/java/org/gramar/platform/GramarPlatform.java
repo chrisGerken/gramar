@@ -143,7 +143,7 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	protected abstract void loadExtensions() ;
 
 	@Override
-	public List<IGramar> getKnownGramars() {
+	public IGramar[] getKnownGramars() {
 		
 		ArrayList<IGramar> list = new ArrayList<IGramar>();
 		
@@ -154,7 +154,9 @@ public abstract class GramarPlatform implements IGramarPlatform {
 			}
 		}
 
-		return list;
+		IGramar gramar[] = new IGramar[list.size()];
+		list.toArray(gramar);
+		return gramar;
 	}
 
 	@Override
@@ -172,7 +174,7 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	@Override
 	public GramarScore[] scoreKnownGramars(IModel proposedModel) {
 		ArrayList<GramarScore> scores = new ArrayList<GramarScore>();
-		List<IGramar> gramars = getKnownGramars();
+		IGramar[] gramars = getKnownGramars();
 		for (IGramar gramar: gramars) {
 			Double score = gramar.scoreApplicability(proposedModel);
 			scores.add(new GramarScore(gramar, score));

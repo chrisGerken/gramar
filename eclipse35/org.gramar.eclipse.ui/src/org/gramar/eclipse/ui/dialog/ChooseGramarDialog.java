@@ -1,7 +1,6 @@
 package org.gramar.eclipse.ui.dialog;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.dialogs.Dialog;
@@ -18,6 +17,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 import org.gramar.IGramar;
 import org.gramar.gramar.GramarScore;
@@ -33,6 +33,7 @@ public class ChooseGramarDialog extends Dialog {
 	public static final int BUTTON_ID_APPLY = 102;
 	
 	private Combo 	gramarCombo;
+	private List 	gramarList;
 	private Label 	statusLabel;
 	private Button	applyButton;
 	private Button	closeButton;
@@ -66,8 +67,11 @@ public class ChooseGramarDialog extends Dialog {
 		panel.setLayout(layout);
 		panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		Composite inputPanel= createGramarSelectionPanel(panel);
-		setGridData(inputPanel, SWT.FILL, true, SWT.TOP, false);
+//		Composite inputPanel= createGramarSelectionPanel(panel);
+//		setGridData(inputPanel, SWT.FILL, true, SWT.TOP, false);
+
+		Composite listPanel= createGramarListPanel(panel);
+		setGridData(listPanel, SWT.FILL, true, SWT.TOP, false);
 
 		Composite statusBar= createStatusAndButtons(panel);
 		setGridData(statusBar, SWT.FILL, true, SWT.BOTTOM, false);
@@ -78,6 +82,7 @@ public class ChooseGramarDialog extends Dialog {
 
 		return panel;
 	}
+
 	/**
 	 * Creates the panel where the user chooses the Gramar
 	 * to apply against the selected model.
@@ -96,7 +101,6 @@ public class ChooseGramarDialog extends Dialog {
 		gramarLabel.setText(TEXT_GRAMAR_LABEL);
 		setGridData(gramarLabel, SWT.LEFT, false, SWT.CENTER, false);
 
-		// Create the find content assist field
 		gramarCombo = new Combo(panel, SWT.DROP_DOWN | SWT.BORDER);
 		setGridData(gramarCombo, SWT.FILL, true, SWT.CENTER, false);
 		
@@ -120,6 +124,52 @@ public class ChooseGramarDialog extends Dialog {
 		};
 		
 		gramarCombo.addSelectionListener(listener);
+
+		return panel;
+	}
+
+	/**
+	 * Creates the panel where the user chooses the Gramar
+	 * to apply against the selected model.
+	 *
+	 * @param parent the parent composite
+	 * @return the gramar selection panel
+	 */
+	private Composite createGramarListPanel(Composite parent) {
+
+		Composite panel= new Composite(parent, SWT.NULL);
+		GridLayout layout= new GridLayout();
+		layout.numColumns= 2;
+		panel.setLayout(layout);
+
+		Label gramarLabel= new Label(panel, SWT.LEFT);
+		gramarLabel.setText(TEXT_GRAMAR_LABEL);
+		setGridData(gramarLabel, SWT.LEFT, false, SWT.TOP, false);
+
+		gramarList = new List(panel, SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL);
+		GridData gd = setGridData(gramarList, SWT.FILL, true, SWT.CENTER, false);
+		gd.heightHint = 200;
+				
+		ArrayList<String> labels = new ArrayList<String>();
+		for (GramarScore gs: scored) {
+			labels.add(gs.toString());
+		}
+		String label[] = new String[labels.size()];
+		labels.toArray(label);
+		gramarList.setItems(label);
+		
+		SelectionListener listener = new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				updateButtonState();
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				updateButtonState();
+			}
+		};
+		
+		gramarList.addSelectionListener(listener);
 
 		return panel;
 	}
@@ -160,7 +210,7 @@ public class ChooseGramarDialog extends Dialog {
 	 * @param verticalAlignment vertical alignment
 	 * @param grabExcessVerticalSpace grab excess vertical space
 	 */
-	private void setGridData(Control component, int horizontalAlignment, boolean grabExcessHorizontalSpace, int verticalAlignment, boolean grabExcessVerticalSpace) {
+	private GridData setGridData(Control component, int horizontalAlignment, boolean grabExcessHorizontalSpace, int verticalAlignment, boolean grabExcessVerticalSpace) {
 		GridData gd;
 		if (component instanceof Button && (((Button)component).getStyle() & SWT.PUSH) != 0) {
 			setButtonDimensionHint((Button)component);
@@ -173,6 +223,7 @@ public class ChooseGramarDialog extends Dialog {
 		}
 		gd.verticalAlignment= verticalAlignment;
 		gd.grabExcessVerticalSpace= grabExcessVerticalSpace;
+		return gd;
 	}
 
 	/**
@@ -208,7 +259,7 @@ public class ChooseGramarDialog extends Dialog {
 	 * Updates the enabled state of the buttons.
 	 */
 	private void updateButtonState() {
-		applyButton.setEnabled(gramarCombo.getSelectionIndex()>-1);
+		applyButton.setEnabled(gramarList.getSelectionIndex()>-1);
 		closeButton.setEnabled(true);
 	}
 
@@ -220,7 +271,7 @@ public class ChooseGramarDialog extends Dialog {
 			cancelPressed();
 		}
 		if (buttonID == BUTTON_ID_APPLY) {
-			int index = gramarCombo.getSelectionIndex();
+			int index = gramarList.getSelectionIndex();
 			selected = scored[index].getGramar();
 			close();
 		}

@@ -73,8 +73,69 @@
             class="org.gramar.eclipse.ui.wizards.NewGramarWizard"
             icon="icons/sample.gif"
             id="org.gramar.eclipse.ui.wizards.NewGramarWizard"
-            name="Gramar">
+            name="Gramar"
+            project="true">
+      </wizard>
+      <wizard
+            category="org.gramar.eclipse.ui"
+            class="org.gramar.eclipse.ui.wizards.NewModelWizard"
+            icon="icons/sample.gif"
+            id="org.gramar.eclipse.ui.wizards.NewModelWizard"
+            name="Sample Model"
+            project="false">
       </wizard>
    </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Gramars Navigator"
+            icon="icons/sample.gif"
+            class="org.gramar.eclipse.navigator.GramarsNavigator"
+            id="org.gramar.eclipse.navigator">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerActionBinding
+            viewerId="com.example.test">
+         <includes>
+            <actionExtension
+                  pattern="org.eclipse.ui.navigator.resources.*">
+            </actionExtension>
+         </includes>
+      </viewerActionBinding>
+      <viewerContentBinding
+            viewerId="com.example.test">
+         <includes>
+            <contentExtension
+                  pattern="org.eclipse.ui.navigator.resourceContent">
+            </contentExtension>
+            <contentExtension
+                  pattern="org.eclipse.ui.navigator.resources.filters.*">
+            </contentExtension>
+            <contentExtension
+                  pattern="org.eclipse.ui.navigator.resources.linkHelper">
+            </contentExtension>
+            <contentExtension
+                  pattern="org.eclipse.ui.navigator.resources.workingSets">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.navigator.ProjectExplorer"
+               relationship="stack"
+               id="com.example.test">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   
 
 </plugin>

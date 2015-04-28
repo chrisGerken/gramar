@@ -56,11 +56,11 @@ public interface IGramarPlatform {
 	public IGramarApplicationStatus apply(IModel model, String patternId, IFileStore fileStore) throws GramarException;
 	
 	/**
-	 * Returns a list of all Gramars known to any PluginSource
+	 * Returns aa array of all Gramars known to any PluginSource
 	 * 
 	 * @return
 	 */
-	public List<IGramar> getKnownGramars();
+	public IGramar[] getKnownGramars();
 	
 	/**
 	 * @return a sorted array of gramars with associated scores.  GramarScores are returned with the best match
