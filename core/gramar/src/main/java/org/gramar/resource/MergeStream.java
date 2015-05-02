@@ -60,6 +60,7 @@ public class MergeStream {
 			
 			// Write unwritten content up to the start of the initial code
 			updated.append(pure.substring(written,region.getInitialCodeStart()));
+			written = region.getInitialCodeStart();
 			
 			// get the before and after eye catchers
 			String before = pure.substring(region.getUserRegionStart(), region.getInitialCodeStart());
@@ -70,6 +71,7 @@ public class MergeStream {
 			int afterIndex = -1;
 			
 			if (beforeIndex > -1) {
+				// Inital eyecatcher found.  Copy previously modified initial code to stream
 				afterIndex = prev.indexOf(after, beforeIndex);
 				if (afterIndex > -1) {
 					String previousCode = prev.substring(beforeIndex+before.length(),afterIndex);

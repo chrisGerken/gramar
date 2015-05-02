@@ -1,5 +1,8 @@
 package org.gramar.gramar;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -36,13 +39,27 @@ public abstract class ZipGrammar extends Gramar implements IGramar {
 
 	@Override
 	public String readTemplateSource(String templateName) throws NoSuchResourceException {
+
+		try {
+			InputStream is = readTemplateBinary(templateName);
+			String source = GramarHelper.asString(is);
+			return source;
+		} catch (IOException e) {
+			throw new NoSuchResourceException(e);
+		}
+
+	}
+
+	@Override
+	public InputStream readTemplateBinary(String templateName) throws NoSuchResourceException {
 		try {
 			ZipInputStream zis = getZipInputStream();
 			ZipEntry entry = zis.getNextEntry();
 			while (entry != null) {
 				if (entry.getName().equals(templateName)) {
-					String source = GramarHelper.asString(zis);
-					return source;
+					byte[] content = GramarHelper.getBytes(zis);
+					try { zis.close(); } catch (Throwable t) {  }
+					return new ByteArrayInputStream(content);
 				}
 				entry = zis.getNextEntry();
 			}

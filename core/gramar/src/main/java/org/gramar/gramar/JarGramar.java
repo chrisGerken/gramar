@@ -36,10 +36,21 @@ public class JarGramar extends Gramar implements IGramar {
 	public String readTemplateSource(String id) throws NoSuchResourceException {
 
 		try {
+			return GramarHelper.asString(readTemplateBinary(id));
+		} catch (IOException e) {
+			throw new NoSuchResourceException(e);
+		}
+
+	}
+
+	@Override
+	public InputStream readTemplateBinary(String id) throws NoSuchResourceException {
+
+		try {
 			String pkg = gramarId.replace('.', '/');
 			String resource =  pkg + "/" + id;
 			InputStream is = JarLoaders.loaderFor(jarPath).getResourceAsStream(resource);
-			return GramarHelper.asString(is);
+			return is;
 		} catch (IOException e) {
 			throw new NoSuchResourceException(e);
 		}

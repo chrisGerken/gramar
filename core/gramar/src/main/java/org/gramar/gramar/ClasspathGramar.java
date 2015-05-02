@@ -35,13 +35,23 @@ public class ClasspathGramar extends Gramar implements IGramar {
 	public String readTemplateSource(String id) throws NoSuchResourceException {
 
 		try {
-			String pkg = gramarId.replace('.', '/');
-			String resource = "/" + pkg + "/" + id;
-			InputStream is = ClasspathPluginSource.class.getResourceAsStream(resource);
-			return GramarHelper.asString(is);
+			return GramarHelper.asString(readTemplateBinary(id));
 		} catch (IOException e) {
 			throw new NoSuchResourceException(e);
 		}
+
+	}
+
+	@Override
+	public InputStream readTemplateBinary(String id) throws NoSuchResourceException {
+
+		String pkg = gramarId.replace('.', '/');
+		String resource = "/" + pkg + "/" + id;
+		InputStream is = ClasspathPluginSource.class.getResourceAsStream(resource);
+		if (is == null) {
+			throw new NoSuchResourceException();
+		}
+		return is;
 
 	}
 

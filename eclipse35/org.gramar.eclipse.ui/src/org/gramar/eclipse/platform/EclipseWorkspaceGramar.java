@@ -1,5 +1,8 @@
 package org.gramar.eclipse.platform;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -37,9 +40,21 @@ public class EclipseWorkspaceGramar extends Gramar implements IGramar {
 	@Override
 	public String readTemplateSource(String path) throws NoSuchResourceException {
 		try {
+			return GramarHelper.asString(readTemplateBinary(path));
+		} catch (IOException e) {
+			throw new NoSuchResourceException(e);
+		}
+	}
+
+	@Override
+	public InputStream readTemplateBinary(String path) throws NoSuchResourceException {
+		try {
 			IPath projectRelativePath = gramarOffset.append(new Path(path));
 			IFile file = project.getFile(projectRelativePath);
-			return GramarHelper.asString(file.getContents(true));
+			if (!file.exists()) {
+				throw new NoSuchResourceException();
+			}
+			return file.getContents(true);
 		} catch (Exception e) {
 			throw new NoSuchResourceException(e);
 		}
@@ -75,4 +90,5 @@ public class EclipseWorkspaceGramar extends Gramar implements IGramar {
 		}
 		return false;
 	}
+
 }

@@ -72,4 +72,15 @@ public class GramarHelper {
 		return segment;
 	}
 
+	/**
+	 * @param is
+	 * @return the content from InputStream is as a byte array
+	 * @throws IOException 
+	 */
+	public static byte[] getBytes(InputStream is) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		copy(is,baos);
+		return baos.toByteArray();
+	}
+
 }

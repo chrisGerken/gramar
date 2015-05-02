@@ -1,5 +1,6 @@
 package org.gramar;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.gramar.exception.GramarException;
@@ -17,7 +18,19 @@ public interface IGramar {
 	
 	public ITemplate getTemplate(String id, IGramarContext context) throws GramarException;
 
+	/**
+	 * @param id
+	 * @return a String containing the content of the given template
+	 * @throws NoSuchResourceException
+	 */
 	public String getTemplateSource(String id) throws NoSuchResourceException;
+
+	/**
+	 * @param src
+	 * @return an InputStream from which can be read the binary content of the given template
+	 * @throws NoSuchResourceException 
+	 */
+	public InputStream getTemplateBinary(String src) throws NoSuchResourceException;
 
 	/**
 	 * @return a list of sample models deployed with this gramar

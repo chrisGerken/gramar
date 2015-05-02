@@ -1,5 +1,6 @@
 package org.gramar.gramar;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,7 +116,15 @@ public abstract class Gramar implements IGramar {
 		return source;
 	}
 
+	@Override
+	public InputStream getTemplateBinary(String id) throws NoSuchResourceException {
+		InputStream is = readTemplateBinary(id);
+		return is;
+	}
+
 	public abstract String readTemplateSource(String id) throws NoSuchResourceException;
+
+	public abstract InputStream readTemplateBinary(String id) throws NoSuchResourceException;
 	
 	public void loadMeta() throws InvalidGramarException {
 		try {
