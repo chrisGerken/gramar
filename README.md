@@ -2,7 +2,7 @@
 
 noun **|** gram - ar **|** \ˈgra-mər\
 
-Simply put, a gramar is a tool that can generate up to 95% (historically speaking, ex business logic) of a component for almost any given software architecute.  Past examples of supported architectures include:
+Simply put, a gramar is a tool that can generate up to 95% (historically speaking, ex business logic) of a component for almost any given software architecture.  Past examples of supported architectures include:
 
 1. Hadoop applications (Storm topologies, Mapreduce job flows, Kafka components)
 2. Database persistence layers, both relational and NoSQL (HBase, Cassandra, Elasticsearch)
