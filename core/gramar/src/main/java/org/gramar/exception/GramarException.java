@@ -27,4 +27,14 @@ public class GramarException extends Exception {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String getMessage() {
+		String msg = super.getMessage();
+		if (msg == null) {
+			msg = toString();
+		}
+		return msg;
+	}
+	
+
 }

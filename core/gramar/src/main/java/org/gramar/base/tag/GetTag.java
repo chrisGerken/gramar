@@ -1,5 +1,7 @@
 package org.gramar.base.tag;
 
+import javax.xml.xpath.XPathFunctionException;
+
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
 import org.gramar.resource.MergeStream;
@@ -25,7 +27,7 @@ public class GetTag extends TagHandler implements ITagHandler {
 			String value = context.resolveToString(select);
 			stream.append(value);
 		} catch (Exception e) {
-			context.error(e);
+			context.error(e.getMessage()+" occurred during "+toString());
 		}
 
 	}

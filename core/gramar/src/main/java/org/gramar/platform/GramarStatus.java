@@ -25,9 +25,17 @@ public class GramarStatus implements IGramarStatus {
 	public static IGramarStatus warning(Throwable t) {
 		return new GramarStatus(t, t.getMessage(), SEVERITY_WARN );
 	}
+
+	public static IGramarStatus warning(String message) {
+		return new GramarStatus(null, message, SEVERITY_WARN );
+	}
 	
 	public static IGramarStatus info(String message) {
 		return new GramarStatus(null, message, SEVERITY_INFO );
+	}
+
+	public static IGramarStatus debug(String message) {
+		return new GramarStatus(null, message, SEVERITY_DEBUG );
 	}
 
 	@Override

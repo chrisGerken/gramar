@@ -53,6 +53,8 @@ public class GramarContext implements IGramarContext {
 	
 	private int modelAccess = 0;
 	
+	private int minLogLevel = IGramarStatus.SEVERITY_DEBUG;
+	
 	public GramarContext(IGramarPlatform platform, Document model) {
 		this.platform = platform;
 		this.primaryModel = model;
@@ -89,12 +91,14 @@ public class GramarContext implements IGramarContext {
 	public void setVariable(String variableName, Object value) {
 		if (variableName == null) { return; }
 		variables.put(variableName, value);
+		debug("set variable "+variableName+" = "+String.valueOf(value));
 	}
 
 	@Override
 	public void unsetVariable(String variableName) {
 		if (variableName == null) { return; }
 		variables.remove(variableName);
+		debug("unset variable "+variableName);
 	}
 
 	@Override
@@ -280,29 +284,43 @@ public class GramarContext implements IGramarContext {
 	@Override
 	public void warning(Exception e) {
 		stati.add(GramarStatus.warning(e));
-		log(e.getMessage());
+		log(e.getMessage(), IGramarStatus.SEVERITY_WARN);
 	}
 
 	@Override
 	public void error(Exception e) {
 		stati.add(GramarStatus.error(e));
-		log(e.getMessage());
+		log(e.getMessage(), IGramarStatus.SEVERITY_ERROR);
 	}
 
 	@Override
 	public void error(String message) {
 		stati.add(GramarStatus.error(message));
-		log(message);
+		log(message, IGramarStatus.SEVERITY_ERROR);
 	}
 
 	@Override
 	public void info(String message) {
 		stati.add(GramarStatus.info(message));
-		log(message);
+		log(message, IGramarStatus.SEVERITY_INFO);
 	}
 
-	public void log(String message) {
-		getFileStore().log(message);
+	@Override
+	public void debug(String message) {
+		stati.add(GramarStatus.debug(message));
+		log(message, IGramarStatus.SEVERITY_DEBUG);
+	}
+
+	@Override
+	public void warning(String message) {
+		stati.add(GramarStatus.warning(message));
+		log(message, IGramarStatus.SEVERITY_WARN);
+	}
+
+	public void log(String message, int severity) {
+		if ((minLogLevel <= severity) && (getFileStore() != null)) {
+			getFileStore().log(message);
+		}
 	}
 
 	@Override

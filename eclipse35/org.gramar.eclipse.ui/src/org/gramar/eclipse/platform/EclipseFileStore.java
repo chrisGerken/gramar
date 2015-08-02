@@ -160,7 +160,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 						try {
 							if (ru.isProject()) {
 								ru.execute(fileStore);
-								System.out.println(ru.report());
+								log(ru.report());
 							}
 						} catch (Exception e) {
 							commitContext.error(e);
@@ -173,7 +173,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 						try {
 							if (!ru.isProject()) {
 								ru.execute(fileStore);
-								System.out.println(ru.report());
+								log(ru.report());
 							}
 						} catch (Exception e) {
 							commitContext.error(e);
@@ -193,7 +193,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 	@Override
 	public void log(String message) {
 
-//		MessageConsole myConsole = new MessageConsole(name, null);		
+		EclipsePlatform.log(message);
 
 	}
 

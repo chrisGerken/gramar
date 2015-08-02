@@ -22,7 +22,7 @@ public class XPathResolver implements XPathFunctionResolver, XPathVariableResolv
 	public Object resolveVariable(QName variableName) {
 		Object value = context.getVariable(variableName.getLocalPart());
 		if (value == null) {
-			context.error("Unresolved valriable: "+variableName.getLocalPart());
+			context.error("Unresolved variable: "+variableName.getLocalPart());
 		}
 		return context.getVariable(variableName.getLocalPart());
 	}

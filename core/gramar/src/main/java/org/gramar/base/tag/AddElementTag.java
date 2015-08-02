@@ -20,7 +20,7 @@ public class AddElementTag extends TagHandler implements ITagHandler {
 
 			Node node = getNodeAttribute("select", context);
 			String name = getStringAttribute("name", context);
-			String var = getStringAttribute("var", context);
+			String var = getStringAttribute("var", context, null);
 
 			Element element = node.getOwnerDocument().createElement(name);
 			node.appendChild(element);

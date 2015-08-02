@@ -6,6 +6,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFunction;
 import javax.xml.xpath.XPathFunctionException;
 
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class LowercaseFunction implements XPathFunction {
@@ -22,7 +23,11 @@ public class LowercaseFunction implements XPathFunction {
 			original = (String) val;
 		} else if (val instanceof NodeList) {
 			NodeList nl = (NodeList) val;
-			original = nl.item(0).getNodeValue();
+			Node item = nl.item(0);
+			if (item == null) {
+				throw new XPathFunctionException("argument for lower-case() is null");
+			}
+			original = item.getNodeValue();
 		}
 		return original.toLowerCase();
 	}

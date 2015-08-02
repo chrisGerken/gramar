@@ -356,5 +356,13 @@ public abstract class TagHandler implements ITagHandler {
 		return context.resolveToNodes(expression);
 	}
 
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("TagHandler "+getTagName());
+		for (String attr : getAttributes().keySet()) {
+			sb.append("  "+attr+"=\""+attributes.get(attr)+"\"");
+		}
+		return sb.toString();
+	}
 
 }

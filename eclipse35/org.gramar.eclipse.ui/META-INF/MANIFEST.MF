@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ui
 Bundle-SymbolicName: org.gramar.eclipse.ui; singleton:=true
-Bundle-Version: 0.9.2
+Bundle-Version: 0.9.3
 Bundle-Activator: org.gramar.eclipse.ui.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -14,3 +14,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: gramar-1.0.0-SNAPSHOT-jar-with-dependencies.jar,
  .
+Import-Package: org.eclipse.ui.console

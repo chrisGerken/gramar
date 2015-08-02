@@ -129,12 +129,12 @@ public interface IGramarContext {
 	
 	public IGramar getPattern();
 
-	/*
+	/**
 	 * Log a warning
 	 */
 	public void warning(Exception e);
 	
-	/*
+	/**
 	 * Log an error
 	 */
 	public void error(Exception e);
@@ -143,8 +143,28 @@ public interface IGramarContext {
 	
 	public int getModelAccessCount();
 
+	/**
+	 * Log a debug-level message
+	 * @param message - the text to be written
+	 */
+	public void debug(String message);
+
+	/**
+	 * Log an informational message
+	 * @param message - the text to be written
+	 */
 	public void info(String message);
 
+	/**
+	 * Log a warning message
+	 * @param message - the text to be written
+	 */
+	public void warning(String message);
+
+	/**
+	 * Log an error message
+	 * @param message - the text to be written
+	 */
 	public void error(String message);
 	
 	/**
