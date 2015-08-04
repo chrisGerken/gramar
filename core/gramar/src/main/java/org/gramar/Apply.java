@@ -45,14 +45,14 @@ public class Apply {
 		PropertiesHelper pm = new PropertiesHelper(args);
 		
 		defaultValues(pm);
+		aliases(pm);
 
 		String gramarId;
 		String modelFile;
-		SimpleGramarPlatform platform;
 		
 		gramarId = pm.getString(PropertiesHelper.PROPERTY_GRAMAR_ID);
 
-		platform = new SimpleGramarPlatform(pm.getProperties());
+		SimpleGramarPlatform platform = new SimpleGramarPlatform(pm.getProperties());
 		
 		if (pm.hasValue(PropertiesHelper.PROPERTY_LIST_SAMPLES)) {
 			IGramar gramar = platform.getGramar(gramarId);
@@ -100,6 +100,20 @@ public class Apply {
 			System.out.println(msg);
 		}
 		
+	}
+
+	/**
+	 * Apply a set of common single-token aliases
+	 * @param pm
+	 */
+	private void aliases(PropertiesHelper pm) {
+		try {
+			String workspace = pm.getString("workspace");
+			if (workspace != null) {
+				pm.setProperty("filestore.local.root", workspace, false);
+			}
+		} catch (GramarException e) {
+		}		
 	}
 
 	/**
