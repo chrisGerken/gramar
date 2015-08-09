@@ -1,7 +1,5 @@
 package org.gramar.base.tag;
 
-import javax.xml.xpath.XPathExpressionException;
-
 import org.gramar.IGramarContext;
 import org.gramar.ITagHandler;
 import org.gramar.exception.IllFormedTemplateException;
@@ -44,8 +42,14 @@ public class WhenTag extends TagHandler implements ITagHandler {
 				
 			} else {
 				
-				// No select value specified, treat the test arg as a boolean
-				match = getBooleanAttribute("test", context);
+				// No select value specified, resolve the test arg as a boolean
+				String testArg = null;
+				try {
+					testArg = getRawAttribute("test");
+				} catch (Exception e) {
+					throw new MissingRequiredAttributeException("Error retireving attribute 'test'", e);
+				}
+				match = context.resolveToBoolean(testArg);
 				
 			}
 
