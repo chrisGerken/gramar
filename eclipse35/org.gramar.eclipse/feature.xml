@@ -2,7 +2,7 @@
 <feature
       id="org.gramar.eclipse"
       label="Gramar for Eclipse"
-      version="0.9.7"
+      version="0.9.8"
       provider-name="org.gramar">
 
    <description url="http://www.example.com/description">
@@ -21,7 +21,7 @@
          id="org.gramar.eclipse.ui"
          download-size="0"
          install-size="0"
-         version="0.9.7"
+         version="0.9.8"
          unpack="false"/>
 
 </feature>
