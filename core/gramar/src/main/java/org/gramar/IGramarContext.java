@@ -48,15 +48,29 @@ public interface IGramarContext {
 	public String resolveToString(String expression) throws XPathExpressionException;
 	
 	/**
+	 * Resolve the given XPath expression from the sourceNode to a single string
+	 */
+	public String resolveToString(String expression, Node sourceNode) throws XPathExpressionException;
+	
+	/**
 	 * Resolve the given XPath expression to a boolean value
 	 */
 	public boolean resolveToBoolean(String expression) throws XPathExpressionException;
-
+	
+	/**
+	 * Resolve the given XPath expression from the sourceNode to a boolean value
+	 */
+	public boolean resolveToBoolean(String expression, Node sourceNode) throws XPathExpressionException;
 	
 	/**
 	 * Resolve the given XPath expression to a numeric (double) value
 	 */
 	public double resolveToNumber(String expression) throws XPathExpressionException;
+	
+	/**
+	 * Resolve the given XPath expression from the sourceNode to a numeric (double) value
+	 */
+	public double resolveToNumber(String expression, Node sourceNode) throws XPathExpressionException;
 	
 	/**
 	 * Resolve the given XPath expression to a value and return the correct type of result.
@@ -69,14 +83,34 @@ public interface IGramarContext {
 	public Object resolveToObject(String expression) throws XPathExpressionException;
 	
 	/**
+	 * Resolve the given XPath expression from the source node to a value and return the correct type of result.
+	 * If the expression results in a NodeSet of length greater than one then return the 
+	 * first node in the NodeSet.  Otherwise if the expression returns a numeric value that is
+	 * not NaN then return the result as a Double.  Otherwise, return the result as a String.
+	 * Booleans won't be returned because of the difficulty in differentiating between 
+	 * 'false' and true.
+	 */
+	public Object resolveToObject(String expression, Node sourceNode) throws XPathExpressionException;
+	
+	/**
 	 * Resolve the given XPath expression to a single node
 	 */
 	public Node resolveToNode(String expression) throws XPathExpressionException;
 	
 	/**
+	 * Resolve the given XPath expression from the sourceNode to a single node
+	 */
+	public Node resolveToNode(String expression, Node sourceNode) throws XPathExpressionException;
+	
+	/**
 	 * Resolve the given XPath expression to an array of nodes
 	 */
 	public Node[] resolveToNodes(String expression) throws XPathExpressionException;
+	
+	/**
+	 * Resolve the given XPath expression from the sourceNode to an array of nodes
+	 */
+	public Node[] resolveToNodes(String expression, Node sourceNode) throws XPathExpressionException;
 
 	/**
 	 * Adds a secondary DOM to the context and associates the Document object at the root of that model 

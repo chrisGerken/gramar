@@ -144,35 +144,67 @@ public class GramarContext implements IGramarContext {
 
 	@Override
 	public String resolveToString(String expression) throws XPathExpressionException {
-		Object obj = ModelAccess.getDefault().resolve(primaryModel, expression, this, XPathConstants.STRING);
+		return resolveToString(expression, primaryModel);
+	}
+
+	@Override
+	public String resolveToString(String expression, Node sourceNode) throws XPathExpressionException {
+		Object obj = ModelAccess.getDefault().resolve(sourceNode, expression, this, XPathConstants.STRING);
 		return (String) obj;
 	}
 
 	@Override
 	public Node resolveToNode(String expression) throws XPathExpressionException {
-		return ModelAccess.getDefault().getNode(primaryModel, expression, true, this);
+		return resolveToNode(expression, primaryModel);
+	}
+
+	@Override
+	public Node resolveToNode(String expression, Node sourceNode) throws XPathExpressionException {
+		return ModelAccess.getDefault().getNode(sourceNode, expression, true, this);
 	}
 
 	@Override
 	public Node[] resolveToNodes(String expression) throws XPathExpressionException {
-		return ModelAccess.getDefault().getNodes(primaryModel, expression, true, this);
+		return resolveToNodes(expression, primaryModel);
+	}
+
+	@Override
+	public Node[] resolveToNodes(String expression, Node sourceNode) throws XPathExpressionException {
+		return ModelAccess.getDefault().getNodes(sourceNode, expression, true, this);
 	}
 
 	@Override
 	public boolean resolveToBoolean(String expression) throws XPathExpressionException {
-		return (Boolean) ModelAccess.getDefault().resolve(primaryModel, expression, this, XPathConstants.BOOLEAN);
+		return resolveToBoolean(expression, primaryModel);
+	}
+
+	@Override
+	public boolean resolveToBoolean(String expression, Node sourceNode) throws XPathExpressionException {
+		return (Boolean) ModelAccess.getDefault().resolve(sourceNode, expression, this, XPathConstants.BOOLEAN);
 	}
 
 	@Override
 	public double resolveToNumber(String expression) throws XPathExpressionException {
-		return (Double) ModelAccess.getDefault().resolve(primaryModel, expression, this, XPathConstants.NUMBER);
+		return resolveToNumber(expression, primaryModel);
+	}
+
+	@Override
+	public double resolveToNumber(String expression, Node sourceNode) throws XPathExpressionException {
+		return (Double) ModelAccess.getDefault().resolve(sourceNode, expression, this, XPathConstants.NUMBER);
 	}
 
 	@Override
 	public Object resolveToObject(String expression) throws XPathExpressionException {
 
+		return resolveToObject(expression, primaryModel);
+	
+	}
+
+	@Override
+	public Object resolveToObject(String expression, Node sourceNode) throws XPathExpressionException {
+
 		try {
-			Node[] node = resolveToNodes(expression);
+			Node[] node = resolveToNodes(expression, sourceNode);
 			if (node.length > 0) {
 				return node[0];
 			} else {
@@ -183,7 +215,7 @@ public class GramarContext implements IGramarContext {
 		}
 		
 		try {
-			Double result = resolveToNumber(expression);
+			Double result = resolveToNumber(expression, sourceNode);
 			if (!Double.isNaN(result)) {
 				return result;
 			}
@@ -191,7 +223,7 @@ public class GramarContext implements IGramarContext {
 			// Guess it wasn't a number. Ignore exception and try another return type
 		}
 
-		return resolveToString(expression);
+		return resolveToString(expression, sourceNode);
 	
 	}
 

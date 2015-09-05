@@ -3,6 +3,7 @@ package org.gramar.function;
 import javax.xml.xpath.XPathFunction;
 
 import org.gramar.IGramarContext;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public abstract class GramarFunction implements XPathFunction, IGramarFunction {
@@ -26,6 +27,18 @@ public abstract class GramarFunction implements XPathFunction, IGramarFunction {
 			value = nl.item(0).getNodeValue();
 		}
 		return value;
+	}
+	
+	public Node[] asNodesArg(Object val) {
+		if (val instanceof NodeList) {
+			NodeList nl = (NodeList) val;
+			Node result[] = new Node[nl.getLength()];
+			for (int i = 0; i < result.length; i++) {
+				result[i] = nl.item(i);
+			}
+			return result;
+		} 
+		return new Node[0];
 	}
 
 }

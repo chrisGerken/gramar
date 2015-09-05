@@ -135,14 +135,14 @@ public class Parser {
 		for (int i = 0; i < regions.size(); i++) {
 			if (((i==0) || regions.get(i-1).lastLineEntirelyWhitespace()) && 
 				(regions.get(i).isControlTag()) &&
-				((i<(regions.size()-1))|| regions.get(i+1).firstLineEntirelyWhitespace())) {
+				((i<(regions.size()-2))|| regions.get(i+1).firstLineEntirelyWhitespace())) {
 
 				// We have a control tag sitting on a line all by itself
 				
 				if (i > 0) {
 					regions.get(i-1).truncateTrailingWhitespace();
 				}
-				if (i < (regions.size()-1)) {
+				if (i < (regions.size()-2)) {
 					regions.get(i+1).truncateLeadingWhitespace();
 				}
 			}
