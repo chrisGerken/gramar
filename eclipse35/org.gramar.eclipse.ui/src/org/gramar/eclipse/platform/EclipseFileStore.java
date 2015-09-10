@@ -117,6 +117,10 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 		try {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
 			if (file.exists()) {
+				if (sameBytes(path,stream)) {
+					// If the bytes to store are the same that are already there, return and do nothing
+					return;
+				}
 				file.setContents(stream, true, true, (IProgressMonitor)null);
 			} else {
 				String segment[] = GramarHelper.pathSegments(path);

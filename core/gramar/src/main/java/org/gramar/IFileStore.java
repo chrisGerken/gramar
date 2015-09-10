@@ -50,6 +50,18 @@ public interface IFileStore {
 	 * that it does not (false)
 	 */
 	public boolean resourceExists(String path);
+
+	/**
+	 * Return whether the file at the given path has the same byte content as the
+	 * given input stream.
+	 * 
+	 * @param path 
+	 * @param stream 
+	 * @return
+	 * @throws IOException 
+	 * @throws NoSuchResourceException 
+	 */
+	public boolean sameBytes(String path, InputStream stream) throws IOException;
 	
 	/**
 	 * Create a target project with the given name.  If non null or blank, the 

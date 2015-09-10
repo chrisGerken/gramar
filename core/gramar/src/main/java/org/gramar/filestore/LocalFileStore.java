@@ -55,6 +55,10 @@ public class LocalFileStore extends FileStore implements IFileStore {
 	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException {
 		try {
 			ensurePath(path);
+			if (sameBytes(path,stream)) {
+				// If the bytes to store are the same that are already there, return and do nothing
+				return;
+			}
 			FileOutputStream fos = new FileOutputStream(absolutePathFor(path));
 			GramarHelper.copy(stream, fos);
 			fos.close();

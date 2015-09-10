@@ -1,5 +1,7 @@
 package org.gramar.filestore;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
@@ -7,7 +9,9 @@ import java.util.Properties;
 import org.gramar.IFileStore;
 import org.gramar.IGramarContext;
 import org.gramar.exception.GramarException;
+import org.gramar.exception.NoSuchResourceException;
 import org.gramar.resource.UpdateResource;
+import org.gramar.util.GramarHelper;
 
 public abstract class FileStore implements IFileStore {
 
@@ -15,6 +19,28 @@ public abstract class FileStore implements IFileStore {
 	
 	public FileStore() {
 
+	}
+
+	@Override
+	public boolean sameBytes(String relpath, InputStream proposed) throws IOException {
+		try {
+			byte before[] = GramarHelper.getBytes(getFileByteContent(relpath));
+			byte after[] = GramarHelper.getBytes(proposed);
+			
+			if (before.length != after.length) {
+				return false;
+			}
+			
+			for (int i = 0; i < before.length; i++) {
+				if (before[i] != after[i]) {
+					return false;
+				}
+			}
+		} catch (NoSuchResourceException e) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override

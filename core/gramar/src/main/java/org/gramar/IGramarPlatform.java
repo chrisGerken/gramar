@@ -37,12 +37,12 @@ public interface IGramarPlatform {
 	 */
 	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;
 
-	/*
+	/**
 	 * Caches the given extension for later use
 	 */
 	public void addTemplatingExtension(ITemplatingExtension extension);
 
-	/*
+	/**
 	 * If not already cached, searches the known plugin sources for the extension, caches it, then returns it.
 	 */
 	public ITemplatingExtension getTemplatingExtension(String extensionId) throws NoSuchTemplatingExtensionException, InvalidTemplateExtensionException;

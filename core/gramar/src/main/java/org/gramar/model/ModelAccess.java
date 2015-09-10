@@ -22,6 +22,9 @@ public class ModelAccess {
 	
 	private XPath xpath;
 	
+	/**
+	 * Private constructor - use ModelAccess.getDefault()
+	 */
 	private ModelAccess() {
 
 	}
