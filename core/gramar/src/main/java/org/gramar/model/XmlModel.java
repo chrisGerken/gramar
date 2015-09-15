@@ -40,6 +40,11 @@ public class XmlModel implements IModel {
 		return document;
 	}
 	
+	/**
+	 * Constructs and returns an empty XML model
+	 * 
+	 * @return a model with a single root element with no attributes or content.
+	 */
 	public static XmlModel emptyModel() {
 		try {
 			return new XmlModel("<root/>");

@@ -1,5 +1,6 @@
 package org.gramar.eclipse.platform;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -116,11 +117,13 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException, IOException {
 		try {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
+			byte[] proposed = GramarHelper.getBytes(stream);
 			if (file.exists()) {
-				if (sameBytes(path,stream)) {
+				if (sameBytes(path,proposed)) {
 					// If the bytes to store are the same that are already there, return and do nothing
 					return;
 				}
+				stream = new ByteArrayInputStream(proposed);
 				file.setContents(stream, true, true, (IProgressMonitor)null);
 			} else {
 				String segment[] = GramarHelper.pathSegments(path);

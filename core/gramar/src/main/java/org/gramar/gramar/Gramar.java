@@ -42,7 +42,7 @@ public abstract class Gramar implements IGramar {
 	protected String gramarId;
 	protected String label;
 	protected String provider;
-	protected String mainTemplate;
+	protected String mainproduction;
 	protected ArrayList<TagLibSpec> taglibs = new ArrayList<TagLibSpec>();
 	protected ArrayList<ISampleModel> sampleModels = new ArrayList<ISampleModel>();
 
@@ -68,8 +68,13 @@ public abstract class Gramar implements IGramar {
 	}
 
 	@Override
-	public String getMainTemplateId() {
-		return mainTemplate;
+	public String getMainProductionId() {
+		return mainproduction;
+	}
+
+	@Override
+	public void setPrimaryProductionId(String newId) {
+		mainproduction = newId;
 	}
 	
 	public Properties getProperties() {
@@ -135,7 +140,7 @@ public abstract class Gramar implements IGramar {
 			gramarId = ModelAccess.getDefault().getText(doc, "/gramar/id");
 			label = ModelAccess.getDefault().getText(doc, "/gramar/label");
 			provider = ModelAccess.getDefault().getText(doc, "/gramar/provider");
-			mainTemplate = ModelAccess.getDefault().getText(doc, "/gramar/main");
+			mainproduction = ModelAccess.getDefault().getText(doc, "/gramar/main");
 			
 			Node[] node = ModelAccess.getDefault().getNodes(doc, "/gramar/taglibs/taglib", true, null);
 			for (Node n : node) {

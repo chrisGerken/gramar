@@ -22,10 +22,9 @@ public abstract class FileStore implements IFileStore {
 	}
 
 	@Override
-	public boolean sameBytes(String relpath, InputStream proposed) throws IOException {
+	public boolean sameBytes(String relpath, byte[] after) throws IOException {
 		try {
 			byte before[] = GramarHelper.getBytes(getFileByteContent(relpath));
-			byte after[] = GramarHelper.getBytes(proposed);
 			
 			if (before.length != after.length) {
 				return false;

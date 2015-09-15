@@ -73,13 +73,14 @@ public class GramarHelper {
 	}
 
 	/**
-	 * @param is
-	 * @return the content from InputStream is as a byte array
+	 * Return the contents of an InputStream as a byte arrary
+	 * @param stream an InputStream
+	 * @return the content from InputStream stream as a byte array
 	 * @throws IOException 
 	 */
-	public static byte[] getBytes(InputStream is) throws IOException {
+	public static byte[] getBytes(InputStream stream) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		copy(is,baos);
+		copy(stream,baos);
 		return baos.toByteArray();
 	}
 

@@ -24,7 +24,9 @@ import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.exception.NoSuchXPathFunctionException;
 import org.gramar.extension.DefinedTag;
 import org.gramar.model.ModelAccess;
+import org.gramar.model.XmlModel;
 import org.gramar.platform.GramarStatus;
+import org.gramar.platform.SimpleGramarPlatform;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -45,7 +47,7 @@ public class GramarContext implements IGramarContext {
 	
 	private IGramarPlatform platform;
 	
-	private IGramar pattern;
+	private IGramar gramar;
 	
 	private ArrayList<IGramarStatus> stati = new ArrayList<IGramarStatus>();
 	
@@ -305,12 +307,12 @@ public class GramarContext implements IGramarContext {
 
 	@Override
 	public void setGramar(IGramar pattern) {
-		this.pattern = pattern;
+		this.gramar = pattern;
 	}
 	
 	@Override
 	public IGramar getPattern() {
-		return pattern;
+		return gramar;
 	}
 
 	@Override
@@ -388,10 +390,10 @@ public class GramarContext implements IGramarContext {
 		fileStore = null;
 		platform = null;
 		
-		if (pattern != null) {
-			pattern.free();
+		if (gramar != null) {
+			gramar.free();
 		}
-		pattern = null;
+		gramar = null;
 		
 		stati = new ArrayList<IGramarStatus>();
 		xpath = null;
@@ -408,6 +410,20 @@ public class GramarContext implements IGramarContext {
 			}
 		}
 		return status;
+	}
+
+	@Override
+	public IGramar getGramar() {
+		return gramar;
+	}
+
+	/**
+	 * Answer a bare-bones context useful for testing
+	 * 
+	 * @return a minimally functional gramar context
+	 */
+	public static IGramarContext dummy() {
+		return new GramarContext(new SimpleGramarPlatform(), XmlModel.emptyModel().asDOM());
 	}
 	
 	

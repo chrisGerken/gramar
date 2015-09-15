@@ -13,8 +13,21 @@ public interface IGramar {
 	public String getLabel();
 	
 	public String getProvider();
+
+	/**
+	 * Answers the current relative path into the gramar of the gramar's primary production
+	 * 
+	 * @return the primary production id
+	 */
+	public String getMainProductionId();
 	
-	public String getMainTemplateId();
+	/**
+	 * Sets the relative path of the gramar production that will be processed when the gramar
+	 * is applied to the model.
+	 * 
+	 * @param newId
+	 */
+	public void setPrimaryProductionId(String newId);
 	
 	public ITemplate getTemplate(String id, IGramarContext context) throws GramarException;
 

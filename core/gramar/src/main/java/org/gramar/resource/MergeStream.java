@@ -1,6 +1,8 @@
 package org.gramar.resource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -30,6 +32,10 @@ public class MergeStream {
 
 	public Reader asReader() {
 		return new StringReader(builder.toString());
+	}
+
+	public InputStream asInputStream() {
+		return new ByteArrayInputStream(builder.toString().getBytes());
 	}
 	
 	public String toString() {

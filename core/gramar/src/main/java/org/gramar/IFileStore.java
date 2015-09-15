@@ -53,15 +53,15 @@ public interface IFileStore {
 
 	/**
 	 * Return whether the file at the given path has the same byte content as the
-	 * given input stream.
+	 * new content.
 	 * 
 	 * @param path 
-	 * @param stream 
+	 * @param byte[] 
 	 * @return
 	 * @throws IOException 
 	 * @throws NoSuchResourceException 
 	 */
-	public boolean sameBytes(String path, InputStream stream) throws IOException;
+	public boolean sameBytes(String path, byte[] newContent) throws IOException;
 	
 	/**
 	 * Create a target project with the given name.  If non null or blank, the 

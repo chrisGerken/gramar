@@ -89,7 +89,7 @@ public abstract class GramarPlatform implements IGramarPlatform {
 
 	@Override
 	public IGramarApplicationStatus apply(IModel model, IGramar gramar, IFileStore fileStore) throws GramarException {
-		String mainId = gramar.getMainTemplateId();
+		String mainId = gramar.getMainProductionId();
 		IGramarContext context = new GramarContext(this, model.asDOM());
 		context.setGramar(gramar);
 		context.setFileStore(fileStore);
@@ -98,15 +98,17 @@ public abstract class GramarPlatform implements IGramarPlatform {
 	}
 
 	public IGramarApplicationStatus apply(ITemplate mainTemplate, IGramar gramar, IGramarContext context) {
+		String mainContent = "";
 		try {
 			context.getFileStore().reset();
 			MergeStream stream = new MergeStream();
 			mainTemplate.mergeTo(stream,context);
+			mainContent = stream.toString();
 			context.getFileStore().commit("Applied gramar "+gramar.getId(), context);
 		} catch (Exception e) {
 			context.error(e);
 		}
-		return new GramarApplicationResult(context);
+		return new GramarApplicationResult(context, mainContent);
 	}
 
 	@Override

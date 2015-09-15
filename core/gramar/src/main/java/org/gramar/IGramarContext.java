@@ -124,6 +124,11 @@ public interface IGramarContext {
 	public Document getPrimaryModel();
 	
 	/**
+	 * Answer the gramar being applied
+	 */
+	public IGramar getGramar();
+	
+	/**
 	 * Associates a platform extension (ID) with a namespace.  References to custom templating tags
 	 * by namespace (prefix) will resolve to tag handlers in the extension with this ID.
 	 */

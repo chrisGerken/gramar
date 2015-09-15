@@ -21,4 +21,14 @@ public class DocumentHelperTest {
 		}
 	}
 
+	@Test
+	public void testFromCsv() throws Exception {
+		InputStream is = DocumentHelper.load("/files/simple.csv");
+		Document doc = DocumentHelper.fromCsv(is);
+		int rows = ModelAccess.getDefault().getRawResult(doc, "//row",	null).length;
+		if (rows != 4) {
+			fail("Wrong number of rows");
+		}
+	}
+
 }

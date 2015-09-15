@@ -11,11 +11,11 @@ import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.gramar.GramarScore;
 
 /*
- * An IPatternPlatform manages an ordered set of IPatternSources and has helper methods
- * to apply IPatterns to models in various forms. 
+ * An IGramarPlatform manages an ordered set of IGramarSources and has helper methods
+ * to apply IGramars to models in various forms. 
  * 
- * An IPatternPlatform will have a default IFileStore, but that can be overridden on a
- * case by case basis when an IPattern is applied to an IModel.
+ * An IGramarPlatform will have a default IFileStore, but that can be overridden on a
+ * case by case basis when an IGramar is applied to an IModel.
  */
 public interface IGramarPlatform {
 	
@@ -47,13 +47,13 @@ public interface IGramarPlatform {
 	 */
 	public ITemplatingExtension getTemplatingExtension(String extensionId) throws NoSuchTemplatingExtensionException, InvalidTemplateExtensionException;
 	
-	public IGramarApplicationStatus apply(IModel model, IGramar pattern) throws GramarException;
+	public IGramarApplicationStatus apply(IModel model, IGramar gramar) throws GramarException;
 	
-	public IGramarApplicationStatus apply(IModel model, String patternId) throws GramarException;
+	public IGramarApplicationStatus apply(IModel model, String gramarId) throws GramarException;
 	
-	public IGramarApplicationStatus apply(IModel model, IGramar pattern, IFileStore fileStore) throws GramarException;
+	public IGramarApplicationStatus apply(IModel model, IGramar gramar, IFileStore fileStore) throws GramarException;
 	
-	public IGramarApplicationStatus apply(IModel model, String patternId, IFileStore fileStore) throws GramarException;
+	public IGramarApplicationStatus apply(IModel model, String gramarId, IFileStore fileStore) throws GramarException;
 	
 	/**
 	 * Returns aa array of all Gramars known to any PluginSource

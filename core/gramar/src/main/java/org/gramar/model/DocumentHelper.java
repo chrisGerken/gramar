@@ -6,15 +6,23 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.util.StreamReaderDelegate;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.gramar.IModel;
 import org.gramar.exception.GramarException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 
@@ -115,6 +123,77 @@ public class DocumentHelper {
 		}
 		
 		return buildModel(xml);
+	}
+	
+	/**
+	 * Converts a CSV file into the XML equivalent of that data.  
+	 * 
+	 * For example, the CSV:
+	 * 
+	 *    First,Last,Age
+	 *    Fred,Fredrickson,93
+	 *    Biff,Bifford,23
+	 *    
+	 * becomes the Document for:
+	 * 
+	 *    <root>
+	 *    <row First="Fred" Last="Fredrison" Age="93" />
+	 *    <row First="Biff" Last="Bifford" Age="23" />
+	 *    </root>
+	 *    
+	 * @param is the text content of a comma-separated file
+	 * @return a Document built from the string representation of the CSV data
+	 * @throws GramarException 
+	 */
+	public static Document fromCsv(InputStream is) throws GramarException {
+
+		String xml = null;
+		
+		try {
+			StringBuffer sb = new StringBuffer();
+			sb.append("<root>");
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String row = br.readLine();
+			String hdr[] = row.split(",");
+			
+			row = br.readLine();
+			while (row!=null) {
+				String col[] = row.split(",");
+				sb.append("<row");
+				for (int i = 0; i < col.length; i++) {
+					sb.append("  "+hdr[i]+"=\""+col[i]+"\"");
+				}
+				sb.append("/>");
+				row = br.readLine();
+			}
+			is.close();
+			br.close();
+			
+			sb.append("</root>");
+			xml = sb.toString();
+		} catch (IOException e) {
+			throw new GramarException("Error during CSV-XML conversion", e);
+		}
+		
+		return buildModel(xml);
+	}
+	
+	/**
+	 * Format and return the string representation of the specified node and it's children
+	 * 
+	 * @param node the node to represent
+	 * @return a string representation of the specified node
+	 * @throws TransformerException 
+	 */
+	public static String asString(Node node) throws TransformerException {
+		TransformerFactory factory = TransformerFactory.newInstance();
+		Transformer transformer = factory.newTransformer();
+		DOMSource source = new DOMSource(node);
+		StringWriter writer = new StringWriter();
+		StreamResult result = new StreamResult(writer);
+		transformer.transform(source, result);
+		return writer.toString();
 	}
 	
 	public static IModel modelFromResource(String resource) throws GramarException {

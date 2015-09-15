@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import java.io.Reader;
 
 import org.gramar.IFileStore;
+import org.gramar.IGramarApplicationStatus;
 import org.gramar.IGramarPlatform;
 import org.gramar.IModel;
 import org.gramar.exception.GramarException;
@@ -54,6 +55,27 @@ public class SimplePatternPlatformTest {
 			platform.apply(model, "com.fredco.alpha.pattern", store);
 			
 			String contents = GramarHelper.asString(store.getFileContent(path));
+			System.out.println(contents);
+			
+		} catch (GramarException e) {
+			fail(e.toString());
+		}
+		
+	}
+
+	@Test
+	public void test03() throws Exception {
+		
+		try {
+			
+			IGramarPlatform platform = new SimpleGramarPlatform();
+			MemoryFileStore store = new MemoryFileStore();
+
+			IModel model = DocumentHelper.modelFromResource("/models/simple01.xml");
+			
+			IGramarApplicationStatus result = platform.apply(model, "com.fredco.alpha.pattern", store);
+			
+			String contents = result.mainProductionResult();
 			System.out.println(contents);
 			
 		} catch (GramarException e) {

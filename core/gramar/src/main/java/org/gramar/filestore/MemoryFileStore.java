@@ -92,9 +92,12 @@ public class MemoryFileStore extends FileStore implements IFileStore {
 
 	@Override
 	public void setFileContent(String path, InputStream stream) throws NoSuchResourceException, IOException {
-		ByteArrayOutputStream boas = new ByteArrayOutputStream();
-		GramarHelper.copy(stream, boas);
-		binaries.put(path, boas.toByteArray());
+		byte[] proposed = GramarHelper.getBytes(stream);
+		if (sameBytes(path,proposed)) {
+			// If the bytes to store are the same that are already there, return and do nothing
+			return;
+		}
+		binaries.put(path, proposed);
 	}
 
 }

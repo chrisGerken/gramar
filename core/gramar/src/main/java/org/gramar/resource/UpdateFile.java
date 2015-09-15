@@ -43,7 +43,7 @@ public class UpdateFile extends UpdateResource {
 			
 		}
 		
-		store.setFileContent(path, content.asReader());
+		store.setFileContent(path, content.asInputStream());
 	}
 	
 	public String toString() {
