@@ -91,7 +91,11 @@ public class ProdDocumentPartitioner implements IDocumentPartitioner {
 
 	@Override
 	public String getContentType(int offset) {
-		return getPartition(offset).getType();
+		ITypedRegion part = getPartition(offset);
+		if (part == null) {
+			return REGION_TEXT;
+		}
+		return part.getType();
 	}
 
 	@Override
