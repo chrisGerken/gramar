@@ -108,7 +108,7 @@ public class DocumentHelper {
 				String col[] = row.split("\t");
 				sb.append("<row");
 				for (int i = 0; i < col.length; i++) {
-					sb.append("  "+hdr[i]+"=\""+col[i]+"\"");
+					sb.append("  "+hdr[i].trim()+"=\""+col[i].trim()+"\"");
 				}
 				sb.append("/>");
 				row = br.readLine();

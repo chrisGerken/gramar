@@ -163,4 +163,43 @@ public class GramarContextTest {
 		}
 	}
 
+	@Test
+	public void testSingleVariableReference() throws Exception {
+		GramarContext context = (GramarContext) GramarContext.dummy();
+		context.setVariable("fred", "abc");
+		
+		if (context.singleVariableReference("'string'")) {
+			fail("Constant not a single variable");
+		}
+		
+		if (context.singleVariableReference("/a/b/c")) {
+			fail("Expression not a single variable");
+		}
+		
+		if (context.singleVariableReference("$a/b")) {
+			fail("Expression not a single variable");
+		}
+		
+		if (context.singleVariableReference("$a[1]")) {
+			fail("Expression not a single variable");
+		}
+		
+		if (context.singleVariableReference("translate($a,'.','/')")) {
+			fail("Expression not a single variable");
+		}
+		
+		if (context.singleVariableReference("2")) {
+			fail("Expression not a single variable");
+		}
+		
+		if (!context.singleVariableReference("$fred")) {
+			fail("Expression is a single variable");
+		}
+		
+		if (!context.singleVariableReference(" $fred ")) {
+			fail("Expression is a single variable");
+		}
+
+	}
+
 }

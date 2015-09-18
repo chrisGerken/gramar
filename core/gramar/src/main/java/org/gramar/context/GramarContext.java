@@ -57,6 +57,12 @@ public class GramarContext implements IGramarContext {
 	
 	private int minLogLevel = IGramarStatus.SEVERITY_DEBUG;
 	
+	/**
+	 * A list of characters whose presence in an XPath expression indicates that the expression
+	 * is more than just a simple variable reference
+	 */
+	private String xpathChars = "./[]";
+	
 	public GramarContext(IGramarPlatform platform, Document model) {
 		this.platform = platform;
 		this.primaryModel = model;
@@ -205,6 +211,14 @@ public class GramarContext implements IGramarContext {
 	@Override
 	public Object resolveToObject(String expression, Node sourceNode) throws XPathExpressionException {
 
+		// If the expression is a sinple variable reference ('$' followed by a single variable name)
+		// then just return the value of that variable.  Some versions of XPath have issues dealing
+		// with a single variable reference, so we'll just bypass for that simple case.
+		if (singleVariableReference(expression)) {
+			String name = expression.trim().substring(1);
+			return getVariable(name);
+		}
+		
 		try {
 			Node[] node = resolveToNodes(expression, sourceNode);
 			if (node.length > 0) {
@@ -227,6 +241,22 @@ public class GramarContext implements IGramarContext {
 
 		return resolveToString(expression, sourceNode);
 	
+	}
+
+	/**
+	 * Answer whether the given expression is a single variable reference which is
+	 * a '$' char folloed by a single variable name
+	 * 
+	 * @param expression
+	 * @return whether the expression is a single variable reference
+	 */
+	protected boolean singleVariableReference(String expression) {
+		String buf = expression.trim();
+		if (buf.length() < 2) { return false; }
+		if (buf.charAt(0) != '$') { return false; }
+		String name = buf.substring(1);
+		if (new StringTokenizer(name,xpathChars).countTokens() > 1) { return false; }
+		return true;
 	}
 
 	@Override
