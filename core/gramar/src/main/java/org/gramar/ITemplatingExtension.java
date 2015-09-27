@@ -4,6 +4,7 @@ import javax.xml.xpath.XPathFunction;
 
 import org.gramar.exception.NoSuchCustomTagException;
 import org.gramar.exception.NoSuchFileStoreException;
+import org.gramar.exception.NoSuchModelAdaptorException;
 import org.gramar.extension.DefinedTag;
 
 /**
@@ -43,9 +44,29 @@ public interface ITemplatingExtension {
 	 * supported by this extension then throw an exception
 	 * 
 	 * @param fileStoreId
-	 * @return
+	 * @return an IFileStore implementation
 	 * @throws NoSuchFileStoreException 
 	 */
 	public IFileStore getFileStore(String fileStoreId) throws NoSuchFileStoreException;
+	
+	/**
+	 * Returns the IModelAdaptor implementation for the given adaptor ID.  If no such model adaptor
+	 * is supported by this extension then throw an exception
+	 * 
+	 * @param adaptorID
+	 * @return an IModelAdaptor implementation
+	 * @throws NoSuchModelAdaptorException
+	 */
+	public IModelAdaptor getModelAdaptor(String adaptorID) throws NoSuchModelAdaptorException;
+	
+	/**
+	 * Returns the IModelAdaptor implementation appropriate for convering the specified source type.  
+	 * If no such model adaptor is supported by this extension then throw an exception
+	 * 
+	 * @param model source type (e.g. "xml" or "csv")
+	 * @return an IModelAdaptor implementation
+	 * @throws NoSuchModelAdaptorException
+	 */
+	public IModelAdaptor getModelAdaptorFor(String type) throws NoSuchModelAdaptorException;
 	
 }

@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.util.StreamReaderDelegate;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -188,7 +189,10 @@ public class DocumentHelper {
 	 */
 	public static String asString(Node node) throws TransformerException {
 		TransformerFactory factory = TransformerFactory.newInstance();
+		try { factory.setAttribute("indent-number", 4); } catch (Throwable t) { }
 		Transformer transformer = factory.newTransformer();
+		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(node);
 		StringWriter writer = new StringWriter();
 		StreamResult result = new StreamResult(writer);

@@ -1,4 +1,5 @@
 org.gramar
+org.gramar.adaptor
 org.gramar.ast
 org.gramar.base.function
 org.gramar.base.function.util

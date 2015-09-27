@@ -11,6 +11,7 @@ import org.gramar.IGramarApplicationStatus;
 import org.gramar.IGramarContext;
 import org.gramar.IGramarPlatform;
 import org.gramar.IModel;
+import org.gramar.IModelAdaptor;
 import org.gramar.IPluginSource;
 import org.gramar.ITemplate;
 import org.gramar.ITemplatingExtension;
@@ -21,6 +22,7 @@ import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoFileStoreSpecifiedException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
+import org.gramar.exception.NoSuchModelAdaptorException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.gramar.GramarScore;
 import org.gramar.resource.MergeStream;
@@ -185,6 +187,30 @@ public abstract class GramarPlatform implements IGramarPlatform {
 		scores.toArray(gramarScore);
 		Arrays.sort(gramarScore);
 		return gramarScore;
+	}
+
+	@Override
+	public IModelAdaptor getModelAdaptor(String adaptorID) throws NoSuchModelAdaptorException {
+		for (ITemplatingExtension ext: extensions.values()) {
+			try {
+				return ext.getModelAdaptor(adaptorID);
+			} catch (Exception e) {
+
+			}
+		}
+		throw new NoSuchModelAdaptorException();
+	}
+
+	@Override
+	public IModelAdaptor getModelAdaptorFor(String type) throws NoSuchModelAdaptorException {
+		for (ITemplatingExtension ext: extensions.values()) {
+			try {
+				return ext.getModelAdaptorFor(type);
+			} catch (Exception e) {
+
+			}
+		}
+		throw new NoSuchModelAdaptorException();
 	}
 
 }

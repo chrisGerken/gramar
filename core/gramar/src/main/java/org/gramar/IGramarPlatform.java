@@ -7,6 +7,7 @@ import org.gramar.exception.InvalidGramarException;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchGramarException;
+import org.gramar.exception.NoSuchModelAdaptorException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
 import org.gramar.gramar.GramarScore;
 
@@ -67,5 +68,25 @@ public interface IGramarPlatform {
 	 * first and the worst match last.
 	 */
 	public GramarScore[] scoreKnownGramars(IModel proposedModel);
+	
+	/**
+	 * Returns the IModelAdaptor implementation for the given adaptor ID.  If no such model adaptor
+	 * is supported by this extension then throw an exception
+	 * 
+	 * @param adaptorID
+	 * @return an IModelAdaptor implementation
+	 * @throws NoSuchModelAdaptorException
+	 */
+	public IModelAdaptor getModelAdaptor(String adaptorID) throws NoSuchModelAdaptorException;
+	
+	/**
+	 * Returns the IModelAdaptor implementation appropriate for convering the specified source type.  
+	 * If no such model adaptor is supported by this extension then throw an exception
+	 * 
+	 * @param model source type (e.g. "xml" or "csv")
+	 * @return an IModelAdaptor implementation
+	 * @throws NoSuchModelAdaptorException
+	 */
+	public IModelAdaptor getModelAdaptorFor(String type) throws NoSuchModelAdaptorException;
 
 }

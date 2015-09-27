@@ -6,11 +6,13 @@ import java.util.HashMap;
 import javax.xml.xpath.XPathFunction;
 
 import org.gramar.IFileStore;
+import org.gramar.IModelAdaptor;
 import org.gramar.ITagHandler;
 import org.gramar.ITemplatingExtension;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchCustomTagException;
 import org.gramar.exception.NoSuchFileStoreException;
+import org.gramar.exception.NoSuchModelAdaptorException;
 import org.gramar.model.DocumentHelper;
 import org.gramar.model.ModelAccess;
 import org.w3c.dom.Document;
@@ -53,6 +55,11 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 	 * A set of filestore classes defined in this extension, keyed by the filestore ID
 	 */
 	private HashMap<String,Class<IFileStore>> filestores = new HashMap<String,Class<IFileStore>>();
+	
+	/**
+	 * A set of model adaptor classes defined in this extension, keyed by the model adaptor ID
+	 */
+	private HashMap<String,IModelAdaptor> modelAdaptors = new HashMap<String,IModelAdaptor>();
 	 
 	public static final String META_FILE_NAME = "extension.config";
 
@@ -106,6 +113,14 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 				String impl = ModelAccess.getDefault().getAttribute(n, "@impl");
 				Class<IFileStore> filestore = (Class<IFileStore>) loader.loadClass(impl);
 				filestores.put(id, filestore);
+			}
+			
+			node = ModelAccess.getDefault().getNodes(doc, "/extension/adaptors/adaptor", true, null);
+			for (Node n : node) {
+				String id = ModelAccess.getDefault().getAttribute(n, "@id");
+				String impl = ModelAccess.getDefault().getAttribute(n, "@impl");
+				Class<IModelAdaptor> modelAdaptor = (Class<IModelAdaptor>) loader.loadClass(impl);
+				modelAdaptors.put(id, (IModelAdaptor)modelAdaptor.newInstance());
 			}
 
 			
@@ -196,6 +211,24 @@ public abstract class TemplatingExtension implements ITemplatingExtension {
 			}
 		}
 		throw new NoSuchFileStoreException();
+	}
+
+	@Override
+	public IModelAdaptor getModelAdaptor(String adaptorID) throws NoSuchModelAdaptorException {
+		if (modelAdaptors.containsKey(adaptorID)) {
+			return modelAdaptors.get(adaptorID);
+		}
+		throw new NoSuchModelAdaptorException();
+	}
+
+	@Override
+	public IModelAdaptor getModelAdaptorFor(String type) throws NoSuchModelAdaptorException {
+		for (IModelAdaptor adaptor: modelAdaptors.values()) {
+			if (adaptor.adaptsType(type)) {
+				return adaptor;
+			}
+		}
+		throw new NoSuchModelAdaptorException();
 	}
 	
 }
