@@ -24,6 +24,7 @@ public class CopyElementTag extends TagHandler implements ITagHandler {
 			Boolean deep = getBooleanAttribute("recursive", context, true);
 
 			Node copy = node.cloneNode(deep);
+			parent.getOwnerDocument().adoptNode(copy);
 			parent.appendChild(copy);
 
 			if (var != null) {

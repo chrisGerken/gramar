@@ -58,6 +58,10 @@ public class ProdConfiguration extends SourceViewerConfiguration {
 		reconciler.setDamager(pdd, ProdDocumentPartitioner.REGION_CONTROL);
 		reconciler.setRepairer(pdd, ProdDocumentPartitioner.REGION_CONTROL);
 		
+		pdd = new ProdPresentationDamager(IProdColorConstants.TAG_ERROR, IProdColorConstants.BACKGROUND);
+		reconciler.setDamager(pdd, ProdDocumentPartitioner.REGION_ERROR);
+		reconciler.setRepairer(pdd, ProdDocumentPartitioner.REGION_ERROR);
+		
 		return reconciler;
 	}
 

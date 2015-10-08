@@ -36,6 +36,7 @@ public class ProdDocumentPartitioner implements IDocumentPartitioner {
 	public static final String REGION_CONTROL	= "CONTROL";
 	public static final String REGION_DIRECTIVE	= "DIRECTIVE";
 	public static final String REGION_COMMENT	= "COMMENT";
+	public static final String REGION_ERROR		= "ERROR";
 	
 	public ProdDocumentPartitioner(IProject project) {
 		this.project = project;
@@ -80,12 +81,13 @@ public class ProdDocumentPartitioner implements IDocumentPartitioner {
 
 	@Override
 	public String[] getLegalContentTypes() {
-		String legal[] = new String[5];
+		String legal[] = new String[6];
 		legal[0] = REGION_TEXT;
 		legal[1] = REGION_TAG;
 		legal[2] = REGION_COMMENT;
 		legal[3] = REGION_DIRECTIVE;
 		legal[4] = REGION_CONTROL;
+		legal[5] = REGION_ERROR;
 		return legal;
 	}
 
@@ -116,6 +118,7 @@ public class ProdDocumentPartitioner implements IDocumentPartitioner {
 	private void parseDocument() {
 		String source = document.get();
 		sourceRegion = parser.parse(source);
+		SourceRegion.validateNesting(sourceRegion);
 	}
 	
 	private ITypedRegion[] getRegions() {
@@ -149,6 +152,9 @@ public class ProdDocumentPartitioner implements IDocumentPartitioner {
 		}
 		if (region.isDirective()) {
 			type = REGION_DIRECTIVE;
+		}
+		if (region.isError()) {
+			type = REGION_ERROR;
 		}
 		
 		TypedRegion result = new TypedRegion(region.getStart(), region.getEnd()-region.getStart()+1, type);

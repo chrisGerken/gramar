@@ -55,7 +55,7 @@ public class GramarContext implements IGramarContext {
 	
 	private int modelAccess = 0;
 	
-	private int minLogLevel = IGramarStatus.SEVERITY_DEBUG;
+	private int minLogLevel = IGramarStatus.SEVERITY_INFO;
 	
 	/**
 	 * A list of characters whose presence in an XPath expression indicates that the expression

@@ -1,10 +1,13 @@
 package org.gramar.ast;
 
 import java.util.HashMap;
+import java.util.Stack;
 
+import org.gramar.ITagHandler;
 import org.gramar.exception.IllFormedTemplateException;
 import org.gramar.model.DocumentHelper;
 import org.gramar.model.ModelAccess;
+import org.gramar.tag.StaticTextTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -32,6 +35,8 @@ public class SourceRegion {
 	private int start;
 	private int end;
 	private int type;
+	private boolean error = false;
+	private String errorText = "";
 	
 	private int linenum;
 	private int col;
@@ -238,6 +243,51 @@ public class SourceRegion {
 
 		int index = content.indexOf('\n');
 		content = content.substring(index+1);
+		
+	}
+
+	public String getErrorText() {
+		return errorText;
+	}
+
+	public void setErrorText(String errorText) {
+		this.errorText = errorText;
+		error = true;
+	}
+
+	public boolean isError() {
+		return error;
+	}
+	
+	public static void validateNesting(SourceRegion region[]) {
+
+		Stack<SourceRegion> stack = new Stack<SourceRegion>();
+		
+		for (SourceRegion sr: region) {
+			if (sr.isTag()) {
+				stack.push(sr);
+			} else if (sr.isEndTag()) {
+				SourceRegion current = stack.peek();
+				if (sr.getTagInfo().getTagName().equalsIgnoreCase(current.getTagInfo().getTagName())) {
+					stack.pop();
+				} else {
+					current.setErrorText("Missing close tag");
+					sr.setErrorText("Mismatched close tag");
+				}
+			} else if (sr.isEmptyTag()) {
+
+			} else if (sr.isText()) {
+
+			} else if (sr.isDirective()) {
+
+			} else if (sr.isComment()) {
+
+			}
+		}
+		
+		while (!stack.isEmpty()) {
+			stack.pop().setErrorText("Missing close tag");
+		}
 		
 	}
 

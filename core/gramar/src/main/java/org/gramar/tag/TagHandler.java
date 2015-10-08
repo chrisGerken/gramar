@@ -49,6 +49,7 @@ public abstract class TagHandler implements ITagHandler {
 			if (region.getTagInfo().getTagName().equalsIgnoreCase(getTagName())) {
 				return parent;
 			}
+			region.setErrorText("Missing close tag for "+getTagName());
 			throw new IllFormedTemplateException(region,"Missing end tag: "+getTagName());
 		} else if (region.isEmptyTag()) {
 			TagInfo info = region.getTagInfo();
