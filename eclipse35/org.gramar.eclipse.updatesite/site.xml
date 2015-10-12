@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.gramar.eclipse_0.9.23.jar" id="org.gramar.eclipse" version="0.9.23">
+   <feature url="features/org.gramar.eclipse_0.9.25.jar" id="org.gramar.eclipse" version="0.9.25">
       <category name="UI"/>
    </feature>
    <category-def name="UI" label="UI Tools"/>
