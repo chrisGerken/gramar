@@ -2,7 +2,7 @@
 <feature
       id="org.gramar.eclipse"
       label="Gramar for Eclipse"
-      version="0.9.27"
+      version="0.9.28"
       provider-name="org.gramar">
 
    <description url="http://github/chrisgerken/gramar">
@@ -85,7 +85,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
          id="org.gramar.eclipse.ui"
          download-size="0"
          install-size="0"
-         version="0.9.27"
+         version="0.9.28"
          unpack="false"/>
 
 </feature>
