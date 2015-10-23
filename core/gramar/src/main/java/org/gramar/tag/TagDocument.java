@@ -29,7 +29,7 @@ public class TagDocument extends TagHandler {
 		
 	}
 
-	public static TagDocument build(String source, IGramarContext context) throws GramarException {
+	public static TagDocument build(String source, IGramarContext context, String productionId) throws GramarException {
 		
 		Parser parser = new Parser(context);
 		SourceRegion region[] = parser.parse(source);
@@ -41,6 +41,7 @@ public class TagDocument extends TagHandler {
 		ITagHandler current = doc;
 		
 		for (SourceRegion sr: region) {
+			sr.setProduction(productionId);
 			current = current.glomUsing(sr, context);
 		}
 		

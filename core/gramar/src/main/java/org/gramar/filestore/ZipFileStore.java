@@ -6,10 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.gramar.IFileStore;
+import org.gramar.exception.GramarException;
+import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.util.GramarHelper;
 
@@ -23,6 +26,7 @@ public class ZipFileStore extends FileStore implements IFileStore {
 
 	private ByteArrayOutputStream baos;
 	private ZipOutputStream zos;
+	private String path;
 	
 	public ZipFileStore() {
 
@@ -67,6 +71,10 @@ public class ZipFileStore extends FileStore implements IFileStore {
 		zos = new ZipOutputStream(baos);
 	}
 	
+	public boolean writeZipFile() {
+		return writeZipFile(path);
+	}
+	
 	public boolean writeZipFile(String absolutePath) {
 		if (zos == null) { return false; }
 		try {
@@ -102,6 +110,15 @@ public class ZipFileStore extends FileStore implements IFileStore {
 		zos.putNextEntry(new ZipEntry(path));
 		GramarHelper.copy(stream, zos);
 		zos.closeEntry();
+	}
+
+	@Override
+	public void configure(Properties properties) throws GramarPlatformConfigurationException {
+		super.configure(properties);
+		path = (String) properties.getProperty("filestore.zip.path");
+		if (path == null) {
+			throw new GramarPlatformConfigurationException("Missing filestore.zip.path property for ZipFileStore configuration");
+		}
 	}
 
 }

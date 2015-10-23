@@ -104,7 +104,7 @@ public abstract class Gramar implements IGramar {
 	private ITemplate extractTemplate(String id, IGramarContext context) throws GramarException {
 		try {
 			String source = getTemplateSource(id); 
-			TagDocument document = TagDocument.build(source,context);
+			TagDocument document = TagDocument.build(source,context,id);
 			return new Template(document);
 		} catch (NoSuchResourceException e) {
 			throw new NoSuchTemplateException(e);

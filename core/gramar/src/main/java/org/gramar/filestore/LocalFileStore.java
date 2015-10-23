@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import org.gramar.IFileStore;
 import org.gramar.exception.GramarException;
+import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.util.GramarHelper;
 
@@ -125,11 +126,11 @@ public class LocalFileStore extends FileStore implements IFileStore {
 	}
 
 	@Override
-	public void configure(Properties properties) throws GramarException {
+	public void configure(Properties properties) throws GramarPlatformConfigurationException {
 		super.configure(properties);
 		rootDir = (String) properties.getProperty("filestore.local.root");
 		if (rootDir == null) {
-			throw new GramarException("Missing filestore.local.root property for LocalFileStore configuration");
+			throw new GramarPlatformConfigurationException("Missing filestore.local.root property for LocalFileStore configuration");
 		}
 	}
 	

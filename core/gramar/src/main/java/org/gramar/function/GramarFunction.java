@@ -29,6 +29,19 @@ public abstract class GramarFunction implements XPathFunction, IGramarFunction {
 		return value;
 	}
 	
+	public Double asNumberArg(Object val) {
+		Double value = null;
+		if (val instanceof Double) {
+			value = (Double) val;
+		} else if (val instanceof String) {
+			value = Double.parseDouble((String)val);
+		} else if (val instanceof NodeList) {
+			NodeList nl = (NodeList) val;
+			value = Double.valueOf(nl.item(0).getNodeValue());
+		}
+		return value;
+	}
+	
 	public Node[] asNodesArg(Object val) {
 		if (val instanceof NodeList) {
 			NodeList nl = (NodeList) val;

@@ -1,6 +1,7 @@
 package org.gramar.ast;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import org.gramar.ITagHandler;
 import org.gramar.IGramarContext;
@@ -99,7 +100,7 @@ public class Parser {
 		}
 
 		if (compressRegions) {
-			regions = compress(regions);
+			regions = compress(regions, source);
 		}
 		SourceRegion sr[] = new SourceRegion[regions.size()];
 		regions.toArray(sr);
@@ -110,7 +111,7 @@ public class Parser {
 	 * Collapse adjacent text regions into single text regions.  Then remove
 	 * leading and trailing whitespace for any control tag on its own line.
 	 */
-	private ArrayList<SourceRegion> compress(ArrayList<SourceRegion> regions) {
+	private ArrayList<SourceRegion> compress(ArrayList<SourceRegion> regions, String source) {
 		ArrayList<SourceRegion> result = new ArrayList<SourceRegion>();
 		SourceRegion last = null;
 		for (SourceRegion sr: regions) {
@@ -127,6 +128,16 @@ public class Parser {
 				last = null;
 				result.add(sr);
 			}
+			String before = source.substring(0,sr.getStart());
+			// OK, so it's kludgy...
+			int line = 1;
+			for (int i = 0; i < before.length(); i++) {
+				if (before.charAt(i)=='\n') {
+					line++;
+				}
+			}
+			int col = before.length() - before.lastIndexOf("\n");
+			sr.setStart(line, col);
 		}
 		if (last != null) {
 			result.add(last);

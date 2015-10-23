@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.gramar.IFileStore;
 import org.gramar.IGramarPlatform;
 import org.gramar.exception.GramarException;
+import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.exception.InvalidTemplateExtensionException;
 import org.gramar.exception.NoSuchFileStoreException;
 import org.gramar.exception.NoSuchTemplatingExtensionException;
@@ -31,7 +32,7 @@ public class SimpleGramarPlatform extends GramarPlatform implements IGramarPlatf
 	 * @param pm
 	 * @throws GramarException 
 	 */
-	public SimpleGramarPlatform(Properties props) throws GramarException {
+	public SimpleGramarPlatform(Properties props) throws GramarPlatformConfigurationException {
 		super();
 		loadExtensions(props);
 	}
@@ -47,7 +48,7 @@ public class SimpleGramarPlatform extends GramarPlatform implements IGramarPlatf
 		
 	}
 	
-	private void loadExtensions(Properties props) throws GramarException {
+	private void loadExtensions(Properties props) throws GramarPlatformConfigurationException {
 		
 		for (String directory: PropertiesHelper.getIndexedValues(props, "plugin.directory.")) {
 			addPluginSource(new FileSystemPluginSource(directory));
@@ -58,7 +59,7 @@ public class SimpleGramarPlatform extends GramarPlatform implements IGramarPlatf
 			store.configure(props);
 			setDefaultFileStore(store);
 		} catch (NoSuchFileStoreException e) {
-			throw new GramarException("FileStore not correctly configured", e);
+			throw new GramarPlatformConfigurationException("FileStore not correctly configured", e);
 		} 
 		
 	}

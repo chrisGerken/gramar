@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.util.Properties;
 
 import org.gramar.exception.GramarException;
+import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.resource.UpdateResource;
 
@@ -102,8 +103,8 @@ public interface IFileStore {
 	 * Configure the filestore with values from the given properties file.
 	 * 
 	 * @param properties
-	 * @throws GramarException 
+	 * @throws GramarPlatformConfigurationException 
 	 */
-	public void configure(Properties properties) throws GramarException;
+	public void configure(Properties properties) throws GramarPlatformConfigurationException;
 	
 }

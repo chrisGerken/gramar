@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.gramar.IFileStore;
 import org.gramar.IGramarContext;
 import org.gramar.exception.GramarException;
+import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.exception.NoSuchResourceException;
 import org.gramar.resource.UpdateResource;
 import org.gramar.util.GramarHelper;
@@ -81,7 +82,7 @@ public abstract class FileStore implements IFileStore {
 	}
 
 	@Override
-	public void configure(Properties properties) throws GramarException {
+	public void configure(Properties properties) throws GramarPlatformConfigurationException {
 
 		
 	}

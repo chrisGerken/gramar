@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.gramar.exception.GramarException;
+import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.model.XmlModel;
 import org.gramar.platform.SimpleGramarPlatform;
 import org.gramar.util.PropertiesHelper;
@@ -52,35 +53,43 @@ public class Apply {
 		
 		gramarId = pm.getString(PropertiesHelper.PROPERTY_GRAMAR_ID);
 
-		SimpleGramarPlatform platform = new SimpleGramarPlatform(pm.getProperties());
+		SimpleGramarPlatform platform;
+		try {
+			platform = new SimpleGramarPlatform(pm.getProperties());
+		} catch (GramarPlatformConfigurationException e) {
 		
-		if (pm.hasValue(PropertiesHelper.PROPERTY_LIST_SAMPLES)) {
-			IGramar gramar = platform.getGramar(gramarId);
-			List<ISampleModel> samples = gramar.getSamples();
-			if (samples.isEmpty()) {
-				System.out.println("Gramar "+gramarId+" has no sample models.");
-				return;
-			}
-			System.out.println("Available sample models for "+gramarId+":");
-			for (ISampleModel sample: samples) {
-				System.out.println("\t["+sample.getName()+"] "+sample.getDescription());
-			}
-			return;
-		}
-		
-		if (pm.hasValue(PropertiesHelper.PROPERTY_SAMPLE_NAME)) {
-			IGramar gramar = platform.getGramar(gramarId);
-			List<ISampleModel> samples = gramar.getSamples();
-			String name = pm.getString(PropertiesHelper.PROPERTY_SAMPLE_NAME);
-			for (ISampleModel sample: samples) {
-				if (name.equalsIgnoreCase(sample.getName())) {
-					String sampleContent = gramar.getTemplateSource(sample.getPath());
-					System.out.println("\n\n"+sampleContent+"\n\n");
+			platform = new SimpleGramarPlatform();
+			
+			if (pm.hasValue(PropertiesHelper.PROPERTY_LIST_SAMPLES)) {
+				IGramar gramar = platform.getGramar(gramarId);
+				List<ISampleModel> samples = gramar.getSamples();
+				if (samples.isEmpty()) {
+					System.out.println("Gramar "+gramarId+" has no sample models.");
 					return;
 				}
+				System.out.println("Available sample models for "+gramarId+":");
+				for (ISampleModel sample: samples) {
+					System.out.println("\t["+sample.getName()+"] "+sample.getDescription());
+				}
+				return;
 			}
-			System.out.println("Gramar "+gramarId+" has no sample model named "+name);
-			return;
+			
+			if (pm.hasValue(PropertiesHelper.PROPERTY_SAMPLE_NAME)) {
+				IGramar gramar = platform.getGramar(gramarId);
+				List<ISampleModel> samples = gramar.getSamples();
+				String name = pm.getString(PropertiesHelper.PROPERTY_SAMPLE_NAME);
+				for (ISampleModel sample: samples) {
+					if (name.equalsIgnoreCase(sample.getName())) {
+						String sampleContent = gramar.getTemplateSource(sample.getPath());
+						System.out.println("\n\n"+sampleContent+"\n\n");
+						return;
+					}
+				}
+				System.out.println("Gramar "+gramarId+" has no sample model named "+name);
+				return;
+			}
+
+			throw e;
 		}
 
 		modelFile = pm.getString(PropertiesHelper.PROPERTY_MODEL);

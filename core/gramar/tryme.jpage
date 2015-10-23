@@ -1,0 +1,10 @@
+
+
+String before = "abc";
+int col = before.length() - before.lastIndexOf("\n");
+
+
+col
+
+
+(int) 4

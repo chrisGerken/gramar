@@ -24,4 +24,11 @@ public interface ITagHandler {
 
 	public ITagHandler parentNamed(String name);
 
+	/**
+	 * Sets the original SourceRegion as parsed from the AST
+	 * 
+	 * @param region
+	 */
+	public void setSourceRegion(SourceRegion region);
+
 }

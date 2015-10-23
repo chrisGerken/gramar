@@ -40,6 +40,7 @@ public class SourceRegion {
 	
 	private int linenum;
 	private int col;
+	private String production;
 	private HashMap<String, String> attrs = null;
 	private TagInfo tagInfo;
 	
@@ -72,6 +73,22 @@ public class SourceRegion {
 		this.col = col;
 	}
 	
+	public String getProduction() {
+		return production;
+	}
+
+	public void setProduction(String production) {
+		this.production = production;
+	}
+
+	public int getLinenum() {
+		return linenum;
+	}
+
+	public int getCol() {
+		return col;
+	}
+
 	public String toString() {
 		String result = "Text";
 		if (type == TYPE_DIRECTIVE) { result = "Directive"; }

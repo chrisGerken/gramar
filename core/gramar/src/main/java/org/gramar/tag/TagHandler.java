@@ -28,6 +28,7 @@ public abstract class TagHandler implements ITagHandler {
 	protected ITagHandler parent;
 	protected ArrayList<ITagHandler> children = new ArrayList<ITagHandler>();
 	protected HashMap<String, String> attributes;
+	protected SourceRegion sourceRegion = null;
 	
 	public TagHandler() {
 		// Needs to be no-argument
@@ -44,6 +45,7 @@ public abstract class TagHandler implements ITagHandler {
 			handler.setAttributes(region.getAttributes());
 			handler.setParent(this);
 			addChild(handler);
+			handler.setSourceRegion(region);
 			return handler;
 		} else if (region.isEndTag()) {
 			if (region.getTagInfo().getTagName().equalsIgnoreCase(getTagName())) {
@@ -58,6 +60,7 @@ public abstract class TagHandler implements ITagHandler {
 			ITagHandler handler = context.getTagHandler(namespace, tagName);
 			handler.setAttributes(region.getAttributes());
 			handler.setParent(this);
+			handler.setSourceRegion(region);
 			addChild(handler);
 			return this;
 		} else if (region.isText()) {
@@ -101,6 +104,14 @@ public abstract class TagHandler implements ITagHandler {
 		this.attributes = attributes;
 	}
 	
+	public SourceRegion getSourceRegion() {
+		return sourceRegion;
+	}
+
+	public void setSourceRegion(SourceRegion sourceRegion) {
+		this.sourceRegion = sourceRegion;
+	}
+
 	/**
 	 * Merge all of the receiver's child handlers with the given stream
 	 */
@@ -366,4 +377,7 @@ public abstract class TagHandler implements ITagHandler {
 		return sb.toString();
 	}
 
+	public String locationDescription() {
+		return sourceRegion.getProduction() + " ["+sourceRegion.getLinenum()+","+sourceRegion.getCol()+"]";
+	}
 }
