@@ -380,4 +380,19 @@ public abstract class TagHandler implements ITagHandler {
 	public String locationDescription() {
 		return sourceRegion.getProduction() + " ["+sourceRegion.getLinenum()+","+sourceRegion.getCol()+"]";
 	}
+
+	@Override
+	public List<String> stackTrace() {
+		List<String> parents = getParent().stackTrace();
+		parents.add("\t["+sourceRegion.getLinenum()+","+sourceRegion.getCol()+"] : "+sourceRegion.getContent().replace('\n', ' '));
+		return parents;
+	}
+	
+	public void logStackTrace(IGramarContext context) {
+		List<String> stack = stackTrace();
+		for (String line: stack) {
+			context.warning(line);
+		}
+	}
+
 }

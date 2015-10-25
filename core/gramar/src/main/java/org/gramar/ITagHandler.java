@@ -31,4 +31,14 @@ public interface ITagHandler {
 	 */
 	public void setSourceRegion(SourceRegion region);
 
+	/**
+	 * Answer a List of Strings, one for each level of tag nesting.  The first string represents the tag
+	 * document itself and the last string represents the receiver.  Each level, except the first,
+	 * indicates the line number and starting column of the tag as well as the body of the tag flattened 
+	 * to a single line
+	 * 
+	 * @return List<String> describing the nested tags from the document tag to the receiver.
+	 */
+	public List<String> stackTrace();
+
 }

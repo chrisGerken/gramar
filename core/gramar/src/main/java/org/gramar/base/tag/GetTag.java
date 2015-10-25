@@ -28,7 +28,8 @@ public class GetTag extends TagHandler implements ITagHandler {
 			String value = context.resolveToString(select);
 			stream.append(value);
 		} catch (Exception e) {
-			context.error("Error at "+locationDescription()+" during "+toString()+" :: "+e);
+			context.error(e.getMessage());
+			logStackTrace(context);
 		}
 
 	}
