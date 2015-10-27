@@ -30,7 +30,7 @@ public class IllFormedTemplateException extends GramarException {
 //	}
 
 	public IllFormedTemplateException(SourceRegion nextRegion, String string) {
-		// TODO Auto-generated constructor stub
+		super(string);
 	}
 
 }

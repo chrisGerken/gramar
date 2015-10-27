@@ -29,7 +29,8 @@ public class AddElementTag extends TagHandler implements ITagHandler {
 			}
 
 		} catch (Exception e) {
-			context.error(e);
+			context.error(e.getMessage());
+			logStackTrace(context);
 		}
 
 	}

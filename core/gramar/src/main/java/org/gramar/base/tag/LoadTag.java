@@ -7,6 +7,7 @@ import org.gramar.IGramarPlatform;
 import org.gramar.IModel;
 import org.gramar.IModelAdaptor;
 import org.gramar.ITagHandler;
+import org.gramar.exception.GramarException;
 import org.gramar.model.XmlModel;
 import org.gramar.resource.MergeStream;
 import org.gramar.tag.TagHandler;
@@ -41,8 +42,7 @@ public class LoadTag extends TagHandler implements ITagHandler {
 				InputStream is = context.getFileStore().getFileByteContent(url);
 				content = GramarHelper.asString(is);
 			} else {
-				context.error("Invalid urlContext for load tag: "+urlContext);
-				return;
+				throw new GramarException("Invalid urlContext for load tag: "+urlContext);
 			}
 			
 			IModelAdaptor adaptor = null;
@@ -65,6 +65,7 @@ public class LoadTag extends TagHandler implements ITagHandler {
 			
 		} catch (Exception e) {
 			context.error(e);
+			logStackTrace(context);
 		}
 
 	}

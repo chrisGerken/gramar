@@ -32,6 +32,7 @@ public class OtherwiseTag extends TagHandler implements ITagHandler {
 			chooseTag.setCaseMet(true);
 		} catch (IllFormedTemplateException e) {
 			context.error(e);
+			logStackTrace(context);
 		}
 		
 	}

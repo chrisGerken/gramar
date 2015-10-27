@@ -46,6 +46,7 @@ public class IncludeTag extends TagHandler implements ITagHandler {
 			}
 		} catch (Exception e) {
 			context.error(e);
+			logStackTrace(context);
 		}
 	}
 

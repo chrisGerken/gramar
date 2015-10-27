@@ -348,13 +348,13 @@ public class GramarContext implements IGramarContext {
 	@Override
 	public void warning(Exception e) {
 		stati.add(GramarStatus.warning(e));
-		log(e.getMessage(), IGramarStatus.SEVERITY_WARN);
+		log(e.toString(), IGramarStatus.SEVERITY_WARN);
 	}
 
 	@Override
 	public void error(Exception e) {
 		stati.add(GramarStatus.error(e));
-		log(e.getMessage(), IGramarStatus.SEVERITY_ERROR);
+		log(e.toString(), IGramarStatus.SEVERITY_ERROR);
 	}
 
 	@Override

@@ -391,7 +391,7 @@ public abstract class TagHandler implements ITagHandler {
 	public void logStackTrace(IGramarContext context) {
 		List<String> stack = stackTrace();
 		for (String line: stack) {
-			context.warning(line);
+			context.error(line);
 		}
 	}
 

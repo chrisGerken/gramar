@@ -35,6 +35,7 @@ public class AddTextElementTag extends TagHandler implements ITagHandler {
 			
 		} catch (Exception e) {
 			context.error(e);
+			logStackTrace(context);
 		}
 
 	}

@@ -52,6 +52,7 @@ public class FlowTag extends TagHandler implements ITagHandler {
 			}
 		} catch (IOException e) {
 			context.error(e);
+			logStackTrace(context);
 		}
 		
 		

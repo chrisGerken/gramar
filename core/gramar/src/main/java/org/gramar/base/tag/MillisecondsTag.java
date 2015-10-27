@@ -28,6 +28,7 @@ public class MillisecondsTag extends TagHandler implements ITagHandler {
 
 		} catch (Exception e) {
 			context.error(e.getMessage()+" occurred during "+toString());
+			logStackTrace(context);
 		}
 
 	}
