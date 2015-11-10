@@ -63,7 +63,7 @@ public class MemoryFileStore extends FileStore implements IFileStore {
 	}
 
 	@Override
-	public void log(String message) {
+	public void log(String message, int severity) {
 		logs.add(message);
 	}
 	

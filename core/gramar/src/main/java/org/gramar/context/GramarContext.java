@@ -66,8 +66,9 @@ public class GramarContext implements IGramarContext {
 	public GramarContext(IGramarPlatform platform, Document model) {
 		this.platform = platform;
 		this.primaryModel = model;
+		loadConstants();
 	}
-	
+
 	public GramarContext(GramarContext parentContext) {
 		this.parentContext = parentContext;
 	}
@@ -78,6 +79,11 @@ public class GramarContext implements IGramarContext {
 
 	public void setPrimaryModel(Document primaryModel) {
 		this.primaryModel = primaryModel;
+	}
+	
+	private void loadConstants() {
+		setVariable("newline", "\n");
+		setVariable("tab", "\t");
 	}
 
 	@Override
@@ -364,6 +370,12 @@ public class GramarContext implements IGramarContext {
 	}
 
 	@Override
+	public void severe(String message) {
+		stati.add(GramarStatus.severe(message));
+		log(message, IGramarStatus.SEVERITY_SEVERE);
+	}
+
+	@Override
 	public void info(String message) {
 		stati.add(GramarStatus.info(message));
 		log(message, IGramarStatus.SEVERITY_INFO);
@@ -383,7 +395,7 @@ public class GramarContext implements IGramarContext {
 
 	public void log(String message, int severity) {
 		if ((minLogLevel <= severity) && (getFileStore() != null)) {
-			getFileStore().log(message);
+			getFileStore().log(message, severity);
 		}
 	}
 

@@ -22,6 +22,10 @@ public class GramarStatus implements IGramarStatus {
 		return new GramarStatus(null, message, SEVERITY_ERROR );
 	}
 	
+	public static IGramarStatus severe(String message) {
+		return new GramarStatus(null, message, SEVERITY_SEVERE );
+	}
+	
 	public static IGramarStatus warning(Throwable t) {
 		return new GramarStatus(t, t.getMessage(), SEVERITY_WARN );
 	}

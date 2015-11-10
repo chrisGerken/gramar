@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.gramar.IFileStore;
 import org.gramar.IGramarContext;
+import org.gramar.IGramarStatus;
 import org.gramar.IModel;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.NoSuchResourceException;
@@ -167,7 +168,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 						try {
 							if (ru.isProject()) {
 								ru.execute(fileStore);
-								log(ru.report());
+								log(ru.report(), IGramarStatus.SEVERITY_INFO);
 							}
 						} catch (Exception e) {
 							commitContext.error(e);
@@ -180,7 +181,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 						try {
 							if (!ru.isProject()) {
 								ru.execute(fileStore);
-								log(ru.report());
+								log(ru.report(), IGramarStatus.SEVERITY_INFO);
 							}
 						} catch (Exception e) {
 							commitContext.error(e);
@@ -198,9 +199,9 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 	}
 
 	@Override
-	public void log(String message) {
+	public void log(String message, int severity) {
 
-		EclipsePlatform.log(message);
+		EclipsePlatform.log(message, severity);
 
 	}
 

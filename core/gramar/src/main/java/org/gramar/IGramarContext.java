@@ -214,6 +214,12 @@ public interface IGramarContext {
 	 * @param message - the text to be written
 	 */
 	public void error(String message);
+
+	/**
+	 * Log a severe message
+	 * @param message - the text to be written
+	 */
+	public void severe(String message);
 	
 	/**
 	 * Frees up any cached resources

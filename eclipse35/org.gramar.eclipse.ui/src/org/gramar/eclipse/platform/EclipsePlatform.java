@@ -1,5 +1,9 @@
 package org.gramar.eclipse.platform;
 
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
@@ -7,6 +11,7 @@ import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.gramar.IGramarApplicationStatus;
 import org.gramar.IGramarPlatform;
+import org.gramar.IGramarStatus;
 import org.gramar.IModel;
 import org.gramar.model.XmlModel;
 import org.gramar.platform.GramarPlatform;
@@ -17,6 +22,13 @@ public class EclipsePlatform extends GramarPlatform implements IGramarPlatform {
 	private static MessageConsole console;
 	
 	public static final String CONSOLE_NAME = "gramar.eclipse.console";
+	
+	private static final Color normalColor = new Color(Display.getCurrent(), new RGB(0, 0, 0));
+	private static final Color debugColor = new Color(Display.getCurrent(), new RGB(80, 80, 80));
+	private static final Color infoColor = new Color(Display.getCurrent(), new RGB(0, 0, 0));
+	private static final Color errorColor = new Color(Display.getCurrent(), new RGB(200, 0, 0));
+	private static final Color severeColor = new Color(Display.getCurrent(), new RGB(255, 0, 0));
+	private static final Color warningColor = new Color(Display.getCurrent(), new RGB(0, 0, 180));
 	
 	public EclipsePlatform() {
 		super();
@@ -57,10 +69,28 @@ public class EclipsePlatform extends GramarPlatform implements IGramarPlatform {
 		return myConsole;
 	}
 	
-	public static void log(String message) {
+	public static void log(String message, int severity) {
 		MessageConsoleStream stream = getConsole().newMessageStream();
+		if (severity==IGramarStatus.SEVERITY_WARN) {
+			stream.setColor(warningColor);
+		} else if (severity==IGramarStatus.SEVERITY_INFO) {
+			stream.setColor(infoColor);
+		} else if (severity==IGramarStatus.SEVERITY_NONE) {
+			stream.setColor(normalColor);
+		} else if (severity==IGramarStatus.SEVERITY_DEBUG) {
+			stream.setColor(debugColor);
+		} else if (severity==IGramarStatus.SEVERITY_ERROR) {
+			stream.setColor(errorColor);
+		} else if (severity==IGramarStatus.SEVERITY_SEVERE) {
+			stream.setColor(severeColor);
+		} else {
+			stream.setColor(normalColor);
+		}
 		stream.print(message+"\n");
-		try { stream.close(); } catch (Throwable t) { }
+		try { 
+//			stream.setColor(normalColor);
+			stream.close(); 
+		} catch (Throwable t) { }
 	}
 	
 }

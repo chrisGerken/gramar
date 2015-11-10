@@ -50,7 +50,7 @@ public class UnFileStore extends FileStore implements IFileStore {
 	}
 
 	@Override
-	public void log(String message) {
+	public void log(String message, int severity) {
 	}
 
 }

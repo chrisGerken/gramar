@@ -22,10 +22,14 @@ public class LogTag extends TagHandler implements ITagHandler {
 			
 			if (severity.equalsIgnoreCase("info")) {
 				context.info(content.toString());
+			} else if (severity.equalsIgnoreCase("debug")) {
+				context.debug(content.toString());
 			} else if (severity.equalsIgnoreCase("warning")) {
 				context.warning(content.toString());
 			} else if (severity.equalsIgnoreCase("error")) {
 				context.error(content.toString());
+			} else if (severity.equalsIgnoreCase("severe")) {
+				context.severe(content.toString());
 			} 
 			
 		} catch (Exception e) {

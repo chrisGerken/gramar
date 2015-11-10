@@ -90,9 +90,11 @@ public interface IFileStore {
 	public void addUpdate(UpdateResource update);
 	
 	/***
-	 * Logs a message in a FileStore-appropriate way
+	 * Logs a message of a given severity in a FileStore-appropriate way 
+	 * @param message 
+	 * @param severity 
 	 */
-	public void log(String message);
+	public void log(String message, int severity);
 
 	/**
 	 * Free any cached resources
