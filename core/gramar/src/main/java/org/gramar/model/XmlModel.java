@@ -34,6 +34,16 @@ public class XmlModel implements IModel {
 	public XmlModel(InputStream is) throws GramarException {
 		document = DocumentHelper.buildModel(is);
 	}
+	
+	/**
+	 * Construct an IModel from the given Document.
+	 * 
+	 * @param is
+	 * @throws Exception
+	 */
+	public XmlModel(Document doc) throws GramarException {
+		document = doc;
+	}
 
 	@Override
 	public Document asDOM() {

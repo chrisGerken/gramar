@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ui
 Bundle-SymbolicName: org.gramar.eclipse.ui; singleton:=true
-Bundle-Version: 0.9.36
+Bundle-Version: 0.9.39
 Bundle-Activator: org.gramar.eclipse.ui.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -15,3 +15,28 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: gramar-1.0.0-SNAPSHOT-jar-with-dependencies.jar,
  .
 Import-Package: org.eclipse.ui.console
+Export-Package: org.gramar,
+ org.gramar.adaptor,
+ org.gramar.ast,
+ org.gramar.base.function,
+ org.gramar.base.function.util,
+ org.gramar.base.tag,
+ org.gramar.context,
+ org.gramar.eclipse.navigator,
+ org.gramar.eclipse.platform,
+ org.gramar.eclipse.ui,
+ org.gramar.eclipse.ui.dialog,
+ org.gramar.eclipse.ui.editors,
+ org.gramar.eclipse.ui.popup.actions,
+ org.gramar.eclipse.ui.wizards,
+ org.gramar.exception,
+ org.gramar.extension,
+ org.gramar.filestore,
+ org.gramar.function,
+ org.gramar.gramar,
+ org.gramar.model,
+ org.gramar.platform,
+ org.gramar.plugin,
+ org.gramar.resource,
+ org.gramar.tag,
+ org.gramar.util

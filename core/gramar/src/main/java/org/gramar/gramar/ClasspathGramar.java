@@ -17,11 +17,25 @@ import org.gramar.util.GramarHelper;
  */
 public class ClasspathGramar extends Gramar implements IGramar {
 
+	
+	private ClassLoader classLoader = null;  // Use whatever class loader gets the 
+											 // ClasspathPluginSource class by default
+	
 	/**
 	 * Construct a Gramar object representing the pattern with ID patternID 
 	 */
 	public ClasspathGramar(String gramarId) throws InvalidGramarException {
 		this.gramarId = gramarId;
+		loadMeta();
+	}
+	
+	/**
+	 * Construct a Gramar object representing the pattern with ID patternID from a specific
+	 * class loader 
+	 */
+	public ClasspathGramar(String gramarId, ClassLoader classLoader) throws InvalidGramarException {
+		this.gramarId = gramarId;
+		this.classLoader = classLoader;
 		loadMeta();
 	}
 
@@ -47,7 +61,12 @@ public class ClasspathGramar extends Gramar implements IGramar {
 
 		String pkg = gramarId.replace('.', '/');
 		String resource = "/" + pkg + "/" + id;
-		InputStream is = ClasspathPluginSource.class.getResourceAsStream(resource);
+		InputStream is = null;
+		if (classLoader==null) {
+			is = ClasspathPluginSource.class.getResourceAsStream(resource);
+		} else {
+			is = classLoader.getResourceAsStream(resource);
+		}
 		if (is == null) {
 			throw new NoSuchResourceException();
 		}
