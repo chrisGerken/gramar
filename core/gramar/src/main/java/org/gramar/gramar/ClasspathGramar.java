@@ -51,7 +51,7 @@ public class ClasspathGramar extends Gramar implements IGramar {
 		try {
 			return GramarHelper.asString(readTemplateBinary(id));
 		} catch (IOException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(id,e);
 		}
 
 	}
@@ -68,7 +68,7 @@ public class ClasspathGramar extends Gramar implements IGramar {
 			is = classLoader.getResourceAsStream(resource);
 		}
 		if (is == null) {
-			throw new NoSuchResourceException();
+			throw new NoSuchResourceException(id);
 		}
 		return is;
 

@@ -8,3 +8,21 @@ col
 
 
 (int) 4
+
+
+
+
+
+StringBuffer sb = new StringBuffer();
+StringTokenizer st = new StringTokenizer(_expression,"{}",true);
+while (st.hasMoreTokens()) {
+	String token = st.nextToken();
+	if (token.equals("{")) {
+		sb.append("<c:get select=\"");
+	} else if (token.equals("}")) {
+		sb.append("\" />");
+	} else {
+		sb.append(token);
+	}
+}
+return sb.toString();

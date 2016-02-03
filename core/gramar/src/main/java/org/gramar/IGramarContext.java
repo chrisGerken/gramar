@@ -1,5 +1,7 @@
 package org.gramar;
 
+import java.util.List;
+
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFunction;
@@ -174,8 +176,6 @@ public interface IGramarContext {
 	public boolean isExtensionDefined(String extensionId);
 
 	public void setGramar(IGramar pattern);
-	
-	public IGramar getPattern();
 
 	/**
 	 * Log a warning
@@ -226,6 +226,18 @@ public interface IGramarContext {
 	 */
 	public void free();
 
+	/**
+	 * Return the greatest severity of all of the status messages
+	 * 
+	 * @return the max status severity
+	 */
 	public int getMaxStatus();
+
+	/**
+	 * Returns a list of all status messages (and their severity and Exception causes, if any)
+	 * 
+	 * @return all status from the gramar application
+	 */
+	List<IGramarStatus> getStati();
 
 }

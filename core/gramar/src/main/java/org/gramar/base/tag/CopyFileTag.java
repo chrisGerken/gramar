@@ -1,5 +1,7 @@
 package org.gramar.base.tag;
 
+import java.io.InputStream;
+
 import org.gramar.IGramarContext;
 import org.gramar.ITagHandler;
 import org.gramar.resource.MergeStream;
@@ -21,12 +23,28 @@ public class CopyFileTag extends TagHandler implements ITagHandler {
 			String target = getStringAttribute("target", context);
 
 			String src = getStringAttribute("src", context);
-			byte[] content = GramarHelper.getBytes(context.getPattern().getTemplateBinary(src));
 
 			Boolean replace = getBooleanAttribute("replace", context, true);
+
+			String srcContext = getStringAttribute("srcContext", context, "gramar");
+
+			if (srcContext.equalsIgnoreCase("plugin")) {
+				srcContext = "gramar";
+			}
+
+			if (srcContext.equalsIgnoreCase("pattern")) {
+				srcContext = "gramar";
+			}
+			
+			byte[] content = null;
+			if (srcContext.equalsIgnoreCase("gramar")) {
+				content = GramarHelper.getBytes(context.getGramar().getTemplateBinary(src));
+			} else {
+				content = GramarHelper.getBytes(context.getFileStore().getFileByteContent(src));
+			}
 			
 			context.getFileStore().addUpdate(new UpdateBinary(target, content, replace));
-			
+	
 		} catch (Exception e) {
 			context.error(e);
 			logStackTrace(context);

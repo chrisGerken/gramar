@@ -26,7 +26,7 @@ public class FileTag extends TagHandler implements ITagHandler {
 			
 			MergeStream newStream = new MergeStream();
 			
-			ITemplate template = context.getPattern().getTemplate(templateName, context);
+			ITemplate template = context.getGramar().getTemplate(templateName, context);
 			template.mergeTo(newStream, context);
 			
 			context.getFileStore().addUpdate(new UpdateFile(path, newStream, replace));

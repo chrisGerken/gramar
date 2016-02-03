@@ -48,7 +48,7 @@ public class LocalFileStore extends FileStore implements IFileStore {
 		try {
 			return new FileInputStream(absolutePathFor(path));
 		} catch (FileNotFoundException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(path,e);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class LocalFileStore extends FileStore implements IFileStore {
 			fos.write(proposed);
 			fos.close();
 		} catch (Exception e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(path,e);
 		}
 	}
 
@@ -86,7 +86,7 @@ public class LocalFileStore extends FileStore implements IFileStore {
 			GramarHelper.copy(reader, writer);
 			writer.close();
 		} catch (Exception e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(path,e);
 		}
 	}
 

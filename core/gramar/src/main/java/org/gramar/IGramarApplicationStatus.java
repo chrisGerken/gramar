@@ -25,5 +25,12 @@ public interface IGramarApplicationStatus {
 	 * @throws GramarException 
 	 */
 	public IGramarApplicationStatus reApply(IModel model) throws GramarException;
+
+	/**
+	 * Answers the IGramarContext used in the most recent application.
+	 * 
+	 * @return an IGramarContext
+	 */
+	IGramarContext getContext();
 	
 }

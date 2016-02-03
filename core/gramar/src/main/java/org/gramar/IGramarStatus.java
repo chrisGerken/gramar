@@ -21,5 +21,19 @@ public interface IGramarStatus {
 	 * receiver represents multiple issues.
 	 */
 	public int getSeverity();
+
+	/**
+	 * Returns the Throwable cause of the status, or null if there was none
+	 * 
+	 * @return the Throwable cause
+	 */
+	public Throwable getCause();
+
+	/**
+	 * Returns the message for the status
+	 * 
+	 * @return the message
+	 */
+	public String getMessage();
 	
 }

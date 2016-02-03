@@ -64,7 +64,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 				try {
 					((IFolder)current).create(true, true, (IProgressMonitor)null);
 				} catch (CoreException e) {
-					throw new NoSuchResourceException(e);
+					throw new NoSuchResourceException(path,e);
 				}
 			}
 		}
@@ -99,7 +99,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 			}
 			return file.getContents(true);
 		} catch (CoreException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(path,e);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class EclipseFileStore extends FileStore implements IFileStore {
 				file.create(stream, true, (IProgressMonitor)null);
 			}
 		} catch (CoreException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(path,e);
 		}
 	}
 

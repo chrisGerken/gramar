@@ -42,7 +42,7 @@ public class EclipseWorkspaceGramar extends Gramar implements IGramar {
 		try {
 			return GramarHelper.asString(readTemplateBinary(path));
 		} catch (IOException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(path,e);
 		}
 	}
 
@@ -52,11 +52,11 @@ public class EclipseWorkspaceGramar extends Gramar implements IGramar {
 			IPath projectRelativePath = gramarOffset.append(new Path(path));
 			IFile file = project.getFile(projectRelativePath);
 			if (!file.exists()) {
-				throw new NoSuchResourceException();
+				throw new NoSuchResourceException(path);
 			}
 			return file.getContents(true);
 		} catch (Exception e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(path,e);
 		}
 	}
 

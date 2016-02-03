@@ -47,12 +47,29 @@ public class GramarStatus implements IGramarStatus {
 		return severity;
 	}
 
+	@Override
 	public Throwable getCause() {
 		return cause;
 	}
 
+	@Override
 	public String getMessage() {
 		return message;
+	}
+	
+	public String toString() {
+		return statusFor(severity)+" : "+message;
+	}
+	
+	private String statusFor(int severity) {
+
+		if (severity == SEVERITY_DEBUG) 	{ return "DEBUG"; }
+		if (severity == SEVERITY_INFO) 		{ return "INFO"; }
+		if (severity == SEVERITY_WARN) 		{ return "WARN"; }
+		if (severity == SEVERITY_ERROR) 	{ return "ERROR"; }
+		if (severity == SEVERITY_SEVERE) 	{ return "SEVERE"; }
+		return "";
+		
 	}
 
 }

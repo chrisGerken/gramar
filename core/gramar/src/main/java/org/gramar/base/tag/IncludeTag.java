@@ -7,6 +7,9 @@ import org.gramar.ITagHandler;
 import org.gramar.ITemplate;
 import org.gramar.resource.MergeStream;
 import org.gramar.tag.TagHandler;
+import org.gramar.util.GramarHelper;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
 public class IncludeTag extends TagHandler implements ITagHandler {
 
@@ -31,13 +34,17 @@ public class IncludeTag extends TagHandler implements ITagHandler {
 				String var = st.nextToken();
 				name[i] = var;
 				value[i] = context.getVariable(var);
+				context.debug("store "+name[i]+" = "+GramarHelper.display(value[i]));
 				i++;
 			}
 			
-			ITemplate template = context.getPattern().getTemplate(templateId, context);
+			ITemplate template = context.getGramar().getTemplate(templateId, context);
+			context.debug("begin include "+templateId);
 			template.mergeTo(stream, context);
+			context.debug("end include "+templateId);
 			
 			for (i=0; i < name.length; i++) {
+				context.debug("restore "+name[i]+" = "+GramarHelper.display(value[i]));
 				if (value[i] == null) {
 					context.unsetVariable(name[i]);
 				} else {

@@ -20,12 +20,19 @@ public class GramarApplicationResult implements IGramarApplicationStatus {
 		this.content = content;
 	}
 	
+	@Override
 	public int getStatus() {
 		return context.getMaxStatus();
 	}
 	
+	@Override
+	public IGramarContext getContext() {
+		return context;
+	}
+	
+	@Override
 	public boolean hadErrors() {
-		return context.getMaxStatus() <= IGramarStatus.SEVERITY_ERROR;
+		return context.getMaxStatus() >= IGramarStatus.SEVERITY_ERROR;
 	}
 
 	@Override

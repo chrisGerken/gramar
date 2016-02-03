@@ -45,7 +45,7 @@ public abstract class ZipGrammar extends Gramar implements IGramar {
 			String source = GramarHelper.asString(is);
 			return source;
 		} catch (IOException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(templateName,e);
 		}
 
 	}
@@ -65,10 +65,10 @@ public abstract class ZipGrammar extends Gramar implements IGramar {
 			}
 			try { zis.close(); } catch (Throwable t) {  }
 		} catch (Exception e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(templateName,e);
 		}
 
-		throw new NoSuchResourceException();
+		throw new NoSuchResourceException(templateName);
 
 	}
 

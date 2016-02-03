@@ -2,6 +2,7 @@ package org.gramar.context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.xml.xpath.XPath;
@@ -27,6 +28,7 @@ import org.gramar.model.ModelAccess;
 import org.gramar.model.XmlModel;
 import org.gramar.platform.GramarStatus;
 import org.gramar.platform.SimpleGramarPlatform;
+import org.gramar.util.GramarHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -55,7 +57,7 @@ public class GramarContext implements IGramarContext {
 	
 	private int modelAccess = 0;
 	
-	private int minLogLevel = IGramarStatus.SEVERITY_INFO;
+	private int minLogLevel = IGramarStatus.SEVERITY_DEBUG;
 	
 	/**
 	 * A list of characters whose presence in an XPath expression indicates that the expression
@@ -105,7 +107,7 @@ public class GramarContext implements IGramarContext {
 	public void setVariable(String variableName, Object value) {
 		if (variableName == null) { return; }
 		variables.put(variableName, value);
-		debug("set variable "+variableName+" = "+String.valueOf(value));
+		debug("set variable "+variableName+" = "+GramarHelper.display(value));
 	}
 
 	@Override
@@ -347,7 +349,7 @@ public class GramarContext implements IGramarContext {
 	}
 	
 	@Override
-	public IGramar getPattern() {
+	public IGramar getGramar() {
 		return gramar;
 	}
 
@@ -453,10 +455,13 @@ public class GramarContext implements IGramarContext {
 		}
 		return status;
 	}
-
+	
 	@Override
-	public IGramar getGramar() {
-		return gramar;
+	public List<IGramarStatus> getStati() {
+		if (stati==null) {
+			return new ArrayList<IGramarStatus>();
+		}
+		return stati;
 	}
 
 	/**

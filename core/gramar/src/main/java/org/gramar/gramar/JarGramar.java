@@ -38,7 +38,7 @@ public class JarGramar extends Gramar implements IGramar {
 		try {
 			return GramarHelper.asString(readTemplateBinary(id));
 		} catch (IOException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(id,e);
 		}
 
 	}
@@ -52,7 +52,7 @@ public class JarGramar extends Gramar implements IGramar {
 			InputStream is = JarLoaders.loaderFor(jarPath).getResourceAsStream(resource);
 			return is;
 		} catch (IOException e) {
-			throw new NoSuchResourceException(e);
+			throw new NoSuchResourceException(id,e);
 		}
 
 	}

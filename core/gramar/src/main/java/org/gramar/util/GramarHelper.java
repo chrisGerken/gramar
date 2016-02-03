@@ -11,6 +11,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.StringTokenizer;
 
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+
 public class GramarHelper {
 	
 	public static void copy(InputStream is, OutputStream os) throws IOException {
@@ -82,6 +85,35 @@ public class GramarHelper {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		copy(stream,baos);
 		return baos.toByteArray();
+	}
+
+
+	/**
+	 * Return a displayable representation to the object which could be null, a String,
+	 * an Integer, a w3c Node, or anything else
+	 * 
+	 * @param an object
+	 * @return a String representation of the given object
+	 */
+	public static String display(Object value) {
+		
+		if (value == null) {
+			return "null";
+		} else if (value instanceof Node) {
+			Node node = (Node) value;
+			StringBuffer sb = new StringBuffer("<"+node.getNodeName());
+			NamedNodeMap map = node.getAttributes();
+			if (map != null) {
+				for (int i = 0; i < map.getLength(); i++) {
+					Node attr = map.item(i);
+					sb.append("  "+attr.getNodeName()+"=\""+attr.getNodeValue()+"\"");
+				}
+			}
+			sb.append(" >");
+			return sb.toString();
+		}
+
+		return value.toString();
 	}
 
 }
