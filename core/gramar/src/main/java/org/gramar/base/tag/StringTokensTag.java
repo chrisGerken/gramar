@@ -27,6 +27,8 @@ public class StringTokensTag extends TagHandler implements ITagHandler {
 			String delimBy = getStringAttribute("delimitedBy", context, " ");
 			boolean reverse = getBooleanAttribute("reverse", context, false);
 
+			Object prevValue = context.getVariable(var);
+
 //			value: <c:get select="$curStr/@value"/>
 //		    index: <c:get select="$curStr/@index"/>
 //		    delimiter: <c:get select="$curStr/@delimiter"/>
@@ -62,6 +64,12 @@ public class StringTokensTag extends TagHandler implements ITagHandler {
 				processChildren(stream, context);
 				
 				context.unsetVariable(var);
+			}
+			
+			if (prevValue == null) {
+				context.unsetVariable(var);
+			} else {
+				context.setVariable(var, prevValue);
 			}
 			
 		} catch (Exception e) {

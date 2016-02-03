@@ -59,7 +59,7 @@ public class MigrateJetTransform implements IObjectActionDelegate {
 		}
 		
 
-		MessageDialog.openInformation(shell, "Ui", msg);
+		MessageDialog.openInformation(shell, "UI", msg);
 	}
 
 	/**

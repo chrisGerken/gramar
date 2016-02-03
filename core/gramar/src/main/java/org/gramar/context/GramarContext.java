@@ -57,8 +57,6 @@ public class GramarContext implements IGramarContext {
 	
 	private int modelAccess = 0;
 	
-	private int minLogLevel = IGramarStatus.SEVERITY_DEBUG;
-	
 	/**
 	 * A list of characters whose presence in an XPath expression indicates that the expression
 	 * is more than just a simple variable reference
@@ -355,50 +353,58 @@ public class GramarContext implements IGramarContext {
 
 	@Override
 	public void warning(Exception e) {
-		stati.add(GramarStatus.warning(e));
-		log(e.toString(), IGramarStatus.SEVERITY_WARN);
+		if (log(e.toString(), IGramarStatus.SEVERITY_WARN)) {
+			stati.add(GramarStatus.warning(e));
+		}
 	}
 
 	@Override
 	public void error(Exception e) {
-		stati.add(GramarStatus.error(e));
-		log(e.toString(), IGramarStatus.SEVERITY_ERROR);
+		if (log(e.toString(), IGramarStatus.SEVERITY_ERROR)) {
+			stati.add(GramarStatus.error(e));
+		}
 	}
 
 	@Override
 	public void error(String message) {
-		stati.add(GramarStatus.error(message));
-		log(message, IGramarStatus.SEVERITY_ERROR);
+		if ( log(message, IGramarStatus.SEVERITY_ERROR)) {
+			stati.add(GramarStatus.error(message));
+		}
 	}
 
 	@Override
 	public void severe(String message) {
-		stati.add(GramarStatus.severe(message));
-		log(message, IGramarStatus.SEVERITY_SEVERE);
+		if ( log(message, IGramarStatus.SEVERITY_SEVERE)) {
+			stati.add(GramarStatus.severe(message));
+		}
 	}
 
 	@Override
 	public void info(String message) {
-		stati.add(GramarStatus.info(message));
-		log(message, IGramarStatus.SEVERITY_INFO);
+		if ( log(message, IGramarStatus.SEVERITY_INFO)) {
+			stati.add(GramarStatus.info(message));
+		}
 	}
 
 	@Override
 	public void debug(String message) {
-		stati.add(GramarStatus.debug(message));
-		log(message, IGramarStatus.SEVERITY_DEBUG);
+		if ( log(message, IGramarStatus.SEVERITY_DEBUG)) {
+			stati.add(GramarStatus.debug(message));
+		}
 	}
 
 	@Override
 	public void warning(String message) {
-		stati.add(GramarStatus.warning(message));
-		log(message, IGramarStatus.SEVERITY_WARN);
+		if ( log(message, IGramarStatus.SEVERITY_WARN)) {
+			stati.add(GramarStatus.warning(message));
+		}
 	}
 
-	public void log(String message, int severity) {
-		if ((minLogLevel <= severity) && (getFileStore() != null)) {
-			getFileStore().log(message, severity);
+	private boolean log(String message, int severity) {
+		if (getFileStore() != null) {
+			return getFileStore().logMessage(message,severity);
 		}
+		return false;
 	}
 
 	@Override

@@ -1,13 +1,13 @@
 package org.gramar.filestore;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 
 import org.gramar.IFileStore;
 import org.gramar.IGramarContext;
+import org.gramar.IGramarStatus;
 import org.gramar.exception.GramarException;
 import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.exception.NoSuchResourceException;
@@ -17,6 +17,7 @@ import org.gramar.util.GramarHelper;
 public abstract class FileStore implements IFileStore {
 
 	protected ArrayList<UpdateResource> updates = new ArrayList<UpdateResource>();
+	private   int minLogLevel = IGramarStatus.SEVERITY_ERROR;
 	
 	public FileStore() {
 
@@ -58,7 +59,7 @@ public abstract class FileStore implements IFileStore {
 		for (UpdateResource ru: update) {
 			try {
 				ru.execute(this);
-				System.out.println(ru.report());
+				context.info(ru.report());
 			} catch (Exception e) {
 				context.error(e);
 			}
@@ -83,8 +84,27 @@ public abstract class FileStore implements IFileStore {
 
 	@Override
 	public void configure(Properties properties) throws GramarPlatformConfigurationException {
-
 		
 	}
+
+	@Override
+	public boolean logMessage(String message, int severity) {
+		if (minLogLevel <= severity) {
+			log(message,severity);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int getMinLogLevel() {
+		return minLogLevel;
+	}
+
+	@Override
+	public void setMinLogLevel(int minLogLevel) {
+		this.minLogLevel = minLogLevel;
+	}
+
 
 }

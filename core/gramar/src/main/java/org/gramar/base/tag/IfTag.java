@@ -19,6 +19,11 @@ public class IfTag extends TagHandler implements ITagHandler {
 			String test = getRawAttribute("test");
 			String var = getStringAttribute("var", context, "");
 
+			Object prevValue = null;
+			if (var.length()>0) {
+				prevValue = context.getVariable(var);
+			}
+
 			boolean result = context.resolveToBoolean(test);
 			
 			if (result) {
@@ -35,6 +40,15 @@ public class IfTag extends TagHandler implements ITagHandler {
 					context.unsetVariable(var);
 				}
 			}
+			
+			if (var.length()>0) {
+				if (prevValue == null) {
+					context.unsetVariable(var);
+				} else {
+					context.setVariable(var, prevValue);
+				}
+			}
+
 		} catch (Exception e) {
 			context.error(e);
 			logStackTrace(context);

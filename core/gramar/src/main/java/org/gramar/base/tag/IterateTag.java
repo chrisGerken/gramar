@@ -21,6 +21,8 @@ public class IterateTag extends TagHandler implements ITagHandler {
 			String var = getStringAttribute("var", context);
 			String delim = getStringAttribute("delimiter", context, "");
 
+			Object prevValue = context.getVariable(var);
+
 			boolean first = true;
 			Node[] node = context.resolveToNodes(select);
 
@@ -36,6 +38,13 @@ public class IterateTag extends TagHandler implements ITagHandler {
 				
 				context.unsetVariable(var);
 			}
+			
+			if (prevValue == null) {
+				context.unsetVariable(var);
+			} else {
+				context.setVariable(var, prevValue);
+			}
+
 		} catch (Exception e) {
 			context.error(e);
 			logStackTrace(context);

@@ -10,6 +10,7 @@ import org.gramar.IGramar;
 import org.gramar.IGramarApplicationStatus;
 import org.gramar.IGramarContext;
 import org.gramar.IGramarPlatform;
+import org.gramar.IGramarStatus;
 import org.gramar.IModel;
 import org.gramar.IModelAdaptor;
 import org.gramar.IPluginSource;

@@ -108,5 +108,19 @@ public interface IFileStore {
 	 * @throws GramarPlatformConfigurationException 
 	 */
 	public void configure(Properties properties) throws GramarPlatformConfigurationException;
+
+	/**
+	 * Log the given message with the given severity. The default behavior is to defer to the 
+	 * log(message,severity) method implemented by the specific file store. 
+	 * 
+	 * @param message
+	 * @param severity
+	 * @return whether or not the message was logged
+	 */
+	boolean logMessage(String message, int severity);
+
+	int getMinLogLevel();
+
+	void setMinLogLevel(int minLogLevel);
 	
 }
