@@ -1,5 +1,6 @@
 package org.gramar.filestore;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +27,9 @@ public abstract class FileStore implements IFileStore {
 	@Override
 	public boolean sameBytes(String relpath, byte[] after) throws IOException {
 		try {
-			byte before[] = GramarHelper.getBytes(getFileByteContent(relpath));
+			byte before[] = new byte[0];
+			
+			before = GramarHelper.getBytes(getFileByteContent(relpath));
 			
 			if (before.length != after.length) {
 				return false;
