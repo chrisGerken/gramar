@@ -16,7 +16,8 @@ public class PropertiesHelper {
 	public static final String PROPERTY_MODEL 			= "model";
 	public static final String PROPERTY_LIST_SAMPLES	= "list-samples";
 	public static final String PROPERTY_SAMPLE_NAME 	= "sample-name";
-	
+	public static final String PROPERTY_LOG_LEVEL 		= "logging";
+
 	private Properties props;
 	
 	public PropertiesHelper(String[] args) throws GramarException {

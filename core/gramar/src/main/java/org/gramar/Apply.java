@@ -101,6 +101,22 @@ public class Apply {
 			return;
 		}
 		
+		String severity = pm.getString(PropertiesHelper.PROPERTY_LOG_LEVEL, "warn");
+		if (severity.equalsIgnoreCase("none")) {
+			platform.getDefaultFileStore().setMinLogLevel(IGramarStatus.SEVERITY_NONE);
+		} else if (severity.equalsIgnoreCase("debug")) {
+			platform.getDefaultFileStore().setMinLogLevel(IGramarStatus.SEVERITY_DEBUG);
+		} else if (severity.equalsIgnoreCase("info")) {
+			platform.getDefaultFileStore().setMinLogLevel(IGramarStatus.SEVERITY_INFO);
+		} else if (severity.equalsIgnoreCase("warn")) {
+			platform.getDefaultFileStore().setMinLogLevel(IGramarStatus.SEVERITY_WARN);
+		} else if (severity.equalsIgnoreCase("error")) {
+			platform.getDefaultFileStore().setMinLogLevel(IGramarStatus.SEVERITY_ERROR);
+		} else if (severity.equalsIgnoreCase("severe")) {
+			platform.getDefaultFileStore().setMinLogLevel(IGramarStatus.SEVERITY_SEVERE);
+		}
+
+		
 		IGramarApplicationStatus result = platform.apply(model, gramarId);
 		String msg = "Apply complete with status "+result.getStatus()+".  Model accessed "+result.getModelAccesses()+" times";  
 		if (result.hadErrors()) {
@@ -135,8 +151,7 @@ public class Apply {
 	 */
 	public void defaultValues(PropertiesHelper pm) {
 
-		// Do nothing for this class.  Perhaps subclasses
-		// might have defaults they want to set.
+		pm.setProperty(PropertiesHelper.PROPERTY_LOG_LEVEL, "fred.sandbox.gramar", false);
 		
 	}
 
