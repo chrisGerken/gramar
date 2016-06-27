@@ -7,6 +7,7 @@ import org.gramar.IGramarContext;
 import org.gramar.ITagHandler;
 import org.gramar.resource.MergeStream;
 import org.gramar.tag.TagHandler;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -35,7 +36,12 @@ public class StringTokensTag extends TagHandler implements ITagHandler {
 //		    first: <c:get select="$curStr/@first"/>
 //		    last: <c:get select="$curStr/@last"/>
 			
-			Element element = context.getPrimaryModel().getOwnerDocument().createElement(var);
+			Document doc = context.getPrimaryModel();
+			Document owner = doc.getOwnerDocument();
+			if (owner!=null) {
+				doc = owner;
+			}
+			Element element = doc.createElement(var);
 
 			StringTokenizer st = new StringTokenizer(string,delimBy);
 			String token[] = new String[st.countTokens()];
