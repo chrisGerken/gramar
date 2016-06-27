@@ -1,0 +1,27 @@
+
+==== cardinality() Function ====
+
+The cardinality() function returns a boolean value depending on whether the cardinality of the collection of nodes is present in the cards string
+
+If the collection of nodes is empty and the cards argument contains "0" return true.
+
+If the collection of nodes contains a single node and the cards argument contains "1" return true.
+
+If the collection of nodes contains more than one node and the cards argument contains "M" return true.
+
+Otherwise, return false.
+
+
+^ Argument      ^ Kind   ^ Required    ^ Purpose          ^
+|**expression**  |nodes  |yes  |an XPath expression that resolves to some number, possibly zero, of nodes   |
+|**cards**  |string  |yes  |a string value containing one or more of "0", "1" and "M"   |
+
+=== Usage and examples ===
+
+Place a ...
+
+Return to [[org.gramar.base:index|index]]
+
+
+
+

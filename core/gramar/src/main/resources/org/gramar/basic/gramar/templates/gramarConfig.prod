@@ -10,5 +10,11 @@
 		<taglib  prefix="c" extension="org.gramar.base" />
 		
 	</d:initialCode></taglibs></d:userRegion>
+	
+	<d:userRegion><sampleModels><d:initialCode>
+	
+<!-- 	 <sampleModel  path=""  description=""  />  -->
+	
+	</d:initialCode></sampleModels></d:userRegion>
 
 </gramar>

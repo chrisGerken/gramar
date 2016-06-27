@@ -1,0 +1,22 @@
+
+==== project Tag ====
+
+The project tag creates a new project with the given name if that project does not already exist.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**name**  |node  |yes  |The name of the project to be created  |
+
+=== Full Form ===
+
+<**c:project**  **name**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

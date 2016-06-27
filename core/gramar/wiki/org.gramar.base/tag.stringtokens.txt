@@ -1,0 +1,25 @@
+
+==== stringTokens Tag ====
+
+The stringTokens tag Parses a string into tokens and iterates over the tokens.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**string**  |string  |yes  |The string to be parsed  |
+|**var**  |string  |yes  |The name of a context variable to be associated with the current token in the iteration.  The variable is scoped to the body of the tag.  |
+|**delimeter**  |string  |no  |A string to be written after every node except the last  |
+|**delimetedBy**  |string  |no  |The delimiter that separates the tokens in the original string  |
+|**reverse**  |boolean  |no  |True if the list of tokens is to be iterated in reverse order  |
+
+=== Full Form ===
+
+<**c:stringTokens**  **string**=""  **var**=""  **delimeter**=""  **delimetedBy**=""  **reverse**="" >
+
+
+=== Usage and Samples ===
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

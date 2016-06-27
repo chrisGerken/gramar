@@ -1,0 +1,22 @@
+
+==== folder Tag ====
+
+The folder tag creates a new folder with the given name if that folder does not already exist.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**path**  |string  |yes  |The workspace-relative path of the folder to be created.  The first level should be the project name.  |
+
+=== Full Form ===
+
+<**c:folder**  **path**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

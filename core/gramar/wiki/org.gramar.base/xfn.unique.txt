@@ -1,0 +1,21 @@
+
+==== unique() Function ====
+
+The unique() function filters and returns the given collection using the key XPath expression to calculate a key for each node in the collection.
+
+Only the first node for a given key will be returned.
+
+
+^ Argument      ^ Kind   ^ Required    ^ Purpose          ^
+|**collection**  |nodes  |yes  |an XPath expression that resolves to a collection of nodes   |
+|**key**  |string  |yes  |a string containing an XPath expression that resolves to a key value for a given node   |
+
+=== Usage and examples ===
+
+Place a ...
+
+Return to [[org.gramar.base:index|index]]
+
+
+
+

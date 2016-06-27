@@ -1,0 +1,18 @@
+
+==== camelCase() Function ====
+
+The camelCase() function returns a single-token string from the given text where whitespace has been removed and the first character of each token has been upper-cased 
+
+
+^ Argument      ^ Kind   ^ Required    ^ Purpose          ^
+|**term**  |string  |yes  |a string value, possibly with embedded whitespace   |
+
+=== Usage and examples ===
+
+Place a ...
+
+Return to [[org.gramar.base:index|index]]
+
+
+
+

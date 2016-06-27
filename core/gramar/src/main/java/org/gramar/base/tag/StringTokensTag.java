@@ -22,7 +22,7 @@ public class StringTokensTag extends TagHandler implements ITagHandler {
 		
 		try {
 
-			String string = getRawAttribute("string");
+			String string = getStringAttribute("string", context);
 			String var = getStringAttribute("var", context);
 			String delim = getStringAttribute("delimiter", context, "");
 			String delimBy = getStringAttribute("delimitedBy", context, " ");
@@ -68,7 +68,11 @@ public class StringTokensTag extends TagHandler implements ITagHandler {
 				}
 				
 				processChildren(stream, context);
-				
+
+				if (i > 0) {
+				    stream.append(delim);
+				}
+
 				context.unsetVariable(var);
 			}
 			

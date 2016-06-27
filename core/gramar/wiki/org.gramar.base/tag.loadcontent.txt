@@ -1,0 +1,24 @@
+
+==== loadContent Tag ====
+
+The loadContent tag parses the content of the tag into a secondary DOM.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**var**  |string  |yes  |The name of the context variable to be associated with the document (not the root node) of the parsed DOM.  |
+|**loader**  |string  |yes  |The model adaptor ID of the model loader to be used.  If no loader or type is specified the model source is assumed to be XML.  |
+|**type**  |string  |yes  |The type of the model source (usually the file type).  If no loader or type is specified the model source is assumed to be XML.  |
+
+=== Full Form ===
+
+<**c:loadContent**  **var**=""  **loader**=""  **type**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

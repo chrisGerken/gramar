@@ -1,0 +1,63 @@
+===== org.gramar.base =====
+
+Extension org.gramar.base contains the core set of Gramar tags and functions
+
+=== Usage and examples ===
+
+Place a **<taglib>** element within **<taglibs>** element in the **gramar.config** file in the root of your gramar:
+
+    <taglibs>
+        <taglib  prefix="c" extension="org.gramar.base" />
+    </taglibs>
+
+===== Tags =====
+
+The org.gramar.base extension provides the following production markup tags
+
+  * [[org.gramar.base:tag.addelement|addElement]] - adds a new child node with a given name to a given node in the model.
+  * [[org.gramar.base:tag.addtextelement|addTextElement]] - adds a new child text node with a given name to a given node in the model.
+  * [[org.gramar.base:tag.choose|choose]] - provides case-style conditional logic.  The choose tag will have nested some number of when tags and possibly an otherwise tag.  The first when tag to test true will be resolved to become the processing result of the entire choose tag.  If no when tag tests true and an otherwise tag is present, the otherwise tag is resolved to produce the result of the entire choose tag.
+  * [[org.gramar.base:tag.copyelement|copyElement]] - copies an element in a primary or secondary model to anoher location in the same or different model.  The copy can be shallow or deep.
+  * [[org.gramar.base:tag.copyfile|copyFile]] - copies a binary file from within the gramar to the output file store..
+  * [[org.gramar.base:tag.dump|dump]] - Writes a string representation of the specified node and its children.
+  * [[org.gramar.base:tag.file|file]] - copies a binary file from within the gramar to the output file store.
+  * [[org.gramar.base:tag.folder|folder]] - creates a new folder with the given name if that folder does not already exist.
+  * [[org.gramar.base:tag.flow|flow]] - Allows for the text flow of the tag's content across several lines of output where each line must have a constant prefix, such as with a Javadoc comment.
+  * [[org.gramar.base:tag.flowcontent|flowContent]] - scopes the actual content to be flowed.  The width attribute specifies the maximum length of each line of flowed text.  The template content before the flowContent tag but after the containing flow tag is the prefix to be prepended to each flowed line of text.
+  * [[org.gramar.base:tag.formatnow|formatNow]] - writes the current time using the format specified.
+  * [[org.gramar.base:tag.get|get]] - Resolves to the string representation of the value of an XPath expression
+  * [[org.gramar.base:tag.if|if]] - Evaluates an XPath expression and processes the tag content if the value is true.
+  * [[org.gramar.base:tag.include|include]] - Processes another template in the gramar in-line as resolves to the text content produced by that template.
+  * [[org.gramar.base:tag.initialcode|initialCode]] - Scopes a region of template processing that might be modified by the user after generation and should therefore be kept (not overwritten on subsequent gramar invocations).
+  * [[org.gramar.base:tag.iterate|iterate]] - Iterates over a collection of nodes.
+  * [[org.gramar.base:tag.load|load]] - parses the content of the tag into a secondary DOM.
+  * [[org.gramar.base:tag.loadcontent|loadContent]] - parses the content of the tag into a secondary DOM.
+  * [[org.gramar.base:tag.log|log]] - processes and writes its content to the platform-appropriate console.
+  * [[org.gramar.base:tag.milliseconds|milliseconds]] - resolves to the current epoch time in milliseconds.
+  * [[org.gramar.base:tag.newmodel|newModel]] - Creates a new secondary DOM with a single root node.  The node is given the specified name and is associated with the given context variable
+  * [[org.gramar.base:tag.otherwise|otherwise]] - provides a "last-resort" case for a containing choose tag.  If no when tags in that choose tag test true, the contents of the otherwise tag become the processing result of the choose tag.
+  * [[org.gramar.base:tag.project|project]] - creates a new project with the given name if that project does not already exist.
+  * [[org.gramar.base:tag.removeelement|RemoveElement]] - Removes a node from the model.
+  * [[org.gramar.base:tag.set|set]] - Sets the value of an attribute on a given node to the resolved content of the tag.
+  * [[org.gramar.base:tag.setusingnext|setUsingNext]] - Set's an attribute on each of a set of nodes using an XPath expression sourced by each node's successor node
+  * [[org.gramar.base:tag.setvariable|setVariable]] - Sets a context variable to the resolved value of an XPath expression.
+  * [[org.gramar.base:tag.stringtokens|stringTokens]] - Parses a string into tokens and iterates over the tokens.
+  * [[org.gramar.base:tag.userregion|userRegion]] - scopes a region of template processing that might be modified by the user after generation and should therefore be kept (not overwritten on subsequent gramar invocations).
+  * [[org.gramar.base:tag.when|when]] - acts as a single case clause for a containing choose tag. Within a choose tag's scope, the first when tag to test true will become the processing result of the entire choose tag.
+
+===== XPath functions =====
+
+  * [[org.gramar.base:xfn.camelcase|camelCase]] - returns a single-token string from the given text where whitespace has been removed and the first character of each token has been upper-cased 
+  * [[org.gramar.base:xfn.cardinality|cardinality]] - returns a boolean value depending on whether the cardinality of the collection of nodes is present in the cards string
+  * [[org.gramar.base:xfn.classname|className]] - returns the class name from a given fully-qualified Java class name
+  * [[org.gramar.base:xfn.isvariabledefined|isVariableDefined]] - returns whether the specified variable has an associated value in the Gramar context
+  * [[org.gramar.base:xfn.lowercasefirst|lowercaseFirst]] - returns the given string value with the first character appropriately lower-cased
+  * [[org.gramar.base:xfn.lower-case|lower-case]] - returns the given string value with every character appropriately lower-cased
+  * [[org.gramar.base:xfn.packagename|packageName]] - returns the package name from a given fully-qualified Java class name
+  * [[org.gramar.base:xfn.singletoken|singleToken]] - returns a single-token string from the given text where whitespace has been removed and the first character of each token, except the first, has been uppercased
+  * [[org.gramar.base:xfn.sort|sort]] - sorts and returns the given collection using the key XPath expression to calculate a sort key for each node in the collection.
+  * [[org.gramar.base:xfn.unique|unique]] - filters and returns the given collection using the key XPath expression to calculate a key for each node in the collection.
+  * [[org.gramar.base:xfn.uppercasefirst|uppercaseFirst]] - returns the given string value with the first character appropriately upper-cased
+  * [[org.gramar.base:xfn.upper-case|upper-case]] - returns the given string value with every character appropriately upper-cased
+
+Return to [[org.gramar.base:index|index]]

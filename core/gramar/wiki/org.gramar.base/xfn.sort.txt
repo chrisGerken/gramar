@@ -1,0 +1,20 @@
+
+==== sort() Function ====
+
+The sort() function sorts and returns the given collection using the key XPath expression to calculate a sort key for each node in the collection.
+
+
+^ Argument      ^ Kind   ^ Required    ^ Purpose          ^
+|**collection**  |nodes  |yes  |an XPath expression that resolves to a collection of nodes   |
+|**key**  |string  |yes  |a string containing an XPath expression that resolves to a key value for a given node   |
+|**options**  |string  |no  |contains some combination of "asc", "desc", "string" and "number".  Defaults to "string asc"   |
+
+=== Usage and examples ===
+
+Place a ...
+
+Return to [[org.gramar.base:index|index]]
+
+
+
+

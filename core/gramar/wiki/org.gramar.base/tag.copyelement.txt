@@ -1,0 +1,26 @@
+
+==== copyElement Tag ====
+
+The copyElement tag copies an element in a primary or secondary model to anoher location in the same or different model.  The copy can be shallow or deep.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**select**  |node  |yes  |An XPath expression resolving onto the node to be copied.  If the expression resolves into multiple nodes then only the first node in the list is copied  |
+|**toSelect**  |node  |yes  |An XPath expression resolving to the node which is to the be parent node of the copy  |
+|**name**  |string  |yes  |The element name of the new node  |
+|**recursive**  |string  |no  |Whether on not the copy is deep (true).  The default is true.  |
+|**var**  |string  |no  |A context variable name to associate with the new element  |
+
+=== Full Form ===
+
+<**c:copyElement**  **select**=""  **toSelect**=""  **name**=""  **recursive**=""  **var**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

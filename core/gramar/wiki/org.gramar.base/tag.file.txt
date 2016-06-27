@@ -1,0 +1,24 @@
+
+==== file Tag ====
+
+The file tag copies a binary file from within the gramar to the output file store.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**path**  |string  |yes  |The workspace-relative path of the file to be written.  The first level should be the project name.  |
+|**template**  |string  |yes  |The gramar-relative path of the production whose application to the model provides the text content of the file to be written to the file store.  |
+|**replace**  |boolean  |no  |Whether on not an existing file should be replaced.  The default is true.  |
+
+=== Full Form ===
+
+<**c:file**  **path**=""  **template**=""  **replace**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

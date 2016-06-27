@@ -1,0 +1,24 @@
+
+==== addElement Tag ====
+
+The addElement tag adds a new child node with a given name to a given node in the model.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**select**  |node  |yes  |An XPath expression resolving to the node to which a new child node is to be added  |
+|**name**  |string  |yes  |The element name of the new child node  |
+|**var**  |string  |no  |The context variable name to be associated with the new child node  |
+
+=== Full Form ===
+
+<**c:addElement**  **select**=""  **name**=""  **var**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

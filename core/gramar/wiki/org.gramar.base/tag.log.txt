@@ -1,0 +1,26 @@
+
+==== log Tag ====
+
+The log tag processes and writes its content to the platform-appropriate console.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**severity**  |string  |yes  |Indicates the importance of the message to be logged.  |
+
+=== Full Form ===
+
+<**c:log**  **severity**="" >
+
+
+=== Usage and Samples ===
+
+
+When launching a gramar (via org.gramar.Apply), you set logging level via the **logging** parameter: e.g.:
+<code>java -cp ... org.gramar.Apply gramar=my.gramar model=my.model.xml workspace=gen logging=debug</code>
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

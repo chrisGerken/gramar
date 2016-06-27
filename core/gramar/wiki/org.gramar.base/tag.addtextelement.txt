@@ -1,0 +1,25 @@
+
+==== addTextElement Tag ====
+
+The addTextElement tag adds a new child text node with a given name to a given node in the model.
+
+The content of the addTextElement tag becomes the text content of the new text node.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**select**  |node  |yes  |An XPath expression resolving to the node to which a new child text node is to be added  |
+|**name**  |string  |yes  |The element name of the new child text node  |
+
+=== Full Form ===
+
+<**c:addTextElement**  **select**=""  **name**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

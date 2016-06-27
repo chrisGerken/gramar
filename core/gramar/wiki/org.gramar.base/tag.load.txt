@@ -1,0 +1,26 @@
+
+==== load Tag ====
+
+The load tag parses the content of the tag into a secondary DOM.
+
+
+^ Attribute      ^ Kind   ^ Required    ^ Purpose          ^
+|**url**  |string  |yes  |The URL of the model to be loaded.  |
+|**var**  |string  |yes  |The name of the context variable to be associated with the document (not the root node) of the parsed DOM.  |
+|**urlContext**  |string  |yes  |The name of the source of the model.  One of "gramar" (default), workspace and "transform" (legacy for backwards compatability, same as "gramar").  |
+|**loader**  |string  |yes  |The model adaptor ID of the model loader to be used.  If no loader or type is specified the model source is assumed to be XML.  |
+|**type**  |string  |yes  |The type of the model source (usually the file type).  If no loader or type is specified the model source is assumed to be XML.  |
+
+=== Full Form ===
+
+<**c:load**  **url**=""  **var**=""  **urlContext**=""  **loader**=""  **type**="" >
+
+
+=== Usage and Samples ===
+
+
+
+
+Return to [[org.gramar.base:index|index]]
+
+

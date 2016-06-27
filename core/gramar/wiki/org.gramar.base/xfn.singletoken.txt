@@ -1,0 +1,20 @@
+
+==== singleToken() Function ====
+
+The singleToken() function returns a single-token string from the given text where whitespace has been removed and the first character of each token, except the first, has been uppercased
+
+Unlike the camelCase() function, the singleToken() function will not lower-case any characters in a token that contains all upper-cased characters, such as an acronym.
+
+
+^ Argument      ^ Kind   ^ Required    ^ Purpose          ^
+|**term**  |string  |yes  |a string value, possibly with embedded whitespace   |
+
+=== Usage and examples ===
+
+Place a ...
+
+Return to [[org.gramar.base:index|index]]
+
+
+
+
