@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.gramar.ast.SourceRegion;
 import org.gramar.exception.GramarException;
+import org.gramar.exception.MissingRequiredAttributeException;
 import org.gramar.resource.MergeStream;
 
 
@@ -23,6 +24,11 @@ public interface ITagHandler {
 	public void setAttributes(HashMap<String, String> attributes);
 
 	public ITagHandler parentNamed(String name);
+
+	public String getTagName();
+	
+	public String getRawAttribute(String attributeName, String defaultValue);
+
 
 	/**
 	 * Sets the original SourceRegion as parsed from the AST

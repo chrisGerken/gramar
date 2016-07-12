@@ -40,7 +40,7 @@ public class FileTag extends TagHandler implements ITagHandler {
 
 	@Override
 	public String getTagName() {
-		return "createFile";
+		return "file";
 	}
 
 }

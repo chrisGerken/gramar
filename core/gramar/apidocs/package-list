@@ -16,3 +16,4 @@ org.gramar.plugin
 org.gramar.resource
 org.gramar.tag
 org.gramar.util
+org.gramar.util.diagram

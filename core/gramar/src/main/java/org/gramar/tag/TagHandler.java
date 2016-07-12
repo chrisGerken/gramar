@@ -77,6 +77,7 @@ public abstract class TagHandler implements ITagHandler {
 		
 	}
 
+	@Override
 	public abstract String getTagName();
 
 	private void addChild(ITagHandler handler) {
@@ -281,7 +282,7 @@ public abstract class TagHandler implements ITagHandler {
 	 * @return
 	 * @throws XPathExpressionException
 	 */
-	protected String getRawAttribute(String attributeName, String defaultValue) {
+	public String getRawAttribute(String attributeName, String defaultValue) {
 		try {
 			String value = getRawAttribute(attributeName);
 			return value;

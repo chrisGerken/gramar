@@ -9,6 +9,7 @@ import org.gramar.exception.GramarPlatformConfigurationException;
 import org.gramar.model.XmlModel;
 import org.gramar.platform.SimpleGramarPlatform;
 import org.gramar.util.PropertiesHelper;
+import org.gramar.util.diagram.Diagrammer;
 
 /**
  * Command line tool to apply a gramar to a model.  Can be subclassed to 
@@ -86,6 +87,12 @@ public class Apply {
 					}
 				}
 				System.out.println("Gramar "+gramarId+" has no sample model named "+name);
+				return;
+			}
+			
+			if (pm.hasValue(PropertiesHelper.PROPERTY_GRAMAR_DIAGRAM)) {
+				IGramar gramar = platform.getGramar(gramarId);
+				System.out.println(Diagrammer.diagramFor(gramar));
 				return;
 			}
 

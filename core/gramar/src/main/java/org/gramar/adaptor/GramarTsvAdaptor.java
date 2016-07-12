@@ -44,14 +44,16 @@ public class GramarTsvAdaptor extends GramarModelAdaptor implements
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append("<root>");
-		String hdr[] = line[linenum].split(",");
+		String hdr[] = line[linenum].split("\t");
 		linenum++;
 		
 		while (linenum<line.length) {
 			String col[] = line[linenum].split("\t");
 			sb.append("<row");
-			for (int i = 0; i < col.length; i++) {
-				sb.append("  "+hdr[i]+"=\""+col[i]+"\"");
+			for (int i = 0; i < Math.min(col.length,hdr.length); i++) {
+				String h = hdr[i];
+				String c = escape(col[i]);
+				sb.append("  "+h+"=\""+c+"\"");  
 			}
 			sb.append("/>");
 			linenum++;
@@ -61,6 +63,31 @@ public class GramarTsvAdaptor extends GramarModelAdaptor implements
 		xml = sb.toString();
 		
 		return DocumentHelper.buildModel(xml);
+	}
+
+	private String escape(String buf) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < buf.length(); i++) {
+			char c = buf.charAt(i);
+			if (c == '<') {
+				sb.append("&lt;");
+			} else if (c == '>') {
+				sb.append("&gt;");
+			} else if (c == '&') {
+				sb.append("&amp;");
+			} else if (c == '\'') {
+				sb.append("&apos;");
+			} else if (c == '\"') {
+				sb.append("&quot;");
+			} else if (Character.isWhitespace(c)) {
+				sb.append(c);
+			} else if (c < 20) {
+				sb.append("");
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
 	}
 
 }

@@ -11,6 +11,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+	<distributionManagement>
+  		<snapshotRepository>
+    		<id>ossrh</id>
+    		<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  		</snapshotRepository>
+  		<repository>
+    		<id>ossrh</id>
+    		<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+  		</repository>
+	</distributionManagement>
     <build>
         <resources>
         	<resource>
@@ -77,21 +87,6 @@
 
     </build>
 
-    <repositories>
-        <repository>
-            <id>artifactory-maven2</id>
-            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
-        </repository>
-        <repository>
-            <id>artifactory-mvnrepository</id>
-            <url>http://mvnrepository.com</url>
-        </repository>
-        <repository>
-            <id>artifactory-github</id>
-            <url>http://oss.sonatype.org/content/repositories/github-releases/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -101,4 +96,29 @@
         </dependency>
     </dependencies>
 
+    <url>http://gramar.org</url>
+    <description>A lightweght, pure-Java component that makes composite software architecture design patterns extremely consumable through code generation.</description>
+    <name>${project.groupId}:${project.artifactId}</name>
+
+	<licenses>
+  		<license>
+    		<name>The Apache License, Version 2.0</name>
+    		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+  		</license>
+	</licenses>
+	
+	<developers>
+    	<developer>
+      		<name>Chris Gerken</name>
+      		<email>chris.gerken@gerkenip.com</email>
+      		<organization>Gerken Intellectual Properties</organization>
+      		<organizationUrl>http://www.gerkenip.com</organizationUrl>
+    	</developer>
+  	</developers>
+  	
+	<scm>
+		<url>http://github.com/chrisGerken/gramar</url>
+		<connection>scm:git:git://github.com/chrisGerken/gramar.git</connection>
+		<developerConnection>scm:git:ssh://github.com:chrisGerken/gramar.git</developerConnection>
+	</scm>
 </project>

@@ -32,7 +32,7 @@ public class ProjectTag extends TagHandler implements ITagHandler {
 
 	@Override
 	public String getTagName() {
-		return "createFile";
+		return "project";
 	}
 
 }
