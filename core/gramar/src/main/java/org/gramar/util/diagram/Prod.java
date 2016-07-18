@@ -2,7 +2,7 @@ package org.gramar.util.diagram;
 
 public interface Prod {
 	
-	public String getEntryLabel();
+	public String getBoxLabel();
 
 	public boolean isList();
 	

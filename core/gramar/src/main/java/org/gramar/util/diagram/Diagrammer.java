@@ -37,9 +37,12 @@ public class Diagrammer {
 		ITemplate template = gramar.getTemplate(main, GramarContext.dummy());
 		TagDocument doc = template.getDocument();
 		
-		ProdList list = new ProdList(main,"exactly once");
+		ProdList list = new ProdList(lastLevel(main),"1 : *");
 		gatherItems(doc,list);
-		list.prepareNode();
+		
+		ProdList gramar = new ProdList("gramar", "1 : 1");
+		gramar.add(list);
+		gramar.prepareNode();
 		
 		sb.append("digraph G {\n");
 		
@@ -48,8 +51,8 @@ public class Diagrammer {
 
 		sb.append(" \n");
 
-		list.writeNode(sb);
-		list.writeEdges(sb);
+		gramar.writeNode(sb);
+		gramar.writeEdges(sb);
 		
 		sb.append("}\n");
 
@@ -74,7 +77,7 @@ public class Diagrammer {
 			} else if (name.equals("iterate")) {
 				String var = child.getRawAttribute("var","?");
 				String select = child.getRawAttribute("select",".");
-				ProdList ilist = new ProdList(var, select);
+				ProdList ilist = new ProdList(var, "0 : *");
 				gatherItems(child,ilist);
 				if (ilist.size() > 0) {
 					list.add(ilist);

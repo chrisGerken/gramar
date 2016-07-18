@@ -6,18 +6,18 @@ import org.gramar.base.function.EscapeJsonFunction;
 
 public class ProdList implements Prod {
 
-	private String seed;
+	private String boxLabel;
+	private String lineLabel;
 	private String label;
-	private String cardinality;
 	private boolean singles;
 	
 	private ArrayList<Prod> items = new ArrayList<Prod>();
 	
 	private static long nextList = 0L;
 	
-	public ProdList(String seed, String cardinality) {
-		this.seed = seed;
-		this.cardinality = cardinality;
+	public ProdList(String boxLabel, String lineLabel) {
+		this.boxLabel = boxLabel;
+		this.lineLabel = lineLabel;
 		label = "List"+getNextList();
 	}
 
@@ -50,7 +50,7 @@ public class ProdList implements Prod {
 			} else {
 				singles = false;
 				items = loops;
-				ProdList rlist = new ProdList(seed,"exactly once");
+				ProdList rlist = new ProdList(".","1 : 1");
 				rlist.items = resources;
 				rlist.singles = true;
 				items.add(rlist);
@@ -65,7 +65,7 @@ public class ProdList implements Prod {
 		int index = 0;
 		for (Prod p: items) {
 			String field = "<I"+index+">";
-			sb.append(delim+field + p.getEntryLabel() );
+			sb.append(delim+field + p.getBoxLabel() );
 			delim = "|";
 			index++;
 		}
@@ -89,7 +89,7 @@ public class ProdList implements Prod {
 			if (p.isList()) {
 				ProdList ilist = (ProdList) p;
 				String field = "<I"+index+">";
-				sb.append("\""+label+"\":"+field+"  ->   \""+ilist.getLabel()+"\":<I0>  [ label=\""+ProdResource.escape(ilist.getCardinality())+"\"; color=darkslategrey; penwidth=3 ] ; \n");
+				sb.append("\""+label+"\":"+field+"  ->   \""+ilist.getLabel()+"\":<I0>  [ label=\""+ProdResource.escape(ilist.getLineLabel())+"\"; color=darkslategrey; penwidth=3 ] ; \n");
 			}
 			index++;
 		}
@@ -103,8 +103,8 @@ public class ProdList implements Prod {
 	}
 
 	@Override
-	public String getEntryLabel() {
-		return seed;
+	public String getBoxLabel() {
+		return boxLabel;
 	}
 	
 	public String getLabel() {
@@ -134,11 +134,8 @@ public class ProdList implements Prod {
 		this.singles = singles;
 	}
 
-	public String getCardinality() {
-		return cardinality;
+	public String getLineLabel() {
+		return lineLabel;
 	}
 
-	public void setCardinality(String cardinality) {
-		this.cardinality = cardinality;
-	}
 }

@@ -11,7 +11,7 @@ public class ProdResource implements Prod {
 	}
 
 	@Override
-	public String getEntryLabel() {
+	public String getBoxLabel() {
 		return kind+" "+escape(path);
 	}
 
