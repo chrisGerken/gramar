@@ -36,11 +36,12 @@ public class Diagrammer {
 		String main = gramar.getMainProductionId();
 		ITemplate template = gramar.getTemplate(main, GramarContext.dummy());
 		TagDocument doc = template.getDocument();
-		
-		ProdList list = new ProdList(lastLevel(main),"1 : *");
+
+		ProdList gramar = new ProdList(null, "gramar", "1 : 1");
+
+		ProdList list = new ProdList(gramar, lastLevel(main),"1 : *");
 		gatherItems(doc,list);
 		
-		ProdList gramar = new ProdList("gramar", "1 : 1");
 		gramar.add(list);
 		gramar.prepareNode();
 		
@@ -77,8 +78,9 @@ public class Diagrammer {
 			} else if (name.equals("iterate")) {
 				String var = child.getRawAttribute("var","?");
 				String select = child.getRawAttribute("select",".");
-				ProdList ilist = new ProdList(var, "0 : *");
+				ProdList ilist = new ProdList(list, var, "0 : *");
 				gatherItems(child,ilist);
+//				list.hasNonTerminal = true;
 				if (ilist.size() > 0) {
 					list.add(ilist);
 				}
