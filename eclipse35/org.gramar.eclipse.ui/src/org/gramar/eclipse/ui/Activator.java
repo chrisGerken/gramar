@@ -6,6 +6,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import com.gerken.xaa.model.management.XformAccess;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -16,7 +18,9 @@ public class Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static Activator plugin;
-	
+
+	private XformAccess	xformAccess = null;
+
 	/**
 	 * The constructor
 	 */
@@ -30,6 +34,7 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		xformAccess = new XformAccess();
 	}
 
 	/*
@@ -64,4 +69,9 @@ public class Activator extends AbstractUIPlugin {
 	public static void logError(Throwable t) {
 		getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, t.getMessage(), t));
 	}
+	
+	public static XformAccess getXformAccess() {
+		return getDefault().xformAccess;
+	}
+
 }

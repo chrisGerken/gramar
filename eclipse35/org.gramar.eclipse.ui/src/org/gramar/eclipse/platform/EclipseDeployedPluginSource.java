@@ -62,7 +62,7 @@ public class EclipseDeployedPluginSource extends PluginSource implements
 						Gramar deployedGramar = new ClasspathGramar(gramarId,classLoader);
 						map.put(gramarId, deployedGramar);
 					} catch (InvalidGramarException e) {
-						Activator.logError(e);
+						Activator.getDefault().logError(e);
 					}
 				}
 			}

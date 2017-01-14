@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contexts>
+   <context id="xform_xformId" title="Xform ID">
+      <description>The unique JET transformation ID</description>
+   </context>
+   <context id="xform_version" title="Version">
+      <description>The version for the Eclipse plugin</description>
+   </context>
+   <context id="xform_provider" title="Provider">
+      <description>The name of the person or organization creating this transformation</description>
+   </context>
+   <context id="group_name" title="Name">
+      <description>The name of a group of artifacts</description>
+   </context>
+   <context id="groupspec_name" title="Name">
+      <description></description>
+   </context>
+   <context id="artifactspec_name" title="Name">
+      <description></description>
+   </context>
+   <context id="replacementspec_name" title="Name">
+      <description></description>
+   </context>
+   <context id="tokenspec_name" title="Name">
+      <description></description>
+   </context>
+   <context id="replacement_oldString" title="Replaced String">
+      <description></description>
+   </context>
+   <context id="replacement_newString" title="New String">
+      <description></description>
+   </context>
+   <context id="naming_purpose" title="Purpose">
+      <description>Very short description of the role played by the artifact</description>
+   </context>
+   <context id="naming_project" title="Project">
+      <description>The project into which this artifact will be generated</description>
+   </context>
+   <context id="naming_projectExpr" title="Project Name Expression">
+      <description>A JET expression for the name of the project</description>
+   </context>
+   <context id="naming_folderExpr" title="Folder Expression">
+      <description>A JET expression for the project-relative folder name</description>
+   </context>
+   <context id="naming_nameExpr" title="Name Expression">
+      <description>A JET expression for the file name and extension</description>
+   </context>
+   <context id="naming_locationExpr" title="Location Expression">
+      <description>A JET expression for the location of a project</description>
+   </context>
+   <context id="fileoptions_replace" title="Replace">
+      <description></description>
+   </context>
+   <context id="fileoptions_binary" title="Binary">
+      <description></description>
+   </context>
+   <context id="fileoptions_changeableName" title="ChangeableName">
+      <description></description>
+   </context>
+   <context id="fileoptions_purposeAsTokenName" title="PurposeAsTokenName">
+      <description></description>
+   </context>
+   <context id="originallocation_oLocation" title="Ref Impl Location">
+      <description>Exemplar location</description>
+   </context>
+   <context id="originallocation_oPath" title="Original Path">
+      <description>The path of the original reference implementation artifact</description>
+   </context>
+   <context id="token_name" title="Name">
+      <description></description>
+   </context>
+   <context id="token_derived" title="Derived">
+      <description></description>
+   </context>
+   <context id="token_optional" title="Optional">
+      <description></description>
+   </context>
+   <context id="token_formula" title="Formula">
+      <description></description>
+   </context>
+</contexts>

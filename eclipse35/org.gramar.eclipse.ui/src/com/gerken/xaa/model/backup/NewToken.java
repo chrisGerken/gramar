@@ -1,0 +1,117 @@
+package com.gerken.xaa.model.backup;
+
+		// Begin imports
+import java.util.ArrayList;
+
+import org.w3c.dom.Node;
+		// End imports
+
+public class NewToken extends ModelElement {
+	
+	private String		name;
+	private String		formula;
+	private String		group;
+	private String		replaces;
+	private boolean		derived;
+	
+
+		// Begin custom variables
+
+		// End custom variables
+
+		// Begin custom methods
+
+
+	public void process() {
+		
+		Token token = new Token();
+		token.setName(getName());
+		token.setDerived(getDerived());
+		token.setDesc("Token "+getName());
+		String form = "";
+		if (getDerived()) {
+			form = token.getFormula();
+		}
+		token.setFormula(form);
+		getXform().groupNamed(getGroup()).addToken(token);
+		
+		if (getDerived() & (getReplaces().trim().length() > 0)){
+			Replacement replacement = new Replacement();
+			replacement.setOldString(getReplaces());
+			replacement.setNewString(getXform().toJetTags("{$"+getGroup()+"/@"+getName()+"}"));
+			getXform().addReplacement(replacement);
+		}
+	}
+	
+		// End custom methods
+
+	public NewToken() {
+		super();
+	}
+
+	public NewToken(Node node) {
+		this.name = getAttr(node,"name");
+		this.formula = getAttr(node,"formula");
+		this.group = getAttr(node,"group");
+		this.replaces = getAttr(node,"replaces");
+		this.derived = getBooleanAttr(node,"derived");
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFormula() {
+		return formula;
+	}
+
+	public void setFormula(String formula) {
+		this.formula = formula;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	public String getReplaces() {
+		return replaces;
+	}
+
+	public void setReplaces(String replaces) {
+		this.replaces = replaces;
+	}
+
+	public boolean getDerived() {
+		return derived;
+	}
+
+	public void setDerived(boolean derived) {
+		this.derived = derived;
+	}
+
+	public void writeTo(StringBuffer sb) {
+		sb.append("\t<newToken");
+		writeAttr(sb,"name",name);
+		writeAttr(sb,"formula",formula);
+		writeAttr(sb,"group",group);
+		writeAttr(sb,"replaces",replaces);
+		writeAttr(sb,"derived",derived);
+		// Begin custom attributes
+
+		// End custom attributes
+		sb.append(" >\r\n");
+		sb.append("</newToken>\r\n");
+	}
+
+	public void removeChild(ModelElement child) {
+	}
+
+}

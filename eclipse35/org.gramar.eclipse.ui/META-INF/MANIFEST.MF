@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ui
+Bundle-Name: Gramar for Eclipse
 Bundle-SymbolicName: org.gramar.eclipse.ui; singleton:=true
 Bundle-Version: 0.9.77
 Bundle-Activator: org.gramar.eclipse.ui.Activator
@@ -9,13 +9,21 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.jface.text,
  org.eclipse.ui.ide,
- org.eclipse.ui.editors
-Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ org.eclipse.ui.editors,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ltk.ui.refactoring,
+ org.eclipse.ltk.core.refactoring,
+ org.eclipse.text,
+ org.eclipse.core.filebuffers,
+ org.eclipse.ui.forms
+Bundle-Vendor: gramar.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  gramar-1.0.0-jar-with-dependencies.jar
 Import-Package: org.eclipse.ui.console
-Export-Package: org.gramar,
+Export-Package: com.gerken.xaa.nature,
+ com.gerken.xaa.sme,
+ org.gramar,
  org.gramar.adaptor,
  org.gramar.ast,
  org.gramar.base.function,

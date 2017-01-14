@@ -53,7 +53,7 @@ public class ProdDocumentPartitioner implements IDocumentPartitioner {
 				context.declareTemplatingExtension(spec.getNamespace(), spec.getExtensionId());
 			}
 		} catch (GramarException e) {
-			Activator.logError(e);
+			Activator.getDefault().logError(e);
 			// Continue parsing with no extensions defined;
 		}
 		parser = new Parser(context);

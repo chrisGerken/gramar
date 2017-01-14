@@ -23,7 +23,7 @@ public class ProdDocumentProvider extends FileDocumentProvider {
 			}
 			return document;
 		} catch (CoreException e) {
-			Activator.logError(e);
+			Activator.getDefault().logError(e);
 			throw e;
 		}
 	}

@@ -138,5 +138,111 @@
       </perspectiveExtension>
    </extension>
    
+   <extension
+         id="refimpl"
+         name="Reference Implementation"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.gerken.xaa.nature.RefImplNature">
+         </run>
+      </runtime>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="XaForm Model Editor"
+            extensions="xform"
+            icon="icons/sample.gif"
+            class="com.gerken.xaa.mpe.editor.XaaEditor"
+            id="com.gerken.xaa.mpe.editor.XaaEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts file="contextHelp.xml" />
+   </extension>
+   <extension
+         point="org.gramar.eclipse.ui.deploy">
+         <deploy  id="com.gerken.xaa.gramar.gramar"  kind="jar" />
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IResource"
+            nameFilter="*"
+            id="com.gerken.xaa.refactor.contribution1">
+         <menu
+               label="Advanced Pattern Authoring"
+               path="additions"
+               id="com.gerken.xaa.refactor.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Replace Known Tokens"
+               class="com.gerken.xaa.refactor.popup.actions.ReplaceTokens"
+               menubarPath="com.gerken.xaa.refactor.menu1"
+               enablesFor="*"
+               id="com.gerken.xaa.refactor.newAction">
+         </action>
+      </objectContribution>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="Advanced Xform Authoring"
+            id="com.gerken.xaa.wizard">
+      </category>
+      <wizard
+            name="Capture Eclipse Exemplar"
+            icon="icons/sample.gif"
+            category="com.gerken.xaa.wizard"
+            class="com.gerken.xaa.wizard.refimpl.EclipseExemplarWizard"
+            id="com.gerken.xaa.wizard.refimpl.EclipseExemplarWizard">
+      </wizard>
+      <wizard
+            name="Capture File System Exemplar"
+            icon="icons/sample.gif"
+            category="com.gerken.xaa.wizard"
+            class="com.gerken.xaa.wizard.refimpl.FileSystemExemplarWizard"
+            id="com.gerken.xaa.wizard.refimpl.FileSystemExemplarWizard">
+      </wizard>
+      <wizard
+            name="Capture Rational Project Interchange Exemplar"
+            icon="icons/sample.gif"
+            category="com.gerken.xaa.wizard"
+            class="com.gerken.xaa.wizard.refimpl.ProjectInterchangeExemplarWizard"
+            id="com.gerken.xaa.wizard.refimpl.ProjectInterchangeExemplarWizard">
+      </wizard>
+      <wizard
+            name="Rebuild Using Exemplar Monolith"
+            icon="icons/sample.gif"
+            category="com.gerken.xaa.wizard"
+            class="com.gerken.xaa.wizard.refimpl.MonolithExemplarWizard"
+            id="com.gerken.xaa.wizard.refimpl.MonolithExemplarWizard">
+      </wizard>
+      <wizard
+            name="Xform Model"
+            icon="icons/sample.gif"
+            category="com.gerken.xaa.wizard"
+            class="com.gerken.xaa.wizard.model.XformModelWizard"
+            id="com.gerken.xaa.wizard.model.XformModelWizard">
+      </wizard>
+      <wizard
+            name="Comparison Between Two Exemplars"
+            icon="icons/sample.gif"
+            category="com.gerken.xaa.wizard"
+            class="com.gerken.xaa.wizard.compare.ComapareExemplarWizard"
+            id="com.gerken.xaa.wizard.compare.CompareExemplarWizard">
+      </wizard>
+   </extension>
+
 
 </plugin>
